@@ -1,0 +1,147 @@
+{
+  "favoris": [
+    {
+      "favori_id": 1,
+      "favori_name": "Favoris 1",
+      "order": 0,
+      "channels": [
+        {
+          "channel_id": 1,
+          "channel_name": "channel 1"
+        },
+        {
+          "channel_id": 3,
+          "channel_name": "channel 3"
+        }
+      ]
+    },
+    {
+      "favori_id": 2,
+      "favori_name": "Favoris 2",
+      "order": 1,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 3"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 5",
+          "channel_link": "link.com"
+        }
+      ]
+    },
+    {
+      "favori_id": 3,
+      "favori_name": "youness favour",
+      "order": 2,
+      "channels": [
+        {
+          "channel_id": 10,
+          "channel_name": "MBC 5"
+        },
+        {
+          "channel_id": 15,
+          "channel_name": "channel 15"
+        }
+      ]
+    },
+    {
+      "favori_id": 4,
+      "favori_name": "Favoris 4",
+      "order": 3,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 3"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 5"
+        }
+      ]
+    },
+    {
+      "favori_id": 5,
+      "favori_name": "Favoris 5",
+      "order": 4,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 3"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 5"
+        }
+      ]
+    },
+    {
+      "favori_id": 6,
+      "favori_name": "Favoris 6",
+      "order": 5,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 630"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 633"
+        }
+      ]
+    },
+    {
+      "favori_id": 7,
+      "favori_name": "Favoris 7",
+      "order": 6,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 720"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 710"
+        }
+      ]
+    },
+    {
+      "favori_id": 8,
+      "favori_name": "Favoris 8",
+      "order": 7,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "channel 833"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "channel 855"
+        }
+      ]
+    }
+  ],
+  "channels": [
+    {
+      "channel_id": 1,
+      "channel_name": "Al oula",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 2,
+      "channel_name": "2M",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 3,
+      "channel_name": "Arriyadya",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 4,
+      "channel_name": "Arrabiaa",
+      "channel_link": "snrt.ma"
+    }
+  ]
+}
