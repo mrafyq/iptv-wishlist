@@ -1,10 +1,3 @@
-const fs = require('fs');
-
-const result = fs.readFileSync('data/db.json', {
-    encoding: 'utf-8',
-});
-console.log(result);
-
 var listSelected = 'tabs';
 var tabs = document.getElementsByClassName('tab');
 var bouquets = document.getElementsByClassName('bouquet');
@@ -96,6 +89,29 @@ document.addEventListener('keydown', function (e) {
                 listChannels.innerHTML = '';
                 if (listSelected === 'bouquets') {
                     // @TODO fetch channels bouquet
+                    let bouquetId = tab_btns[current_index].getAttribute('id')
+                    console.log('The list selected is ' + bouquetId);
+                    fetch('data/db.json')
+                        .then(res => res.json())
+                        .then(data =>
+                            {
+                                let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                                console.log(result);
+                                (result[0].channels).forEach((element, index) => {
+                                    const li = document.createElement('li');
+                                    li.setAttribute('data-attr-id', element.channel_id);
+                                    li.setAttribute('data-attr-name', element.channel_name);
+                                    if (index == 0) {
+                                        li.setAttribute('class', 'channel selected');
+                                    } else {
+                                        li.setAttribute('class', 'channel');
+                                    }
+                                    li.innerHTML = element.channel_name;
+                                    listChannels0.appendChild(li);
+                                });
+                            }
+                        )
+                        .catch(err => console.log(err));
                 } else {
                     let favorisId = tab_btns[current_index].getAttribute('id')
                     fetch('data/db.json')
@@ -188,10 +204,7 @@ buttonRenameSave.addEventListener('click', (event) => {
                     }
                 });
 
-                console.log(data.favoris)
-                fs.writeFileSync("./config.json", JSON.stringify(data), err => {
-                    if (err) console.log("Error writing file:", err);
-                });
+                console.log(data.favoris);
             }
         )
         .catch(err => console.log(err));

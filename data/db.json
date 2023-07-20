@@ -122,6 +122,72 @@
       ]
     }
   ],
+  "bouquets": [
+    {
+      "bouquet_id": 1,
+      "bouquet_name": "Bouquet 1",
+      "channels": [
+        {
+          "channel_id": 1,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 4,
+          "channel_name": "Arrabiaa",
+          "channel_link": "snrt.ma"
+        }
+      ]
+    },
+    {
+      "bouquet_id": 2,
+      "bouquet_name": "Bouquet 2",
+      "channels": [
+        {
+          "channel_id": 2,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 1,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma"
+        }
+      ]
+    },
+    {
+      "bouquet_id": 3,
+      "bouquet_name": "Bouquet 3",
+      "channels": [
+        {
+          "channel_id": 2,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 3,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma"
+        }
+      ]
+    },
+    {
+      "bouquet_id": 4,
+      "bouquet_name": "Bouquet 4",
+      "channels": [
+        {
+          "channel_id": 1,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 3,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma"
+        }
+      ]
+    }
+  ],
   "channels": [
     {
       "channel_id": 1,

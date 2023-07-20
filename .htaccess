@@ -1,2 +1,0 @@
-Access-Control-Allow-Headers: content-type, X-Custom-Header, Authorization
-Access-Control-Allow-Origin: *
