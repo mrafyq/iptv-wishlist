@@ -64,6 +64,7 @@ document.addEventListener('keydown', function (e) {
                     tab_btns = favoris;
                 }
                 document.getElementById('sidebar').style.display = "";
+                document.getElementById('right-buttons').style.display = '';
             }
             break;
         case 'ArrowRight':
@@ -138,6 +139,7 @@ document.addEventListener('keydown', function (e) {
                 }
                 listSelected = 'channels';
                 document.getElementById('sidebar').style.display = 'none';
+                document.getElementById('right-buttons').style.display = 'flex';
                 tab_btns = channels;
             }
 

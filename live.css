@@ -77,6 +77,9 @@ body{
     background-color: #0c1114;
     display: none;
 }
+.white {
+    background-color: white;
+}
 .red{
     background-color: red;
 }
@@ -106,7 +109,7 @@ body{
     margin-top: 2%;
 }
 
-
+#right-buttons,
 .list-favoris {
     display: none;
 }
@@ -146,4 +149,25 @@ body{
     width: 100%;
     background: white;
     color: black;
+}
+
+.popup-favoris-list-fav {
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-flow: column;
+    color: black;
+    list-style: none;
+    text-align: left;
+}
+.popup-favoris-list-fav li {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    white-space: nowrap;
+    padding: 6px 0;
+}
+.popup-favoris-list-fav li input {
+    width: auto;
+    margin: 0 10px 0 0;
 }

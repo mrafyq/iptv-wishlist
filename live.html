@@ -14,7 +14,7 @@
             <ul class="list-favoris" id="sidebar-favoris__list"></ul>
             <div id="wishlist-buttons" class="wishlist-buttons" style="display: none">
                 <div class="action-rename"><div class="dot green"> </div>Renommer</div>
-                <div class="action-delete"><div class="dot red"> </div>Supprimer</div>
+                <div class="action-delete"><div class="dot red"> </div>Déplacer</div>
                 <div class="action-pin"><div class="dot yellow"> </div>Pin</div>
             </div>
         </div>
@@ -45,11 +45,24 @@
                         <li>13:10 PM	Koh-Lanta, le totem maudit</li>
                     </ul>
                 </div>
-                <div class="buttons">
-                    <div><div class="dot green"> </div>EPG guide</div>
-                    <div class="add-to-favoris"><div class="dot red"> </div>Favoris</div>
-                    <div><div class="dot yellow"> </div>Control parental</div>
-                    <div><div class="dot blue"> </div>trier</div>
+                <div class="buttons" id="right-buttons">
+                    <div>
+                        <div class="dot green"></div> EPG guide
+                    </div>
+                    <div>
+                        <div class="dot yellow"></div> Control parental
+                    </div>
+                    <!-- Add to Favoris -->
+                    <div class="add-to-favoris">
+                        <div class="dot blue"></div> Déplacer vers
+                    </div>
+                    <!-- Remove from Favoris -->
+                    <div class="remove-from-favoris">
+                        <div class="dot red"></div> Retirer de favoris
+                    </div>
+                    <div>
+                        <div class="dot white"></div> Trier
+                    </div>
                 </div>
             </div>
         </div>
@@ -64,12 +77,27 @@
                 </div>
             </div>
         </div>
+        <div class="popup popup-favoris">
+            <div class="popup-inner">
+                <div class="popup-title">Ajouter au favoris</div>
+                <div class="popup-favoris-name"></div>
+                <ul class="popup-favoris-list-fav" id="popup-favoris-list-fav"></ul>
+                <div>
+                    <button type="button" class="action-favoris-save">Enregistrer</button>
+                    <button type="button" class="action-favoris-cancel">Annuler</button>
+                </div>
+            </div>
+        </div>
         <script  type="text/javascript">
-            const favButton = document.querySelector('.add-to-favoris');
-            const popupFav = document.querySelector('.sidebar-favoris');
+            var favButton = document.querySelector('.add-to-favoris');
+            var popupFav = document.querySelector('.popup.popup-favoris');
             var listFav = document.getElementById('sidebar-favoris__list');
             var listBouquet = document.getElementById('sidebar-bouquet__list');
             var listChannels0 = document.getElementById('list-channels');
+            var popupFavList = document.getElementById('popup-favoris-list-fav');
+            var buttonFavCancel = document.querySelector('.action-favoris-cancel');
+            var buttonFavSave = document.querySelector('.action-favoris-save');
+            
             fetch('data/db.json')
                 .then(res => res.json())
                 .then(data =>
@@ -105,20 +133,68 @@
                 .catch(err => console.log(err));
 
             favButton.addEventListener('click', () => {
-                const listChanSelected = document.querySelector('#list-channels .channel.selected');
-                const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
-                const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
-                console.log('The ID is ' + listChanSelectedID + ' And the Name is ' + listChanSelectedName);
+                popupFav.style.display = 'flex';
+
                 fetch('data/db.json')
                     .then(res => res.json())
                     .then(data => {
-                        data.favoris.push({
+                        popupFavList.innerHTML = '';
+                        (data.favoris).forEach((element, index) => {
+                            const li = document.createElement('li');
+                            li.setAttribute('id', element.favori_id);
+                            li.setAttribute('class', 'favoris');
+                            /*li.innerHTML = element.favori_name;*/
+                            li.innerHTML = `
+                                <input type="checkbox" id="${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
+                            `;
+                            popupFavList.appendChild(li);
+                        });
+                        /*data.favoris.push({
                             "favori_id": parseInt(listChanSelectedID),
                             "favori_name": listChanSelectedName
                         });
-                        console.log(data);
+                        console.log(data);*/
                     })
                     .catch(err => console.log(err));
+            });
+            
+            buttonFavCancel.addEventListener('click', () => {
+                popupFav.style.display = 'none';
+            })
+
+
+            buttonFavSave.addEventListener('click', () => {
+                const listChanSelected = document.querySelector('#list-channels .channel.selected');
+                const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
+                const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
+                const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
+                
+                console.log(checkedFav);
+                var favArr = [];
+                checkedFav.forEach(el => {
+                    favArr.push(parseInt(el.value));
+                    console.log(el.value);
+                })
+                console.log(favArr);
+
+                
+                fetch('data/db.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        (data.favoris).forEach((element, index) => {
+                            if (favArr.indexOf(element.favori_id) !== -1) {
+                                console.log(element);
+                                element.channels.push({
+                                    "channel_id": parseInt(listChanSelectedID),
+                                    "channel_name": listChanSelectedName
+                                });
+                            }
+                        });
+                        console.log(data.favoris);
+                    })
+                    .catch(err => console.log(err));
+                
+
             })
 
         </script>
