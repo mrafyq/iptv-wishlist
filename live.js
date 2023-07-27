@@ -4,8 +4,20 @@ var bouquets = document.getElementsByClassName('bouquet');
 var favoris = document.getElementsByClassName('favoris');
 var channels = document.getElementsByClassName('channel');
 var groupName = document.querySelector('.group-name');
+var serachInput = document.getElementById('search');
 var tab_btns;
 
+serachInput.addEventListener('keyup', function (e) {
+    var filter = serachInput.value.toLowerCase();
+    for (var i = 0; i < channels.length; i++) {
+        var textValue = channels[i].textContent || channels[i].innerText;
+        if (textValue.toLowerCase().indexOf(filter) > -1) {
+            channels[i].style.display = '';
+        } else {
+            channels[i].style.display = 'none';
+        }
+    }  
+});
 
 document.addEventListener('keydown', function (e) {
 
