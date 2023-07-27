@@ -3,6 +3,7 @@ var tabs = document.getElementsByClassName('tab');
 var bouquets = document.getElementsByClassName('bouquet');
 var favoris = document.getElementsByClassName('favoris');
 var channels = document.getElementsByClassName('channel');
+var groupName = document.querySelector('.group-name');
 var tab_btns;
 
 
@@ -90,8 +91,9 @@ document.addEventListener('keydown', function (e) {
                 listChannels.innerHTML = '';
                 if (listSelected === 'bouquets') {
                     // @TODO fetch channels bouquet
-                    let bouquetId = tab_btns[current_index].getAttribute('id')
-                    console.log('The list selected is ' + bouquetId);
+                    let bouquetId = tab_btns[current_index].getAttribute('id');
+                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
+                    groupName.innerHTML = bouquetName;
                     fetch('data/db.json')
                         .then(res => res.json())
                         .then(data =>
@@ -114,7 +116,9 @@ document.addEventListener('keydown', function (e) {
                         )
                         .catch(err => console.log(err));
                 } else {
-                    let favorisId = tab_btns[current_index].getAttribute('id')
+                    let favorisId = tab_btns[current_index].getAttribute('id');
+                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
+                    groupName.innerHTML = bouquetName;
                     fetch('data/db.json')
                         .then(res => res.json())
                         .then(data =>

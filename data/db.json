@@ -37,12 +37,34 @@
       "order": 3,
       "channels": [
         {
-          "channel_id": 10,
-          "channel_name": "MBC 5"
+          "channel_id": 1,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma"
         },
         {
-          "channel_id": 15,
-          "channel_name": "channel 15"
+          "channel_id": 2,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 3,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 4,
+          "channel_name": "Arrabiaa",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Almaghribiya",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 6,
+          "channel_name": "Assadissa",
+          "channel_link": "snrt.ma"
         }
       ]
     },
@@ -193,8 +215,38 @@
           "channel_link": "snrt.ma"
         },
         {
+          "channel_id": 2,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 3,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma"
+        },
+        {
           "channel_id": 4,
           "channel_name": "Arrabiaa",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Almaghribiya",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 6,
+          "channel_name": "Assadissa",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 7,
+          "channel_name": "Assabi3a",
+          "channel_link": "snrt.ma"
+        },
+        {
+          "channel_id": 8,
+          "channel_name": "Attamina",
           "channel_link": "snrt.ma"
         }
       ]
@@ -267,6 +319,26 @@
     {
       "channel_id": 4,
       "channel_name": "Arrabiaa",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 5,
+      "channel_name": "Almaghribiya",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 6,
+      "channel_name": "Assadissa",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 7,
+      "channel_name": "Assabi3a",
+      "channel_link": "snrt.ma"
+    },
+    {
+      "channel_id": 8,
+      "channel_name": "Attamina",
       "channel_link": "snrt.ma"
     }
   ]
