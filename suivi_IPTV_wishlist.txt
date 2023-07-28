@@ -1,0 +1,46 @@
+suivi IPTV wishlist
+
+System Onglet
+	Bucket..................................................................... OK
+	Favoris.................................................................... OK
+
+Dynamic Navigation Between Lists............................................... OK
+	(buckets & favoris)
+
+Favoris
+	Dossier
+		1 Renommer/Supprimer................................................... Ok sauf suppression
+			save............................................................... Stand by
+		2 Deplacer Order ...................................................... Stand by
+			save............................................................... Stand by
+		4 Ajouter ............................................................. Pas Encore
+			save............................................................... Stand by
+		5 Pin ................................................................. Stand by
+
+	Channels
+		2 ajout channel........................................................ OK
+			save............................................................... Pas Encore
+		3 Suppression de channel............................................... Stand by
+			save............................................................... Stand by
+		4 deplacer (order multiple) ........................................... NEW
+
+		5 deplacer (vers un autre dossier de favoris) ......................... NEW
+
+navigation => Group Name (TODO dynamic bucket name|favoris name) .............. NEW OOOKKK
+
+search......................................................................... NEW OOOKKK
+	search for channels (bucket channels & favoris channels)
+
+Favoris Order ................................................................. Pas encore
+	button deplacer ofr order channel in each wishlist folder
+
+Favoris Tri
+	ASC DESC avec confirmation ................................................ NEW
+
+
+
+- Quel boutton on doit utiliser pour entrer aux anglets si on utlise les fléches (right & left) ?
+	down => enter to list (buckets | favoris) ................................. Pas Possible
+	
+- Suppresion de channel from favoris ?
+	Est ce qu on utiliser la meme list de favoris et l'utilisateur doit decoché les list ou quoi exactement ?
