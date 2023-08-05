@@ -4,8 +4,14 @@ System Onglet
 	Bucket..................................................................... OK
 	Favoris.................................................................... OK
 
-Dynamic Navigation Between Lists............................................... OK
+Dynamic Navigation Between Lists............................................... OK ... A REVOIR by ENTER
 	(buckets & favoris)
+
+Bouquet .... NEW
+	Dossier
+		1 PIN code (pass for open) ........................................;... NEW
+		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW
+
 
 Favoris
 	Dossier
@@ -40,7 +46,14 @@ Favoris Tri
 
 
 - Quel boutton on doit utiliser pour entrer aux anglets si on utlise les fléches (right & left) ?
-	down => enter to list (buckets | favoris) ................................. Pas Possible
+	down => enter to list (buckets | favoris) ................................. (Pas Possible)
+	revenant au suj navigation on passe par ENTER key press
 	
 - Suppresion de channel from favoris ?
 	Est ce qu on utiliser la meme list de favoris et l'utilisateur doit decoché les list ou quoi exactement ?
+
+
+use numbers replace colors
+
+PIN tout les actions pin utilise le meme code 
+A a voir ou on va le sauvegarder

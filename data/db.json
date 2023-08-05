@@ -208,6 +208,7 @@
     {
       "bouquet_id": 1,
       "bouquet_name": "Bouquet 1",
+      "pin": 0,
       "channels": [
         {
           "channel_id": 1,
