@@ -19,12 +19,12 @@ serachInput.addEventListener('keyup', function (e) {
     }  
 });
 
-document.addEventListener('keydown', function (e) {
+document.addEventListener('keyup', function (e) {
 
     var key = event.key;
 
     var listChannels = document.getElementById('list-channels');
-    console.log(listChannels)
+    // console.log(listChannels);
 
     if (listSelected === 'tabs') {
         tab_btns = tabs;
@@ -46,41 +46,7 @@ document.addEventListener('keydown', function (e) {
     console.log('current index = ' + current_index)
 
     switch (key) {
-        case 'ArrowLeft':
-            if (listSelected === 'bouquets' || listSelected === 'favoris') {
-                if (listSelected === 'bouquets') {
-                    // remove class selected from bouquet list
-                    for (var k = 0; k < bouquets.length; k++) {
-                        bouquets[k].classList.remove('selected')
-                    }
-                } else {
-                    document.getElementById('wishlist-buttons').style.display = 'none';
-                    // remove class selected from favoris list
-                    for (var l = 0; l < favoris.length; l++) {
-                        favoris[l].classList.remove('selected')
-                    }
-                }
-                listSelected = 'tabs';
-                tab_btns = tabs;
-                for (var j = 0; j < tab_btns.length; j++) {
-                    if (tab_btns[j].classList.contains('active')) {
-                        current_index = j;
-                        tab_btns[j].classList.remove('active')
-                        tab_btns[j].classList.add('selected')
-                    }
-                }
-            } else if (listSelected === 'channels') {
-                listSelected = listChannels.getAttribute('data-attr-back-list');
-                if (listSelected === 'bouquets') {
-                    tab_btns = bouquets;
-                } else {
-                    tab_btns = favoris;
-                }
-                document.getElementById('sidebar').style.display = "";
-                document.getElementById('right-buttons').style.display = '';
-            }
-            break;
-        case 'ArrowRight':
+        case 'Enter':
             if (listSelected === 'tabs') {
                 if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
                     listSelected = 'favoris';
@@ -160,6 +126,40 @@ document.addEventListener('keydown', function (e) {
             }
 
             console.log(tab_btns)
+            break;
+        case 'Escape':
+            if (listSelected === 'bouquets' || listSelected === 'favoris') {
+                if (listSelected === 'bouquets') {
+                    // remove class selected from bouquet list
+                    for (var k = 0; k < bouquets.length; k++) {
+                        bouquets[k].classList.remove('selected')
+                    }
+                } else {
+                    document.getElementById('wishlist-buttons').style.display = 'none';
+                    // remove class selected from favoris list
+                    for (var l = 0; l < favoris.length; l++) {
+                        favoris[l].classList.remove('selected')
+                    }
+                }
+                listSelected = 'tabs';
+                tab_btns = tabs;
+                for (var j = 0; j < tab_btns.length; j++) {
+                    if (tab_btns[j].classList.contains('active')) {
+                        current_index = j;
+                        tab_btns[j].classList.remove('active')
+                        tab_btns[j].classList.add('selected')
+                    }
+                }
+            } else if (listSelected === 'channels') {
+                listSelected = listChannels.getAttribute('data-attr-back-list');
+                if (listSelected === 'bouquets') {
+                    tab_btns = bouquets;
+                } else {
+                    tab_btns = favoris;
+                }
+                document.getElementById('sidebar').style.display = "";
+                document.getElementById('right-buttons').style.display = '';
+            }
             break;
         case "ArrowUp":
             tab_btns[current_index].classList.remove('selected');
