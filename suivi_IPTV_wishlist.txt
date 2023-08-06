@@ -4,7 +4,7 @@ System Onglet
 	Bucket..................................................................... OK
 	Favoris.................................................................... OK
 
-Dynamic Navigation Between Lists............................................... OK ... A REVOIR by ENTER
+Dynamic Navigation Between Lists............................................... OK
 	(buckets & favoris)
 
 Bouquet .... NEW
