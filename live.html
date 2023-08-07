@@ -109,6 +109,7 @@
                             li.setAttribute('id', element.favori_id);
                             li.setAttribute('data-name', element.favori_name);
                             li.setAttribute('class', 'favoris');
+                            li.style.order = element.order;
                             li.innerHTML = element.favori_name;
                             listFav.appendChild(li);
                         });

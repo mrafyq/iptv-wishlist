@@ -67,8 +67,10 @@ body{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    margin-left: 5%;
-    margin-right: 5%;
+    padding: 20px 5%;
+}
+.wishlist-buttons {
+    padding-left: 40px;
 }
 .sidebar{
     position: absolute;
@@ -77,6 +79,7 @@ body{
     width:30%;
     height:100%;
     background-color: #0c1114;
+    overflow: auto;
 }
 .sidebar-favoris {
     position: absolute;
@@ -181,4 +184,9 @@ input[type="text"]{
 .popup-favoris-list-fav li input {
     width: auto;
     margin: 0 10px 0 0;
+}
+
+.list-bouquet,
+.list-favoris {
+    flex-flow: column;
 }

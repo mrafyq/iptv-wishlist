@@ -22,6 +22,7 @@ serachInput.addEventListener('keyup', function (e) {
 document.addEventListener('keyup', function (e) {
 
     var key = event.key;
+    console.log(key);
 
     var listChannels = document.getElementById('list-channels');
     // console.log(listChannels);
@@ -169,7 +170,7 @@ document.addEventListener('keyup', function (e) {
             current_index = mod(current_index - 1, tab_btns.length);
             tab_btns[current_index].classList.add('selected');
             if (listSelected === 'tabs') {
-                getItem(tab_btns[current_index], 'block');
+                getItem(tab_btns[current_index], 'flex');
             }
             break;
         case 'ArrowDown':
@@ -181,8 +182,12 @@ document.addEventListener('keyup', function (e) {
             current_index = mod(current_index + 1, tab_btns.length);
             tab_btns[current_index].classList.add('selected');
             if (listSelected === 'tabs') {
-                getItem(tab_btns[current_index], 'block');
+                getItem(tab_btns[current_index], 'flex');
             }
+            break;
+        case '1':
+            var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
+            console.log(favorisSelected.textContent);
             break;
     }
 
