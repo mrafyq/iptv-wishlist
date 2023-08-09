@@ -1,19 +1,20 @@
-var buttonAddFav = document.querySelector('.action-add');
-var buttonAddFavSave = document.querySelector('.action-add-favoris-save');
-var buttonAddFavCancel = document.querySelector('.action-add-favoris-cancel');
+var buttonAddWishlist = document.querySelector('.action-add');
+var form = document.getElementById('add-wishlist-form');
+var buttonAddWishlistCancel = document.querySelector('.action-add-wishlist-cancel');
 var inputAdd = document.querySelector('.popup #add');
-var popupFav = document.querySelector('.popup.popup-add-wishlist');
+var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
 
-buttonAddFav.addEventListener('click', () => {
-    popupFav.style.display = 'flex';
+buttonAddWishlist.addEventListener('click', () => {
+    popupWishlist.style.display = 'flex';
 })
 
-buttonAddFavSave.addEventListener('click', () => {
+form.addEventListener('submit', (event) => {
+    event.preventDefault()
     fetch('data/db.json')
         .then(res => res.json())
         .then(data => {
             data.favoris.push({
-                "favoris_id": 100,
+                "favoris_id": 100, // TODO manage dynamic wishlist Ids
                 "favoris_name": inputAdd.value,
                 "order": data.favoris.length,
                 "channels": []
@@ -23,6 +24,6 @@ buttonAddFavSave.addEventListener('click', () => {
         .catch(err => console.log(err));
 })
 
-buttonAddFavCancel.addEventListener('click', () => {
-    popupFav.style.display = 'none';
+buttonAddWishlistCancel.addEventListener('click', () => {
+    popupWishlist.style.display = 'none';
 })
