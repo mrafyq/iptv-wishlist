@@ -15,8 +15,9 @@
             <ul class="list-bouquet" id="sidebar-bouquet__list"></ul>
             <ul class="list-favoris" id="sidebar-favoris__list"></ul>
             <div id="wishlist-buttons" class="wishlist-buttons" style="display: none">
-                <div class="action-rename"><div class="dot green"> </div>Renommer</div>
-                <div class="action-delete"><div class="dot red"> </div>Déplacer</div>
+                <div class="action-add"><div class="dot blue"> </div>Ajouter</div>
+                <div class="action-delete"><div class="dot green"> </div>Déplacer</div>
+                <div class="action-rename"><div class="dot red"> </div>Renommer/Supprimer</div>
                 <div class="action-pin"><div class="dot yellow"> </div>Pin</div>
             </div>
         </div>
@@ -87,6 +88,17 @@
                 <div>
                     <button type="button" class="action-favoris-save">Enregistrer</button>
                     <button type="button" class="action-favoris-cancel">Annuler</button>
+                </div>
+            </div>
+        </div>
+        <div class="popup popup-add-wishlist">
+            <div class="popup-inner">
+                <div class="popup-title">Ajouter un nouveau favoris</div>
+                <div class="popup-favoris-name"></div>
+                <input type="text" id="add" name="favoris_name" value="" placeholder="">
+                <div>
+                    <button type="button" class="action-add-favoris-save">Enregistrer</button>
+                    <button type="button" class="action-add-favoris-cancel">Annuler</button>
                 </div>
             </div>
         </div>
