@@ -13,9 +13,12 @@ form.addEventListener('submit', (event) => {
     fetch('data/db.json')
         .then(res => res.json())
         .then(data => {
+            const ids = data.favoris.map(favoris => favoris.favori_id);
+            const sorted = ids.sort((a, b) => a - b);
+            let nextId = sorted[sorted.length - 1] + 1;
             data.favoris.push({
-                "favoris_id": 100, // TODO manage dynamic wishlist Ids
-                "favoris_name": inputAdd.value,
+                "favori_id": nextId,
+                "favori_name": inputAdd.value,
                 "order": data.favoris.length,
                 "channels": []
             });
