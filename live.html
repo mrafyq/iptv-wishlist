@@ -72,11 +72,26 @@
         <!-- Popup -->
         <div class="popup popup-rename">
             <div class="popup-inner">
-                <div class="popup-title">Modifier le nom de favoris</div>
-                <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... ">
                 <div>
-                    <button type="button" class="action-rename-save">Enregistrer</button>
-                    <button type="button" class="action-cancel">Annuler</button>
+                    <input id="wishlist-rename" class="" type="radio" name="action" value="rename" checked>
+                    <label for="wishlist-rename">Renommer</label><br>
+                    <input id="wishlist-delete" type="radio" name="action" value="delete">
+                    <label for="wishlist-delete">Supprimer</label><br>
+                </div>
+                <div class="container-action-rename">
+                    <div class="popup-title">Renommer le favoris: <span class="popup-title-additional"></span></div>
+                    <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... ">
+                    <div>
+                        <button type="button" class="action-rename-save">Enregistrer</button>
+                        <button type="button" class="action-cancel">Annuler</button>
+                    </div>
+                </div>
+                <div class="container-action-delete" style="display: none">
+                    <div class="popup-title">Supprimer le favoris: <span class="popup-title-additional"></span></div>
+                    <div>
+                        <button type="button" class="action-delete-confirm">Confirmer la suppression</button>
+                        <button type="button" class="action-cancel">Annuler</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -219,6 +234,7 @@
         </script>
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>
+        <script type="text/javascript" src="js/wishlist/edit-remove.js"></script>
 
     </body>
 </html>

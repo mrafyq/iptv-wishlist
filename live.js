@@ -193,45 +193,6 @@ document.addEventListener('keyup', function (e) {
 
 });
 
-// Rename
-var buttonRenameFavoris = document.querySelector('.action-rename');
-var buttonRenameCancel = document.querySelector('.action-cancel');
-var popupRename = document.querySelector('.popup.popup-rename');
-var buttonRenameSave = document.querySelector('.action-rename-save');
-var inputRename = document.querySelector('.popup #rename');
-
-buttonRenameFavoris.addEventListener('click', (event) => {
-    var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-    inputRename.value = favorisSelected.textContent
-    popupRename.style.display = 'flex';
-
-})
-
-buttonRenameCancel.addEventListener('click', (event) => {
-    popupRename.style.display = 'none';
-})
-
-buttonRenameSave.addEventListener('click', (event) => {
-    console.log(inputRename.value)
-    var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-    let favorisId = favorisSelected.getAttribute('id')
-
-    fetch('data/db.json')
-        .then(res => res.json())
-        .then(data =>
-            {
-                (data.favoris).forEach((element) => {
-                    if (element.favori_id == favorisId) {
-                        element.favori_name = inputRename.value
-                    }
-                });
-
-                console.log(data.favoris);
-            }
-        )
-        .catch(err => console.log(err));
-})
-
 
 function mod(n, m) {
     return ((n % m) + m) % m;
