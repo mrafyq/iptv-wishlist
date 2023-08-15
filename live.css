@@ -53,6 +53,11 @@ right: 0;
 }
 .group-name{
     font-size: 2em;
+    text-transform: uppercase;
+}
+.group-name,
+.group-name + div {
+    padding: 20px;
 }
 body{
     color: aliceblue;
