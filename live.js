@@ -188,10 +188,14 @@ document.addEventListener('keyup', function (e) {
             break;
         case '1':
             if (listSelected === 'channels') {
-                console.log('List selected is ' + listSelected);
+                
+                // Chack list selected if favoris or bouquets
+                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
+                    var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
+                } else {
+                    var favorisSelected = document.querySelector('.list-bouquet .bouquet.selected');
+                }
 
-                var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-                var bouquetSelected = document.querySelector('.list-bouquet .bouquet.selected');
                 var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
                 var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
                 var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
@@ -215,19 +219,26 @@ document.addEventListener('keyup', function (e) {
                 // Submit form remove channel item from wishlist
                 popupRemoveFromWishlistForm.addEventListener('submit', (e) => {  
                     e.preventDefault();
-                    console.log(favorisSelected.id);
                     fetch('data/db.json')
                         .then(res => res.json())
                         .then(data =>
                             {
-                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
-                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                getFav[0].channels = getFavChannels;
-                                console.log(data.favoris);
+                                // favoris
+                                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
+                                    let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    getFav[0].channels = getFavChannels;
+                                    console.log(data.favoris);
+                                // bouquets
+                                } else {
+                                    let getFav = data.bouquets.filter(item => item.bouquet_id == favorisSelected.id);
+                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    getFav[0].channels = getFavChannels;
+                                    console.log(data.bouquets);
+                                }
                             }
                         )
                         .catch(err => console.log(err));
-                    console.log('Form submitted');
                 })
             }
             break;
