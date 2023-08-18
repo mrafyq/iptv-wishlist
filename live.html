@@ -4,7 +4,8 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>IPTV Favoris</title>
-        <link rel="stylesheet" href="live.css">
+        <link rel="stylesheet" href="./css/fonts.css">
+        <link rel="stylesheet" href="./css/live.css">
     </head>
     <body>
         <div class="sidebar" id="sidebar">
@@ -160,9 +161,9 @@
                             li.style.order = element.order;
                             li.innerHTML = element.favori_name;
                             if (element.pin) {
-                                const span = document.createElement('span');
-                                span.innerHTML = " P"
-                                li.appendChild(span)
+                                const iconLock = document.createElement('i');
+                                iconLock.setAttribute('class', 'icon-lock');
+                                li.appendChild(iconLock);
                             }
                             listFav.appendChild(li);
                         });
