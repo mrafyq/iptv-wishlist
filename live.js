@@ -7,6 +7,7 @@ var groupName = document.querySelector('.group-name');
 var serachInput = document.getElementById('search');
 var tab_btns;
 
+
 serachInput.addEventListener('keyup', function (e) {
     var filter = serachInput.value.toLowerCase();
     for (var i = 0; i < channels.length; i++) {
@@ -186,8 +187,60 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '1':
-            var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-            console.log(favorisSelected.textContent);
+            if (listSelected === 'channels') {
+                
+                // Chack list selected if favoris or bouquets
+                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
+                    var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
+                } else {
+                    var favorisSelected = document.querySelector('.list-bouquet .bouquet.selected');
+                }
+
+                var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
+                var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
+                var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
+                var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
+                var popupRemoveFromWishlistActionCancel = document.querySelector('.action-remove-from-wishlist-cancel');
+                
+                // Popup title => Favoris
+                popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.getAttribute('data-name') + '</strong> ?'
+                
+                // Popup title => Bouquet
+                // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
+                
+                // Show popup remove channel item from wishlist
+                popupRemoveFromWishlist.style.display = 'flex'; 
+
+                // Hide popup remove channel item from wishlist
+                popupRemoveFromWishlistActionCancel.addEventListener('click', () => {  
+                    popupRemoveFromWishlist.style.display = 'none';
+                })
+
+                // Submit form remove channel item from wishlist
+                popupRemoveFromWishlistForm.addEventListener('submit', (e) => {  
+                    e.preventDefault();
+                    fetch('data/db.json')
+                        .then(res => res.json())
+                        .then(data =>
+                            {
+                                // favoris
+                                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
+                                    let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    getFav[0].channels = getFavChannels;
+                                    console.log(data.favoris);
+                                // bouquets
+                                } else {
+                                    let getFav = data.bouquets.filter(item => item.bouquet_id == favorisSelected.id);
+                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    getFav[0].channels = getFavChannels;
+                                    console.log(data.bouquets);
+                                }
+                            }
+                        )
+                        .catch(err => console.log(err));
+                })
+            }
             break;
     }
 
