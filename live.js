@@ -74,6 +74,7 @@ document.addEventListener('keyup', function (e) {
                     let bouquetId = tab_btns[current_index].getAttribute('id');
                     let bouquetName = tab_btns[current_index].getAttribute('data-name');
                     groupName.innerHTML = bouquetName;
+                    groupName.setAttribute('id', bouquetId);
                     fetch('data/db.json')
                         .then(res => res.json())
                         .then(data =>
@@ -98,7 +99,9 @@ document.addEventListener('keyup', function (e) {
                 } else {
                     let favorisId = tab_btns[current_index].getAttribute('id');
                     let bouquetName = tab_btns[current_index].getAttribute('data-name');
+                    
                     groupName.innerHTML = bouquetName;
+                    groupName.setAttribute('id', favorisId);
                     fetch('data/db.json')
                         .then(res => res.json())
                         .then(data =>
@@ -121,9 +124,14 @@ document.addEventListener('keyup', function (e) {
                         )
                         .catch(err => console.log(err));
                 }
-                listSelected = 'channels';
                 document.getElementById('sidebar').style.display = 'none';
                 document.getElementById('right-buttons').style.display = 'flex';
+                if (listSelected === 'favoris') {
+                    document.querySelector('#right-buttons .remove-from-favoris').style.display = 'block';
+                } else {
+                    document.querySelector('#right-buttons .remove-from-favoris').style.display = 'none';
+                }
+                listSelected = 'channels';
                 tab_btns = channels;
             }
 
@@ -189,13 +197,7 @@ document.addEventListener('keyup', function (e) {
         case '1':
             if (listSelected === 'channels') {
                 
-                // Chack list selected if favoris or bouquets
-                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
-                    var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-                } else {
-                    var favorisSelected = document.querySelector('.list-bouquet .bouquet.selected');
-                }
-
+                var favorisSelected = document.querySelector('.group-name');
                 var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
                 var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
                 var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
@@ -203,7 +205,7 @@ document.addEventListener('keyup', function (e) {
                 var popupRemoveFromWishlistActionCancel = document.querySelector('.action-remove-from-wishlist-cancel');
                 
                 // Popup title => Favoris
-                popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.getAttribute('data-name') + '</strong> ?'
+                popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
                 
                 // Popup title => Bouquet
                 // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
@@ -223,19 +225,10 @@ document.addEventListener('keyup', function (e) {
                         .then(res => res.json())
                         .then(data =>
                             {
-                                // favoris
-                                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
-                                    let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
-                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                    getFav[0].channels = getFavChannels;
-                                    console.log(data.favoris);
-                                // bouquets
-                                } else {
-                                    let getFav = data.bouquets.filter(item => item.bouquet_id == favorisSelected.id);
-                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                    getFav[0].channels = getFavChannels;
-                                    console.log(data.bouquets);
-                                }
+                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                getFav[0].channels = getFavChannels;
+                                console.log(data.favoris);
                             }
                         )
                         .catch(err => console.log(err));

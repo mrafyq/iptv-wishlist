@@ -72,15 +72,22 @@
         <!-- Popup -->
         <div class="popup popup-rename">
             <div class="popup-inner">
-                <div>
-                    <input id="wishlist-rename" class="" type="radio" name="action" value="rename" checked>
-                    <label for="wishlist-rename">Renommer</label><br>
-                    <input id="wishlist-delete" type="radio" name="action" value="delete">
-                    <label for="wishlist-delete">Supprimer</label><br>
+                <div class="container-action-actions">
+                    <div>
+                        <input id="wishlist-rename" class="" type="radio" name="action" value="rename" checked>
+                        <label for="wishlist-rename">Renommer</label>
+                    </div>
+                    <div>
+                        <input id="wishlist-delete" type="radio" name="action" value="delete">
+                        <label for="wishlist-delete">Supprimer</label>
+                    </div>
                 </div>
                 <div class="container-action-rename">
                     <div class="popup-title">Renommer le favoris: <span class="popup-title-additional"></span></div>
+                    <br>
                     <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... ">
+                    <br>
+                    <br>
                     <div>
                         <button type="button" class="action-rename-save">Enregistrer</button>
                         <button type="button" class="action-cancel">Annuler</button>

@@ -195,3 +195,21 @@ input[type="text"]{
 .list-favoris {
     flex-flow: column;
 }
+
+.remove-from-favoris {
+    display: none;
+}
+
+.container-action-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    color: black;
+}
+.container-action-actions > div {
+    display: flex;
+    align-items: center;
+}
+.container-action-actions input {
+    margin: 0 4px 0 0;
+}

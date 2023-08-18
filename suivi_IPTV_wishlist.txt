@@ -26,11 +26,11 @@ Favoris
 	Channels
 		2 ajout channel........................................................ OK
 			save..................................................... Stand by
-		3 Suppression de channel............................................... Pas encore
+		3 Suppression de channel............................................... OK
 			save..................................................... Stand by
 		4 deplacer (order multiple) ........................................... NEW
 
-		5 deplacer (vers un autre dossier de favoris) ......................... NEW
+		5 deplacer (vers un autre dossier de favoris) ......................... NEW OOOKKK
 
 navigation => Group Name (dynamic bucket name|favoris name) ................... NEW OOOKKK
 
