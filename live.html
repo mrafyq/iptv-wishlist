@@ -137,9 +137,15 @@
                             const li = document.createElement('li');
                             li.setAttribute('id', element.favori_id);
                             li.setAttribute('data-name', element.favori_name);
+                            li.setAttribute('data-pin', element.pin);
                             li.setAttribute('class', 'favoris');
                             li.style.order = element.order;
                             li.innerHTML = element.favori_name;
+                            const span = document.createElement('span');
+                            if (element.pin) {
+                                span.innerHTML = " P"
+                                li.appendChild(span)
+                            }
                             listFav.appendChild(li);
                         });
                         (data.bouquets).forEach((element, index) => {

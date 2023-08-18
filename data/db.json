@@ -5,6 +5,7 @@
       "favori_id": 1,
       "favori_name": "Favoris 1",
       "order": 1,
+      "pin": 1,
       "channels": [
         {
           "channel_id": 1,
@@ -20,6 +21,7 @@
       "favori_id": 2,
       "favori_name": "Favoris 2",
       "order": 2,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -36,6 +38,7 @@
       "favori_id": 3,
       "favori_name": "youness favour",
       "order": 3,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 1,
@@ -73,6 +76,7 @@
       "favori_id": 4,
       "favori_name": "Favoris 4",
       "order": 4,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -103,6 +107,7 @@
       "favori_id": 6,
       "favori_name": "Favoris 6",
       "order": 6,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -118,6 +123,7 @@
       "favori_id": 7,
       "favori_name": "Favoris 7",
       "order": 7,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -133,6 +139,7 @@
       "favori_id": 8,
       "favori_name": "Favoris 8",
       "order": 8,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -148,6 +155,7 @@
       "favori_id": 9,
       "favori_name": "Favoris 9",
       "order": 9,
+      "pin": 1,
       "channels": [
         {
           "channel_id": 3,
@@ -163,6 +171,7 @@
       "favori_id": 10,
       "favori_name": "Favoris 10",
       "order": 10,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -178,6 +187,7 @@
       "favori_id": 11,
       "favori_name": "Favoris 11",
       "order": 11,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -193,6 +203,7 @@
       "favori_id": 12,
       "favori_name": "Favoris 12",
       "order": 12,
+      "pin": 0,
       "channels": [
         {
           "channel_id": 3,
@@ -256,6 +267,7 @@
     {
       "bouquet_id": 2,
       "bouquet_name": "Bouquet 2",
+      "pin": 0,
       "channels": [
         {
           "channel_id": 2,
@@ -288,6 +300,7 @@
     {
       "bouquet_id": 4,
       "bouquet_name": "Bouquet 4",
+      "pin": 0,
       "channels": [
         {
           "channel_id": 1,
