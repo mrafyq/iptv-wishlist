@@ -152,8 +152,8 @@
                             li.setAttribute('class', 'favoris');
                             li.style.order = element.order;
                             li.innerHTML = element.favori_name;
-                            const span = document.createElement('span');
                             if (element.pin) {
+                                const span = document.createElement('span');
                                 span.innerHTML = " P"
                                 li.appendChild(span)
                             }
