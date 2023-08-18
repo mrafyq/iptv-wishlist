@@ -235,6 +235,32 @@ document.addEventListener('keyup', function (e) {
                 })
             }
             break;
+        case '2':
+            let newArr = [];
+            var getAllChannels = document.querySelectorAll('#list-channels .channel');
+            getAllChannels.forEach(el => {
+                var channelName = el.getAttribute('data-attr-name');
+                newArr.push(channelName);
+            })
+
+            // ASC
+            newArr.sort()
+            console.log('ASC ' + newArr);
+
+            // DESC
+            newArr.sort((a, b) => {
+                if (a > b) {
+                    return -1;
+                }
+                if (b > a) {
+                    return 1;
+                }
+                return 0;
+            });
+            console.log('DESC ' + newArr);
+
+            console.log('Sort button has been clicked!');
+            break;
     }
 
 });
