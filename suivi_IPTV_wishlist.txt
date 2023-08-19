@@ -41,7 +41,7 @@ Favoris Order ................................................................. 
 	button deplacer ofr order channel in each wishlist folder
 
 Favoris Tri
-	ASC DESC avec confirmation ................................................ NEW
+	ASC DESC avec confirmation ................................................ NEW OOOKKK (No confirmation needed)
 
 
 
