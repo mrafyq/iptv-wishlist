@@ -221,3 +221,10 @@ input[type="text"]{
 .container-action-actions input {
     margin: 0 4px 0 0;
 }
+
+.list-tabs li {
+    display: inline !important;
+    padding: 10px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}

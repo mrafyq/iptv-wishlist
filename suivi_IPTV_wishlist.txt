@@ -3,6 +3,7 @@ suivi IPTV wishlist
 System Onglet
 	Bucket..................................................................... OK
 	Favoris.................................................................... OK
+	navigation Right/left between tabs ........................................ OOOK
 
 Dynamic Navigation Between Lists............................................... OK
 	(buckets & favoris)
@@ -49,7 +50,7 @@ Favoris Tri
 - Quel boutton on doit utiliser pour entrer aux anglets si on utlise les fléches (right & left) ?
 	down => enter to list (buckets | favoris) ................................. (Pas Possible)
 	revenant au suj navigation on passe par ENTER key press
-	
+
 - Suppresion de channel from favoris ?
 	Est ce qu on utiliser la meme list de favoris et l'utilisateur doit decoché les list ou quoi exactement ?
 
@@ -57,6 +58,7 @@ Favoris Tri
 use numbers replace colors
     1 => red    => delete
     2 => white  => tri
+    4 => yellow => pin
 
 PIN tout les actions pin utilise le meme code 
 A a voir ou on va le sauvegarder ............................................... Pin sauvegardé dans le fichier db.json

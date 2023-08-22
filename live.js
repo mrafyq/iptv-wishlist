@@ -156,27 +156,37 @@ document.addEventListener('keyup', function (e) {
                 document.getElementById('right-buttons').style.display = '';
             }
             break;
-        case "ArrowUp":
-            tab_btns[current_index].classList.remove('selected');
+        case "ArrowRight":
             if (listSelected === 'tabs') {
+                tab_btns[current_index].classList.remove('selected');
                 getItem(tab_btns[current_index], 'none');
-            }
-            current_index = mod(current_index - 1, tab_btns.length);
-            tab_btns[current_index].classList.add('selected');
-            if (listSelected === 'tabs') {
+                current_index = mod(current_index - 1, tab_btns.length);
+                tab_btns[current_index].classList.add('selected');
                 getItem(tab_btns[current_index], 'flex');
             }
             break;
-        case 'ArrowDown':
-            tab_btns[current_index].classList.remove('selected');
-            console.log(listSelected)
+        case "ArrowLeft":
             if (listSelected === 'tabs') {
+                tab_btns[current_index].classList.remove('selected');
                 getItem(tab_btns[current_index], 'none');
-            }
-            current_index = mod(current_index + 1, tab_btns.length);
-            tab_btns[current_index].classList.add('selected');
-            if (listSelected === 'tabs') {
+                current_index = mod(current_index + 1, tab_btns.length);
+                tab_btns[current_index].classList.add('selected');
                 getItem(tab_btns[current_index], 'flex');
+            }
+            break;
+        case "ArrowUp":
+            if (listSelected !== 'tabs') {
+                tab_btns[current_index].classList.remove('selected');
+                current_index = mod(current_index - 1, tab_btns.length);
+                tab_btns[current_index].classList.add('selected');
+            }
+            break;
+        case 'ArrowDown':
+            if (listSelected !== 'tabs') {
+                tab_btns[current_index].classList.remove('selected');
+                console.log(listSelected)
+                current_index = mod(current_index + 1, tab_btns.length);
+                tab_btns[current_index].classList.add('selected');
             }
             break;
         case '1':
