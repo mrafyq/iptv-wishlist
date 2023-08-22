@@ -7,6 +7,8 @@ var groupName = document.querySelector('.group-name');
 var serachInput = document.getElementById('search');
 var tab_btns;
 
+var popupPin = document.querySelector('.popup.popup-check-pin')
+
 
 serachInput.addEventListener('keyup', function (e) {
     var filter = serachInput.value.toLowerCase();
@@ -69,6 +71,7 @@ document.addEventListener('keyup', function (e) {
                 listChannels.setAttribute('data-attr-back-list', listSelected)
                 listChannels.setAttribute('data-attr-back-list-index', current_index)
                 listChannels.innerHTML = '';
+                let showChannel = true;
                 if (listSelected === 'bouquets') {
                     // @TODO fetch channels bouquet
                     let bouquetId = tab_btns[current_index].getAttribute('id');
@@ -108,31 +111,39 @@ document.addEventListener('keyup', function (e) {
                             {
                                 let result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                                 console.log(result);
-                                (result[0].channels).forEach((element, index) => {
-                                    const li = document.createElement('li');
-                                    li.setAttribute('data-attr-id', element.channel_id);
-                                    li.setAttribute('data-attr-name', element.channel_name);
-                                    if (index == 0) {
-                                        li.setAttribute('class', 'channel selected');
-                                    } else {
-                                        li.setAttribute('class', 'channel');
-                                    }
-                                    li.innerHTML = element.channel_name;
-                                    listChannels0.appendChild(li);
-                                });
+                                console.log(result[0].pin);
+                                if (result[0].pin) {
+                                     showChannel = checkPin()
+                                }
+                                if (showChannel) {
+                                    (result[0].channels).forEach((element, index) => {
+                                        const li = document.createElement('li');
+                                        li.setAttribute('data-attr-id', element.channel_id);
+                                        li.setAttribute('data-attr-name', element.channel_name);
+                                        if (index == 0) {
+                                            li.setAttribute('class', 'channel selected');
+                                        } else {
+                                            li.setAttribute('class', 'channel');
+                                        }
+                                        li.innerHTML = element.channel_name;
+                                        listChannels0.appendChild(li);
+                                    });
+                                }
                             }
                         )
                         .catch(err => console.log(err));
                 }
-                document.getElementById('sidebar').style.display = 'none';
-                document.getElementById('right-buttons').style.display = 'flex';
-                if (listSelected === 'favoris') {
-                    document.querySelector('#right-buttons .remove-from-favoris').style.display = 'block';
-                } else {
-                    document.querySelector('#right-buttons .remove-from-favoris').style.display = 'none';
+                if (showChannel) {
+                    document.getElementById('sidebar').style.display = 'none';
+                    document.getElementById('right-buttons').style.display = 'flex';
+                    if (listSelected === 'favoris') {
+                        document.querySelector('#right-buttons .remove-from-favoris').style.display = 'block';
+                    } else {
+                        document.querySelector('#right-buttons .remove-from-favoris').style.display = 'none';
+                    }
+                    listSelected = 'channels';
+                    tab_btns = channels;
                 }
-                listSelected = 'channels';
-                tab_btns = channels;
             }
 
             console.log(tab_btns)
@@ -239,6 +250,25 @@ document.addEventListener('keyup', function (e) {
 
 });
 
+
+function checkPin() {
+    popupPin.style.display = 'flex'
+    let confirmPin = document.querySelector('.action-pin-ok')
+    confirmPin.addEventListener('click', function (event) {
+        confirmPin = document.querySelector('#pin-field')
+        fetch('data/db.json')
+            .then(res => res.json())
+            .then(data =>
+                {
+                    if (confirmPin.value === data.pin) {
+                        return true;
+                    }
+                }
+            )
+            .catch(err => console.log(err));
+    })
+    return false;
+}
 
 function mod(n, m) {
     return ((n % m) + m) % m;
