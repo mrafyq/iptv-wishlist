@@ -9,11 +9,11 @@
       "channels": [
         {
           "channel_id": 1,
-          "channel_name": "channel 1"
+          "channel_name": "Favoris 1 - channel 1"
         },
         {
           "channel_id": 3,
-          "channel_name": "channel 3"
+          "channel_name": "Favoris 1 - channel 3"
         }
       ]
     },
@@ -25,11 +25,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 3"
+          "channel_name": "Favoris 2 - channel 3"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 5",
+          "channel_name": "Favoris 2 - channel 5",
           "channel_link": "link.com"
         }
       ]
@@ -80,11 +80,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 3"
+          "channel_name": "Favoris 4 - channel 4"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 5"
+          "channel_name": "Favoris 4 - channel 5"
         }
       ]
     },
@@ -95,11 +95,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 3"
+          "channel_name": "Favoris 5 - channel 50"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 5"
+          "channel_name": "Favoris 5 - channel 51"
         }
       ]
     },
@@ -111,11 +111,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 630"
+          "channel_name": "Favoris 6 - channel 60"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 633"
+          "channel_name": "Favoris 6 - channel 61"
         }
       ]
     },
@@ -127,11 +127,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 720"
+          "channel_name": "Favoris 7 - channel 720"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 710"
+          "channel_name": "Favoris 7 - channel 710"
         }
       ]
     },
@@ -143,11 +143,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 833"
+          "channel_name": "Favoris 8 - channel 833"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 855"
+          "channel_name": "Favoris 8 - channel 855"
         }
       ]
     },
@@ -159,11 +159,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 833"
+          "channel_name": "Favoris 9 - channel 833"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 855"
+          "channel_name": "Favoris 9 - channel 855"
         }
       ]
     },
@@ -175,11 +175,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 833"
+          "channel_name": "Favoris 10 - channel 1001"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 855"
+          "channel_name": "Favoris 10 - channel 1002"
         }
       ]
     },
@@ -191,11 +191,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 833"
+          "channel_name": "Favoris 11 - channel 1101"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 855"
+          "channel_name": "Favoris 11 - channel 1102"
         }
       ]
     },
@@ -207,11 +207,11 @@
       "channels": [
         {
           "channel_id": 3,
-          "channel_name": "channel 833"
+          "channel_name": "Favoris 12 - channel 1201"
         },
         {
           "channel_id": 5,
-          "channel_name": "channel 855"
+          "channel_name": "Favoris 12 - channel 1202"
         }
       ]
     }
@@ -224,42 +224,42 @@
       "channels": [
         {
           "channel_id": 1,
-          "channel_name": "Al oula",
+          "channel_name": "Bouquet 1 - Al oula",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 2,
-          "channel_name": "2M",
+          "channel_name": "Bouquet 1 - 2M",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 3,
-          "channel_name": "Arriyadya",
+          "channel_name": "Bouquet 1 - Arriyadya",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 4,
-          "channel_name": "Arrabiaa",
+          "channel_name": "Bouquet 1 - Arrabiaa",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 5,
-          "channel_name": "Almaghribiya",
+          "channel_name": "Bouquet 1 - Almaghribiya",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 6,
-          "channel_name": "Assadissa",
+          "channel_name": "Bouquet 1 - Assadissa",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 7,
-          "channel_name": "Assabi3a",
+          "channel_name": "Bouquet 1 - Assabi3a",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 8,
-          "channel_name": "Attamina",
+          "channel_name": "Bouquet 1 - Attamina",
           "channel_link": "snrt.ma"
         }
       ]
@@ -271,12 +271,12 @@
       "channels": [
         {
           "channel_id": 2,
-          "channel_name": "2M",
+          "channel_name": "Bouquet 2 - 2M",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 1,
-          "channel_name": "Al oula",
+          "channel_name": "Bouquet 2 - Al oula",
           "channel_link": "snrt.ma"
         }
       ]
@@ -287,12 +287,12 @@
       "channels": [
         {
           "channel_id": 2,
-          "channel_name": "2M",
+          "channel_name": "Bouquet 3 - 2M",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 3,
-          "channel_name": "Arriyadya",
+          "channel_name": "Bouquet 3 - Arriyadya",
           "channel_link": "snrt.ma"
         }
       ]
@@ -304,12 +304,12 @@
       "channels": [
         {
           "channel_id": 1,
-          "channel_name": "Al oula",
+          "channel_name": "Bouquet 4 - Al oula",
           "channel_link": "snrt.ma"
         },
         {
           "channel_id": 3,
-          "channel_name": "Arriyadya",
+          "channel_name": "Bouquet 4 - Arriyadya",
           "channel_link": "snrt.ma"
         }
       ]
