@@ -9,7 +9,7 @@ Dynamic Navigation Between Lists............................................... 
 
 Bouquet .... NEW
 	Dossier
-		1 PIN code (pass for open) ........................................;... NEW
+		1 PIN code (pass for open) ........................................;... NEW OKK
 		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW
 
 
@@ -21,7 +21,7 @@ Favoris
 			save..................................................... Stand by
 		4 Ajouter ............................................................. OK
 			save..................................................... Stand by
-		5 Pin ................................................................. EN COURS
+		5 Pin ................................................................. OK
 
 	Channels
 		2 ajout channel........................................................ OK
@@ -30,18 +30,19 @@ Favoris
 			save..................................................... Stand by
 		4 deplacer (order multiple) ........................................... NEW
 
-		5 deplacer (vers un autre dossier de favoris) ......................... NEW OOOKKK
+		5 deplacer (vers un autre dossier de favoris) ......................... NEW OKK
 
-navigation => Group Name (dynamic bucket name|favoris name) ................... NEW OOOKKK
+navigation => Group Name (dynamic bucket name|favoris name) ................... NEW OKK
 
-search......................................................................... NEW OOOKKK
+search......................................................................... NEW OKK
 	search for channels (bucket channels & favoris channels)
 
 Favoris Order ................................................................. Pas encore
 	button deplacer ofr order channel in each wishlist folder
 
 Favoris Tri
-	ASC DESC avec confirmation ................................................ NEW OOOKKK (No confirmation needed)
+	ASC DESC avec confirmation ................................................ NEW OKK
+	    (No confirmation needed)
 
 
 
@@ -54,6 +55,8 @@ Favoris Tri
 
 
 use numbers replace colors
+    1 => red    => delete
+    2 => white  => tri
 
 PIN tout les actions pin utilise le meme code 
-A a voir ou on va le sauvegarder
+A a voir ou on va le sauvegarder ............................................... Pin sauvegardé dans le fichier db.json

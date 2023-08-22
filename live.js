@@ -91,7 +91,7 @@ document.addEventListener('keyup', function (e) {
                                 if (result[0].pin) {
                                     checkPin()
                                 } else {
-                                    x()
+                                    showChannels()
                                 }
                             }
                         )
@@ -112,7 +112,7 @@ document.addEventListener('keyup', function (e) {
                                 if (result[0].pin) {
                                     checkPin()
                                 } else {
-                                    x()
+                                    showChannels()
                                 }
                             }
                         )
@@ -281,7 +281,9 @@ document.addEventListener('keyup', function (e) {
 
 });
 
-
+//////////////////////////
+/// Start PIN
+//////////////////////////
 function checkPin() {
     let PINField = document.querySelector('#pin-field')
     popupPin.style.display = 'flex'
@@ -293,7 +295,7 @@ function checkPin() {
             .then(data =>
                 {
                     if (PINField.value === data.pin) {
-                        x()
+                        showChannels()
                         popupPin.style.display = 'none'
                         PINField.value = "";
                     }
@@ -303,7 +305,7 @@ function checkPin() {
     })
 }
 
-function x() {
+function showChannels() {
     (parsedChannels).forEach((element, index) => {
         const li = document.createElement('li');
         li.setAttribute('data-attr-id', element.channel_id);
@@ -316,10 +318,10 @@ function x() {
         li.innerHTML = element.channel_name;
         listChannels0.appendChild(li);
     });
-    y()
+    hideSidebar()
 }
 
-function y(){
+function hideSidebar(){
     document.getElementById('sidebar').style.display = 'none';
     document.getElementById('right-buttons').style.display = 'flex';
     if (listSelected === 'favoris') {
@@ -330,6 +332,10 @@ function y(){
     listSelected = 'channels';
     tab_btns = channels;
 }
+
+//////////////////////////
+/// END PIN
+//////////////////////////
 
 function mod(n, m) {
     return ((n % m) + m) % m;
