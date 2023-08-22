@@ -277,6 +277,11 @@ document.addEventListener('keyup', function (e) {
             }
 
             break;
+        case '4':
+            if (listSelected === 'favoris') {
+                PINWishlist()
+            }
+            break;
     }
 
 });
