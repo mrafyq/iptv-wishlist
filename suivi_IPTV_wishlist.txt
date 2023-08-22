@@ -12,6 +12,13 @@ Bouquet .... NEW
 	Dossier
 		1 PIN code (pass for open) ........................................;... NEW OKK
 		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW
+		    On rajoute un params pour chaque bouquet
+		    (hide prend une valeur boolean 0/1)
+		    lors du parse dans les bouquet on affichons que les bouquets
+		    qui ont la valeur 0
+		    et les autre on les considers comme des bouquet masqué
+		    on les affiche dans un autre endroit dans l'app
+		    depond de votre decision
 
 
 Favoris
