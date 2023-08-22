@@ -220,7 +220,7 @@
     {
       "bouquet_id": 1,
       "bouquet_name": "Bouquet 1",
-      "pin": 0,
+      "pin": 1,
       "channels": [
         {
           "channel_id": 1,
@@ -284,6 +284,7 @@
     {
       "bouquet_id": 3,
       "bouquet_name": "Bouquet 3",
+      "pin": 1,
       "channels": [
         {
           "channel_id": 2,

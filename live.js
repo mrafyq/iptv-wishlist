@@ -76,7 +76,7 @@ document.addEventListener('keyup', function (e) {
                 listChannels.setAttribute('data-attr-back-list-index', current_index)
                 listChannels.innerHTML = '';
                 if (listSelected === 'bouquets') {
-                    // @TODO fetch channels bouquet
+                    // @TODO Saad fetch channels from bouquet
                     let bouquetId = tab_btns[current_index].getAttribute('id');
                     let bouquetName = tab_btns[current_index].getAttribute('data-name');
                     groupName.innerHTML = bouquetName;
@@ -87,22 +87,15 @@ document.addEventListener('keyup', function (e) {
                             {
                                 let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
                                 console.log(result);
-                                (result[0].channels).forEach((element, index) => {
-                                    const li = document.createElement('li');
-                                    li.setAttribute('data-attr-id', element.channel_id);
-                                    li.setAttribute('data-attr-name', element.channel_name);
-                                    if (index == 0) {
-                                        li.setAttribute('class', 'channel selected');
-                                    } else {
-                                        li.setAttribute('class', 'channel');
-                                    }
-                                    li.innerHTML = element.channel_name;
-                                    listChannels0.appendChild(li);
-                                });
+                                parsedChannels = result[0].channels
+                                if (result[0].pin) {
+                                    checkPin()
+                                } else {
+                                    x()
+                                }
                             }
                         )
                         .catch(err => console.log(err));
-                    y()
                 } else {
                     let favorisId = tab_btns[current_index].getAttribute('id');
                     let bouquetName = tab_btns[current_index].getAttribute('data-name');
