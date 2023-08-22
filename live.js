@@ -6,6 +6,8 @@ var channels = document.getElementsByClassName('channel');
 var groupName = document.querySelector('.group-name');
 var serachInput = document.getElementById('search');
 var tab_btns;
+var sortAscDesc = true;
+var sortBy = document.querySelector('.sortBy');
 
 var popupPin = document.querySelector('.popup.popup-check-pin')
 
@@ -245,6 +247,63 @@ document.addEventListener('keyup', function (e) {
                         .catch(err => console.log(err));
                 })
             }
+            break;
+        case '2':
+            let newArr = [];
+            var getAllChannels = document.querySelectorAll('#list-channels .channel');
+            listChannels0.innerHTML = '';
+            getAllChannels.forEach(el => {
+                var channelID = el.getAttribute('data-attr-id');
+                var channelName = el.getAttribute('data-attr-name');
+                newArr.push({
+                    "channel_id" : parseInt(channelID),
+                    "channel_name" : channelName
+                });
+            });
+            
+            newArr.sort((a, b) => {
+                if ( a.channel_name < b.channel_name ){
+                  return -1;
+                }
+                if ( a.channel_name > b.channel_name ){
+                  return 1;
+                }
+                return 0;
+            });
+
+            if (sortAscDesc === true) {
+                newArr.forEach((element, index) => {
+                    const li = document.createElement('li');
+                    li.setAttribute('data-attr-id', element.channel_id);
+                    li.setAttribute('data-attr-name', element.channel_name);
+                    if (index == 0) {
+                        li.setAttribute('class', 'channel selected');
+                    } else {
+                        li.setAttribute('class', 'channel');
+                    }
+                    li.innerHTML = element.channel_name;
+                    listChannels0.appendChild(li);
+                });
+                sortBy.textContent = '(ASC)';
+                sortAscDesc = false;
+            } else {
+                newArr.reverse();
+                newArr.forEach((element, index) => {
+                    const li = document.createElement('li');
+                    li.setAttribute('data-attr-id', element.channel_id);
+                    li.setAttribute('data-attr-name', element.channel_name);
+                    if (index == 0) {
+                        li.setAttribute('class', 'channel selected');
+                    } else {
+                        li.setAttribute('class', 'channel');
+                    }
+                    li.innerHTML = element.channel_name;
+                    listChannels0.appendChild(li);
+                });
+                sortBy.textContent = '(DESC)';
+                sortAscDesc = true;
+            }
+
             break;
     }
 
