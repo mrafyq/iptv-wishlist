@@ -11,6 +11,8 @@ var sortBy = document.querySelector('.sortBy');
 
 var popupPin = document.querySelector('.popup.popup-check-pin')
 
+var parsedChannels = [];
+
 
 serachInput.addEventListener('keyup', function (e) {
     var filter = serachInput.value.toLowerCase();
@@ -111,12 +113,13 @@ document.addEventListener('keyup', function (e) {
                         .then(res => res.json())
                         .then(data =>
                             {
-                                let result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
+                                const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                                 console.log(result);
+                                parsedChannels = result[0].channels
                                 if (result[0].pin) {
-                                    checkPin(result[0].channels)
+                                    checkPin()
                                 } else {
-                                    x(result[0].channels)
+                                    x()
                                 }
                             }
                         )
@@ -286,8 +289,7 @@ document.addEventListener('keyup', function (e) {
 });
 
 
-function checkPin(channelsParsed) {
-    console.log(channelsParsed)
+function checkPin() {
     let PINField = document.querySelector('#pin-field')
     popupPin.style.display = 'flex'
     PINField.focus()
@@ -298,8 +300,7 @@ function checkPin(channelsParsed) {
             .then(data =>
                 {
                     if (PINField.value === data.pin) {
-                        console.log(channelsParsed)
-                        x(channelsParsed)
+                        x()
                         popupPin.style.display = 'none'
                         PINField.value = "";
                     }
@@ -309,8 +310,8 @@ function checkPin(channelsParsed) {
     })
 }
 
-function x(channelsParsed) {
-    (channelsParsed).forEach((element, index) => {
+function x() {
+    (parsedChannels).forEach((element, index) => {
         const li = document.createElement('li');
         li.setAttribute('data-attr-id', element.channel_id);
         li.setAttribute('data-attr-name', element.channel_name);
