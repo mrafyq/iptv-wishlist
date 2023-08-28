@@ -62,11 +62,13 @@ document.addEventListener('keyup', function (e) {
                     tab_btns[current_index].classList.add('active');
                     tab_btns = favoris;
                     document.getElementById('wishlist-buttons').style.display = 'flex';
+                    document.getElementById('buckets-buttons').style.display = 'none';
                 } else {
                     listSelected = 'bouquets';
                     tab_btns[current_index].classList.remove('selected');
                     tab_btns[current_index].classList.add('active');
                     tab_btns = bouquets;
+                    document.getElementById('buckets-buttons').style.display = 'flex';
                     document.getElementById('wishlist-buttons').style.display = 'none';
                 }
                 current_index = 0;
@@ -125,6 +127,7 @@ document.addEventListener('keyup', function (e) {
         case 'Escape':
             if (listSelected === 'bouquets' || listSelected === 'favoris') {
                 if (listSelected === 'bouquets') {
+                    document.getElementById('buckets-buttons').style.display = 'none';
                     // remove class selected from bouquet list
                     for (var k = 0; k < bouquets.length; k++) {
                         bouquets[k].classList.remove('selected')
@@ -290,6 +293,8 @@ document.addEventListener('keyup', function (e) {
         case '4':
             if (listSelected === 'favoris') {
                 PINWishlist()
+            } else if (listSelected === 'bouquets') {
+                PINBucket()
             }
             break;
     }
