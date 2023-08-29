@@ -10,8 +10,8 @@ Dynamic Navigation Between Lists............................................... 
 
 Bouquet .... NEW
 	Dossier
-		1 PIN code (pass for open) ........................................;... NEW OKK
-		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW
+		1 PIN code (pass for open) ........................................;... NEW OOOK
+		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW OOOK
 		    On rajoute un params pour chaque bouquet
 		    (hide prend une valeur boolean 0/1)
 		    lors du parse dans les bouquet on affichons que les bouquets
@@ -65,6 +65,7 @@ Favoris Tri
 use numbers replace colors
     1 => red    => delete
     2 => white  => tri
+    3 => blue   => (hide|...)
     4 => yellow => pin
 
 PIN tout les actions pin utilise le meme code 

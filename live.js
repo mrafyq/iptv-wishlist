@@ -290,6 +290,11 @@ document.addEventListener('keyup', function (e) {
             }
 
             break;
+        case '3':
+            if (listSelected === 'bouquets') {
+                HideBucket()
+            }
+            break;
         case '4':
             if (listSelected === 'favoris') {
                 PINWishlist()

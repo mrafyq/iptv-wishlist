@@ -182,18 +182,20 @@
                             listFav.appendChild(li);
                         });
                         (data.bouquets).forEach((element, index) => {
-                            const li = document.createElement('li');
-                            li.setAttribute('id', element.bouquet_id);
-                            li.setAttribute('data-name', element.bouquet_name);
-                            li.setAttribute('data-pin', element.pin);
-                            li.setAttribute('class', 'bouquet');
-                            li.innerHTML = element.bouquet_name;
-                            if (element.pin) {
-                                const iconLock = document.createElement('i');
-                                iconLock.setAttribute('class', 'icon-lock');
-                                li.appendChild(iconLock);
+                            if (!element.hidden) {
+                                const li = document.createElement('li');
+                                li.setAttribute('id', element.bouquet_id);
+                                li.setAttribute('data-name', element.bouquet_name);
+                                li.setAttribute('data-pin', element.pin);
+                                li.setAttribute('class', 'bouquet');
+                                li.innerHTML = element.bouquet_name;
+                                if (element.pin) {
+                                    const iconLock = document.createElement('i');
+                                    iconLock.setAttribute('class', 'icon-lock');
+                                    li.appendChild(iconLock);
+                                }
+                                listBouquet.appendChild(li);
                             }
-                            listBouquet.appendChild(li);
                         });
                         (data.channels).forEach((element, index) => {
                             const li = document.createElement('li');
@@ -282,5 +284,6 @@
         <script type="text/javascript" src="js/wishlist/edit-remove.js"></script>
         <script type="text/javascript" src="js/wishlist/pin.js"></script>
         <script type="text/javascript" src="js/bucket/pin.js"></script>
+        <script type="text/javascript" src="js/bucket/hide.js"></script>
     </body>
 </html>

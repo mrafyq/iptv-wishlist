@@ -18,8 +18,12 @@ function PINWishlist() {
                         const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                         if (result[0].pin) {
                             result[0].pin = 0
+                            favorisSelected.querySelector('.icon-lock').remove()
                         } else {
                             result[0].pin = 1
+                            const iconLock = document.createElement('i');
+                            iconLock.setAttribute('class', 'icon-lock');
+                            favorisSelected.appendChild(iconLock);
                         }
                         console.log(data.favoris)
 
