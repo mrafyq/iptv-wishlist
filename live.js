@@ -216,7 +216,7 @@ document.addEventListener('keyup', function (e) {
                 tab_btns[current_index].classList.add('selected');
             }
             break;
-        case '1':
+        case '1': // Remove channel from favoris
             if (listSelected === 'channels') {
                 var groupNameSelected = document.querySelector('.group-name');
                 if (groupNameSelected.getAttribute('list-selected') === 'favoris') {
@@ -254,7 +254,7 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
-        case '2':
+        case '2': // Sort channels by ASC or DESC
             let newArr = [];
             var getAllChannels = document.querySelectorAll('#list-channels .channel');
             listChannels0.innerHTML = '';
@@ -321,6 +321,14 @@ document.addEventListener('keyup', function (e) {
                 PINWishlist()
             } else if (listSelected === 'bouquets') {
                 PINBucket()
+            }
+            break;
+        case '5': // Add new favoris
+            if (listSelected === 'favoris') {
+                popupAction = true;
+                var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+                popupWishlist.classList.add('active');
+                addNewFavoris();
             }
             break;
     }
