@@ -336,6 +336,63 @@ document.addEventListener('keyup', function (e) {
                 addNewFavoris();
             }
             break;
+        case '6': // Add channel to favoris
+            if (listSelected === 'channels') {
+                popupAction = true;
+                var popupFav = document.querySelector('.popup.popup-favoris');
+                var popupFavForm = document.querySelector('.popup.popup-favoris form');
+                popupFav.classList.add('active');
+                fetch('data/db.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        popupFavList.innerHTML = '';
+                        (data.favoris).forEach((element, index) => {
+                            const li = document.createElement('li');
+                            li.setAttribute('id', element.favori_id);
+                            li.setAttribute('class', 'favoris');
+                            li.innerHTML = `
+                                <input type="checkbox" id="${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
+                            `;
+                            popupFavList.appendChild(li);
+                        });
+                    })
+                    .catch(err => console.log(err));
+
+
+                popupFavForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const listChanSelected = document.querySelector('#list-channels .channel.selected');
+                    const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
+                    const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
+                    const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
+
+                    console.log(checkedFav);
+                    var favArr = [];
+                    checkedFav.forEach(el => {
+                        favArr.push(parseInt(el.value));
+                        console.log(el.value);
+                    })
+                    console.log(favArr);
+
+                    fetch('data/db.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            (data.favoris).forEach((element, index) => {
+                                if (favArr.indexOf(element.favori_id) !== -1) {
+                                    console.log(element);
+                                    element.channels.push({
+                                        "channel_id": parseInt(listChanSelectedID),
+                                        "channel_name": listChanSelectedName
+                                    });
+                                }
+                            });
+                            console.log(data.favoris);
+                        })
+                        .catch(err => console.log(err));
+                })
+                console.log('Key code nbr 6 clicked!');
+            }
+            break;
     }
 
 });
