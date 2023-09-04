@@ -4,6 +4,7 @@ var bouquets = document.getElementsByClassName('bouquet');
 var favoris = document.getElementsByClassName('favoris');
 var channels = document.getElementsByClassName('channel');
 var groupName = document.querySelector('.group-name');
+var searchForm = document.querySelector('#searchForm');
 var serachInput = document.getElementById('search');
 var tab_btns;
 var sortAscDesc = true;
@@ -65,7 +66,7 @@ document.addEventListener('keyup', function (e) {
                 setTimeout(() => {
                     popupActive.classList.remove('confirmed');
                     popupActive.classList.remove('active');
-                }, 3000);
+                }, 2000);
                 popupAction = false;
             } else {
                 if (listSelected === 'tabs') {
@@ -91,6 +92,7 @@ document.addEventListener('keyup', function (e) {
                     listChannels.setAttribute('data-attr-back-list-index', current_index)
                     listChannels.innerHTML = '';
                     groupName.setAttribute('list-selected', listSelected);
+                    searchForm.classList.add('visible');
                     if (listSelected === 'bouquets') {
                         // @TODO Saad fetch channels from bouquet
                         let bouquetId = tab_btns[current_index].getAttribute('id');
@@ -239,12 +241,15 @@ document.addEventListener('keyup', function (e) {
                     // Submit form remove channel item from wishlist
                     popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
                         e.preventDefault();
+                        favorisChannelSelected.remove();
                         fetch('data/db.json')
                             .then(res => res.json())
                             .then(data =>
                                 {
                                     let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
                                     let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    let favorisChannel = document.querySelectorAll('.list-channels .channel');
+                                    favorisChannel[0].classList.add('selected');
                                     getFav[0].channels = getFavChannels;
                                     console.log(data.favoris);
                                 }

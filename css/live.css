@@ -37,10 +37,11 @@ div.sidebar > ul > li i{
     line-height: normal;
 }
 .date{
-font-size: 2em;
-position: relative;
-right: 0;
-  }
+    font-size: 2em;
+    position: relative;
+    right: 0;
+    padding: 20px 20px 20px 5%;
+}
 .left{
     display: flex;
     flex-direction: column;
@@ -273,4 +274,14 @@ form button[type="submit"] {
     opacity: 0;
     visibility: hidden;
     z-index: -1;
+}
+#searchForm {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+#searchForm.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }
