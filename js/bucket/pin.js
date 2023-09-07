@@ -3,8 +3,9 @@ var PinBucketBtn = document.querySelector('.bucket-action-pin');
 PinBucketBtn.addEventListener('click', PINBucket)
 
 function PINBucket() {
-    let PINField = document.querySelector('#pin-field')
-    popupPin.style.display = 'flex'
+    let PINField = document.querySelector('#pin-field');
+    popupAction = true;
+    popupPin.classList.add('active');
     PINField.focus()
     let confirmPin = document.querySelector('.action-pin-ok')
     confirmPin.addEventListener('click', function (event) {
@@ -25,8 +26,9 @@ function PINBucket() {
                             iconLock.setAttribute('class', 'icon-lock');
                             bucketSelected.appendChild(iconLock);
                         }
-                        console.log(data.bouquets)
-                        popupPin.style.display = 'none'
+                        console.log(data.bouquets);
+                        popupAction = false;
+                        popupPin.classList.remove('active');
                         PINField.value = "";
                     }
                 }

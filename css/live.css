@@ -37,10 +37,11 @@ div.sidebar > ul > li i{
     line-height: normal;
 }
 .date{
-font-size: 2em;
-position: relative;
-right: 0;
-  }
+    font-size: 2em;
+    position: relative;
+    right: 0;
+    padding: 20px 20px 20px 5%;
+}
 .left{
     display: flex;
     flex-direction: column;
@@ -75,14 +76,18 @@ body{
     background-color: black;
     margin-left: 5%;
 }
-.buttons, .wishlist-buttons {
+.buttons, .wishlist-buttons, .bucket-buttons {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     padding: 20px 5%;
 }
-.wishlist-buttons {
+.wishlist-buttons, .bucket-buttons {
     padding-left: 40px;
+}
+.bucket-buttons {
+    justify-content: flex-start;
+    gap: 40px;
 }
 .sidebar{
     position: absolute;
@@ -152,6 +157,15 @@ input[type="text"]{
     justify-content: center;
     z-index: 10;
 }
+.popup.active {
+    display: flex;
+}
+.popup.confirmed .popup-success {
+    display: block;
+}
+.popup.confirmed .popup-content {
+    display: none;
+}
 
 .popup-inner {
     background: white;
@@ -159,6 +173,9 @@ input[type="text"]{
     border-radius: 10px;
     max-width: 500px;
     width: 100%;
+}
+
+.popup-content {
     display: flex;
     flex-flow: column;
     align-items: flex-start;
@@ -227,4 +244,31 @@ input[type="text"]{
     padding: 10px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px;
+}
+
+.popup-success {
+    display: none;
+    width: 100%;
+    text-align: center;
+    color: #198754;
+}
+.popup-success i {
+    display: inline-block;
+    font-size: 60px;
+    margin-bottom: 10px;
+}
+.popup-success-inner {
+    font-size: 20px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+#searchForm {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+#searchForm.visible {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
 }

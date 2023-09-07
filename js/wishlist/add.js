@@ -1,11 +1,11 @@
 var buttonAddWishlist = document.querySelector('.action-add');
 var form = document.getElementById('add-wishlist-form');
-var buttonAddWishlistCancel = document.querySelector('.action-add-wishlist-cancel');
 var inputAdd = document.querySelector('.popup #add');
 var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
 
 buttonAddWishlist.addEventListener('click', () => {
-    popupWishlist.style.display = 'flex';
+    popupAction = true;
+    popupWishlist.classList.add('active');
 })
 
 form.addEventListener('submit', (event) => {
@@ -25,8 +25,4 @@ form.addEventListener('submit', (event) => {
             console.log(data.favoris);
         })
         .catch(err => console.log(err));
-})
-
-buttonAddWishlistCancel.addEventListener('click', () => {
-    popupWishlist.style.display = 'none';
 })

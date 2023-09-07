@@ -16,7 +16,6 @@ choices.forEach(choice => {
 
 // RENAME ACTION
 var buttonRenameFavoris = document.querySelector('.action-rename');
-var buttonRenameCancel = document.querySelector('.action-cancel');
 var popupRename = document.querySelector('.popup.popup-rename');
 var buttonRenameSave = document.querySelector('.action-rename-save');
 var inputRename = document.querySelector('.popup #rename');
@@ -28,14 +27,11 @@ console.log(popupTitles)
 buttonRenameFavoris.addEventListener('click', (event) => {
     var favorisSelected = document.querySelector('.list-favoris .favoris.selected');
     inputRename.value = favorisSelected.textContent
-    popupRename.style.display = 'flex';
+    popupAction = true;
+    popupRename.classList.add('active');
     popupTitles.forEach(title => {
         title.innerText = favorisSelected.textContent
     })
-})
-
-buttonRenameCancel.addEventListener('click', (event) => {
-    popupRename.style.display = 'none';
 })
 
 buttonRenameSave.addEventListener('click', (event) => {

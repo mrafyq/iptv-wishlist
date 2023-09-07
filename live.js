@@ -13,6 +13,9 @@ var popupPin = document.querySelector('.popup.popup-check-pin')
 
 var parsedChannels = [];
 
+var popupAction = false;
+var popupSuccess = false;
+
 
 serachInput.addEventListener('keyup', function (e) {
     var filter = serachInput.value.toLowerCase();
@@ -24,6 +27,17 @@ serachInput.addEventListener('keyup', function (e) {
             channels[i].style.display = 'none';
         }
     }  
+});
+
+var popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
+popupCloseBtn.forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.preventDefault();
+        const getPopup = el.getAttribute('data-popup');
+        const popup = document.querySelector('.popup.' + getPopup);
+        popup.classList.remove('active');
+        popupAction = false;
+    });
 });
 
 document.addEventListener('keyup', function (e) {
@@ -55,108 +69,130 @@ document.addEventListener('keyup', function (e) {
 
     switch (key) {
         case 'Enter':
-            if (listSelected === 'tabs') {
-                if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
-                    listSelected = 'favoris';
-                    tab_btns[current_index].classList.remove('selected');
-                    tab_btns[current_index].classList.add('active');
-                    tab_btns = favoris;
-                    document.getElementById('wishlist-buttons').style.display = 'flex';
-                    document.getElementById('buckets-buttons').style.display = 'none';
-                } else {
-                    listSelected = 'bouquets';
-                    tab_btns[current_index].classList.remove('selected');
-                    tab_btns[current_index].classList.add('active');
-                    tab_btns = bouquets;
-                    document.getElementById('buckets-buttons').style.display = 'flex';
-                    document.getElementById('wishlist-buttons').style.display = 'none';
-                }
-                current_index = 0;
-                tab_btns[current_index].classList.add('selected');
-            } else if (listSelected === 'bouquets' || listSelected === 'favoris') {
-                listChannels.setAttribute('data-attr-back-list', listSelected)
-                listChannels.setAttribute('data-attr-back-list-index', current_index)
-                listChannels.innerHTML = '';
-                if (listSelected === 'bouquets') {
-                    // @TODO Saad fetch channels from bouquet
-                    let bouquetId = tab_btns[current_index].getAttribute('id');
-                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
-                    groupName.innerHTML = bouquetName;
-                    groupName.setAttribute('id', bouquetId);
-                    fetch('data/db.json')
-                        .then(res => res.json())
-                        .then(data =>
-                            {
-                                let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                console.log(result);
-                                parsedChannels = result[0].channels
-                                if (result[0].pin) {
-                                    checkPin()
-                                } else {
-                                    showChannels()
+            if (popupAction === true) {
+                var popupSubmitBtn = document.querySelector('.popup.active button[type="submit"]');
+                var popupActive = document.querySelector('.popup.active');
+                popupSubmitBtn.click();
+                popupActive.classList.add('confirmed');
+                setTimeout(() => {
+                    popupActive.classList.remove('confirmed');
+                    popupActive.classList.remove('active');
+                }, 3000);
+                popupAction = false;
+            } else {
+                if (listSelected === 'tabs') {
+                    if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
+                        listSelected = 'favoris';
+                        tab_btns[current_index].classList.remove('selected');
+                        tab_btns[current_index].classList.add('active');
+                        tab_btns = favoris;
+                        document.getElementById('wishlist-buttons').style.display = 'flex';
+                        document.getElementById('buckets-buttons').style.display = 'none';
+                    } else {
+                        listSelected = 'bouquets';
+                        tab_btns[current_index].classList.remove('selected');
+                        tab_btns[current_index].classList.add('active');
+                        tab_btns = bouquets;
+                        document.getElementById('buckets-buttons').style.display = 'flex';
+                        document.getElementById('wishlist-buttons').style.display = 'none';
+                    }
+                    current_index = 0;
+                    tab_btns[current_index].classList.add('selected');
+                } else if (listSelected === 'bouquets' || listSelected === 'favoris') {
+                    listChannels.setAttribute('data-attr-back-list', listSelected)
+                    listChannels.setAttribute('data-attr-back-list-index', current_index)
+                    listChannels.innerHTML = '';
+                    groupName.setAttribute('list-selected', listSelected);
+                    if (listSelected === 'bouquets') {
+                        // @TODO Saad fetch channels from bouquet
+                        let bouquetId = tab_btns[current_index].getAttribute('id');
+                        let bouquetName = tab_btns[current_index].getAttribute('data-name');
+                        groupName.innerHTML = bouquetName;
+                        groupName.setAttribute('id', bouquetId);
+                        fetch('data/db.json')
+                            .then(res => res.json())
+                            .then(data =>
+                                {
+                                    let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                                    console.log(result);
+                                    parsedChannels = result[0].channels
+                                    if (result[0].pin) {
+                                        checkPin()
+                                    } else {
+                                        showChannels()
+                                    }
                                 }
-                            }
-                        )
-                        .catch(err => console.log(err));
-                } else {
-                    let favorisId = tab_btns[current_index].getAttribute('id');
-                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
-                    
-                    groupName.innerHTML = bouquetName;
-                    groupName.setAttribute('id', favorisId);
-                    fetch('data/db.json')
-                        .then(res => res.json())
-                        .then(data =>
-                            {
-                                const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
-                                console.log(result);
-                                parsedChannels = result[0].channels
-                                if (result[0].pin) {
-                                    checkPin()
-                                } else {
-                                    showChannels()
+                            )
+                            .catch(err => console.log(err));
+                    } else {
+                        let favorisId = tab_btns[current_index].getAttribute('id');
+                        let bouquetName = tab_btns[current_index].getAttribute('data-name');
+
+                        groupName.innerHTML = bouquetName;
+                        groupName.setAttribute('id', favorisId);
+                        fetch('data/db.json')
+                            .then(res => res.json())
+                            .then(data =>
+                                {
+                                    const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
+                                    console.log(result);
+                                    parsedChannels = result[0].channels
+                                    if (result[0].pin) {
+                                        checkPin()
+                                    } else {
+                                        showChannels()
+                                    }
                                 }
-                            }
-                        )
-                        .catch(err => console.log(err));
+                            )
+                            .catch(err => console.log(err));
+                    }
                 }
             }
-
             console.log(tab_btns)
             break;
         case 'Escape':
-            if (listSelected === 'bouquets' || listSelected === 'favoris') {
-                if (listSelected === 'bouquets') {
-                    document.getElementById('buckets-buttons').style.display = 'none';
-                    // remove class selected from bouquet list
-                    for (var k = 0; k < bouquets.length; k++) {
-                        bouquets[k].classList.remove('selected')
-                    }
+            if (listSelected === 'tabs') {
+                return false;
+            } else {
+                if (popupAction === true) {
+                    var popupActive = document.querySelector('.popup.active');
+                    popupActive.classList.remove('active');
+                    popupAction = false;
                 } else {
-                    document.getElementById('wishlist-buttons').style.display = 'none';
-                    // remove class selected from favoris list
-                    for (var l = 0; l < favoris.length; l++) {
-                        favoris[l].classList.remove('selected')
+                    if (listSelected === 'bouquets' || listSelected === 'favoris') {
+                        if (listSelected === 'bouquets') {
+                            document.getElementById('buckets-buttons').style.display = 'none';
+                            // remove class selected from bouquet list
+                            for (var k = 0; k < bouquets.length; k++) {
+                                bouquets[k].classList.remove('selected')
+                            }
+                        } else {
+                            document.getElementById('wishlist-buttons').style.display = 'none';
+                            // remove class selected from favoris list
+                            for (var l = 0; l < favoris.length; l++) {
+                                favoris[l].classList.remove('selected')
+                            }
+                        }
+                        listSelected = 'tabs';
+                        tab_btns = tabs;
+                        for (var j = 0; j < tab_btns.length; j++) {
+                            if (tab_btns[j].classList.contains('active')) {
+                                current_index = j;
+                                tab_btns[j].classList.remove('active')
+                                tab_btns[j].classList.add('selected')
+                            }
+                        }
+                    } else if (listSelected === 'channels') {
+                        listSelected = listChannels.getAttribute('data-attr-back-list');
+                        if (listSelected === 'bouquets') {
+                            tab_btns = bouquets;
+                        } else {
+                            tab_btns = favoris;
+                        }
+                        document.getElementById('sidebar').style.display = "";
+                        document.getElementById('right-buttons').style.display = '';
                     }
                 }
-                listSelected = 'tabs';
-                tab_btns = tabs;
-                for (var j = 0; j < tab_btns.length; j++) {
-                    if (tab_btns[j].classList.contains('active')) {
-                        current_index = j;
-                        tab_btns[j].classList.remove('active')
-                        tab_btns[j].classList.add('selected')
-                    }
-                }
-            } else if (listSelected === 'channels') {
-                listSelected = listChannels.getAttribute('data-attr-back-list');
-                if (listSelected === 'bouquets') {
-                    tab_btns = bouquets;
-                } else {
-                    tab_btns = favoris;
-                }
-                document.getElementById('sidebar').style.display = "";
-                document.getElementById('right-buttons').style.display = '';
             }
             break;
         case "ArrowRight":
@@ -200,7 +236,6 @@ document.addEventListener('keyup', function (e) {
                 var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
                 var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
                 var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
-                var popupRemoveFromWishlistActionCancel = document.querySelector('.action-remove-from-wishlist-cancel');
                 
                 // Popup title => Favoris
                 popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
@@ -209,12 +244,8 @@ document.addEventListener('keyup', function (e) {
                 // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
                 
                 // Show popup remove channel item from wishlist
-                popupRemoveFromWishlist.style.display = 'flex'; 
-
-                // Hide popup remove channel item from wishlist
-                popupRemoveFromWishlistActionCancel.addEventListener('click', () => {  
-                    popupRemoveFromWishlist.style.display = 'none';
-                })
+                popupAction = true;
+                popupRemoveFromWishlist.classList.add('active');
 
                 // Submit form remove channel item from wishlist
                 popupRemoveFromWishlistForm.addEventListener('submit', (e) => {  
@@ -310,18 +341,20 @@ document.addEventListener('keyup', function (e) {
 /// Start PIN
 //////////////////////////
 function checkPin() {
-    let PINField = document.querySelector('#pin-field')
-    popupPin.style.display = 'flex'
+    let PINField = document.querySelector('#pin-field');
+    popupAction = false;
+    popupPin.classList.add('active');
     PINField.focus()
-    let confirmPin = document.querySelector('.action-pin-ok')
+    let confirmPin = document.querySelector('.action-pin-ok');
     confirmPin.addEventListener('click', function (event) {
         fetch('data/db.json')
             .then(res => res.json())
             .then(data =>
                 {
                     if (PINField.value === data.pin) {
-                        showChannels()
-                        popupPin.style.display = 'none'
+                        showChannels();
+                        popupAction = false;
+                        popupPin.classList.remove('active');
                         PINField.value = "";
                     }
                 }

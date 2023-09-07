@@ -3,8 +3,9 @@ var hideBucketBtn = document.querySelector('.bucket-action-hide');
 hideBucketBtn.addEventListener('click', HideBucket)
 
 function HideBucket() {
-    let PINField = document.querySelector('#pin-field')
-    popupPin.style.display = 'flex'
+    let PINField = document.querySelector('#pin-field');
+    popupAction = true;
+    popupPin.classList.add('active');
     PINField.focus()
     let confirmPin = document.querySelector('.action-pin-ok')
     confirmPin.addEventListener('click', function (event) {
@@ -22,8 +23,9 @@ function HideBucket() {
                             result[0].hidden = 1
                         }
                         console.log(data.bouquets)
-                        bucketSelected.remove()
-                        popupPin.style.display = 'none'
+                        bucketSelected.remove();
+                        popupAction = false;
+                        popupPin.classList.remove('active');
                         PINField.value = "";
                     }
                 }
