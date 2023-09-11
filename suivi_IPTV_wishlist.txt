@@ -36,7 +36,7 @@ Favoris
 			save..................................................... Stand by
 		3 Suppression de channel............................................... OK
 			save..................................................... Stand by
-		4 deplacer (order multiple) ........................................... NEW
+		4 deplacer (order multiple) ........................................... Pas Encore
 
 		5 deplacer (vers un autre dossier de favoris) ......................... NEW OKK
 
@@ -59,10 +59,9 @@ Favoris Tri
 
 
 - Quel boutton on doit utiliser pour entrer aux anglets si on utlise les fléches (right & left) ?
-	down => enter to list (buckets | favoris) ................................. (Pas Possible)
-	revenant au suj navigation on passe par ENTER key press
+	down => enter to list (buckets | favoris) ................................. OK
 
-- Suppresion de channel from favoris ?
+- Suppresion de channel from favoris ? ........................................ OK
 	Est ce qu on utiliser la meme list de favoris et l'utilisateur doit decoché les list ou quoi exactement ?
 
 
@@ -79,7 +78,7 @@ A a voir ou on va le sauvegarder ...............................................
 
 22/23 Septembre dernier date
 
-    1 Order multiselect
-    2 multiselect deplacer favoris work with keys
-    3 popups works with keys
-    4 Refactoring code + centralize save and read data FN
+    1 Order multiselect .....................................................
+    2 multiselect deplacer favoris work with keys ...........................
+    3 popups works with keys ................................................ En cours
+    4 Refactoring code + centralize save and read data FN ................... En cours
