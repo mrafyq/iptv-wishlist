@@ -7,7 +7,7 @@ var groupName = document.querySelector('.group-name');
 var searchForm = document.querySelector('#searchForm');
 var serachInput = document.getElementById('search');
 var tab_btns;
-var sortAscDesc = true;
+var sortAscDesc = 0;
 var sortBy = document.querySelector('.sortBy');
 
 var popupPin = document.querySelector('.popup.popup-check-pin');
@@ -267,59 +267,96 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '2': // Sort channels by ASC or DESC
-            let newArr = [];
-            var getAllChannels = document.querySelectorAll('#list-channels .channel');
-            listChannels0.innerHTML = '';
-            getAllChannels.forEach(el => {
-                var channelID = el.getAttribute('data-attr-id');
-                var channelName = el.getAttribute('data-attr-name');
-                newArr.push({
-                    "channel_id" : parseInt(channelID),
-                    "channel_name" : channelName
+            if (listSelected === 'channels') {
+                let normalArr = [];
+                let newArr = [];
+                var getAllChannels = document.querySelectorAll('#list-channels .channel');
+                listChannels0.innerHTML = '';
+                getAllChannels.forEach(el => {
+                    var channelID = el.getAttribute('data-attr-id');
+                    var channelName = el.getAttribute('data-attr-name');
+                    var channelOrder = el.getAttribute('data-attr-order');
+                    newArr.push({
+                        "channel_id" : parseInt(channelID),
+                        "channel_name" : channelName,
+                        "channel_order" : parseInt(channelOrder)
+                    });
+                    normalArr.push({
+                        "channel_id" : parseInt(channelID),
+                        "channel_name" : channelName,
+                        "channel_order" : parseInt(channelOrder)
+                    });
                 });
-            });
-            
-            newArr.sort((a, b) => {
-                if ( a.channel_name < b.channel_name ){
-                  return -1;
-                }
-                if ( a.channel_name > b.channel_name ){
-                  return 1;
-                }
-                return 0;
-            });
-
-            if (sortAscDesc === true) {
-                newArr.forEach((element, index) => {
-                    const li = document.createElement('li');
-                    li.setAttribute('data-attr-id', element.channel_id);
-                    li.setAttribute('data-attr-name', element.channel_name);
-                    if (index == 0) {
-                        li.setAttribute('class', 'channel selected');
-                    } else {
-                        li.setAttribute('class', 'channel');
+                
+                newArr.sort((a, b) => {
+                    if ( a.channel_name < b.channel_name ){
+                      return -1;
                     }
-                    li.innerHTML = element.channel_name;
-                    listChannels0.appendChild(li);
-                });
-                sortBy.textContent = '(ASC)';
-                sortAscDesc = false;
-            } else {
-                newArr.reverse();
-                newArr.forEach((element, index) => {
-                    const li = document.createElement('li');
-                    li.setAttribute('data-attr-id', element.channel_id);
-                    li.setAttribute('data-attr-name', element.channel_name);
-                    if (index == 0) {
-                        li.setAttribute('class', 'channel selected');
-                    } else {
-                        li.setAttribute('class', 'channel');
+                    if ( a.channel_name > b.channel_name ){
+                      return 1;
                     }
-                    li.innerHTML = element.channel_name;
-                    listChannels0.appendChild(li);
+                    return 0;
                 });
-                sortBy.textContent = '(DESC)';
-                sortAscDesc = true;
+                normalArr.sort((a, b) => {
+                    if ( a.channel_order < b.channel_order ){
+                      return -1;
+                    }
+                    if ( a.channel_order > b.channel_order ){
+                      return 1;
+                    }
+                    return 0;
+                });
+    
+                if (sortAscDesc === 0) {
+                    newArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(A-Z)';
+                    sortAscDesc = 1;
+                } else if (sortAscDesc === 1) {
+                    newArr.reverse();
+                    newArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(Z-A)';
+                    sortAscDesc = 2;
+                } else if (sortAscDesc === 2) {
+                    normalArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(Normal)';
+                    sortAscDesc = 0;
+                }
             }
 
             break;
@@ -370,6 +407,7 @@ document.addEventListener('keyup', function (e) {
                     const listChanSelected = document.querySelector('#list-channels .channel.selected');
                     const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
                     const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
+                    const listChanSelectedOrder = listChanSelected.getAttribute('data-attr-order');
                     const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
 
                     console.log(checkedFav);
@@ -387,7 +425,8 @@ document.addEventListener('keyup', function (e) {
                                     console.log(element);
                                     element.channels.push({
                                         "channel_id": parseInt(listChanSelectedID),
-                                        "channel_name": listChanSelectedName
+                                        "channel_name": listChanSelectedName,
+                                        "channel_id": parseInt(listChanSelectedOrder)
                                     });
                                 }
                             });
@@ -431,6 +470,7 @@ function showChannels() {
         const li = document.createElement('li');
         li.setAttribute('data-attr-id', element.channel_id);
         li.setAttribute('data-attr-name', element.channel_name);
+        li.setAttribute('data-attr-order', element.channel_order);
         if (index == 0) {
             li.setAttribute('class', 'channel selected');
         } else {
