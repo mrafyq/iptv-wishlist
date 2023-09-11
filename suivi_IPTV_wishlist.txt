@@ -49,7 +49,7 @@ Favoris Order ................................................................. 
 	button deplacer ofr order channel in each wishlist folder
 
 Favoris Tri
-	ASC DESC avec confirmation ................................................ a revoir
+	ASC DESC avec confirmation ................................................ OK
 
 	    (No confirmation needed)
 	    normal mode (order sauvegardé)
@@ -68,9 +68,10 @@ Favoris Tri
 
 use numbers replace colors
     1 => red    => delete
-    2 => white  => tri
+    2 => green  => edit
     3 => blue   => (hide|...)
     4 => yellow => pin
+    4 => white => tri
 
 PIN tout les actions pin utilise le meme code 
 A a voir ou on va le sauvegarder ............................................... Pin sauvegardé dans le fichier db.json
