@@ -108,47 +108,42 @@ document.addEventListener('keyup', function (e) {
                     groupName.setAttribute('list-selected', listSelected);
                     searchForm.classList.add('visible');
                     if (listSelected === 'bouquets') {
-                        // @TODO Saad fetch channels from bouquet
                         let bouquetId = tab_btns[current_index].getAttribute('id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
                         groupName.innerHTML = bouquetName;
                         groupName.setAttribute('id', bouquetId);
-                        fetch('data/db.json')
-                            .then(res => res.json())
-                            .then(data =>
-                                {
-                                    let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                    console.log(result);
-                                    parsedChannels = result[0].channels
-                                    if (result[0].pin) {
-                                        checkPin()
-                                    } else {
-                                        showChannels()
-                                    }
+
+                        read().then(data => {
+                            if (data) {
+                                let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                                console.log(result);
+                                parsedChannels = result[0].channels
+                                if (result[0].pin) {
+                                    checkPin()
+                                } else {
+                                    showChannels()
                                 }
-                            )
-                            .catch(err => console.log(err));
+                            }
+                        })
                     } else {
                         let favorisId = tab_btns[current_index].getAttribute('id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
 
                         groupName.innerHTML = bouquetName;
                         groupName.setAttribute('id', favorisId);
-                        fetch('data/db.json')
-                            .then(res => res.json())
-                            .then(data =>
-                                {
-                                    const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
-                                    console.log(result);
-                                    parsedChannels = result[0].channels
-                                    if (result[0].pin) {
-                                        checkPin()
-                                    } else {
-                                        showChannels()
-                                    }
+
+                        read().then(data => {
+                            if (data) {
+                                const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
+                                console.log(result);
+                                parsedChannels = result[0].channels
+                                if (result[0].pin) {
+                                    checkPin()
+                                } else {
+                                    showChannels()
                                 }
-                            )
-                            .catch(err => console.log(err));
+                            }
+                        })
                     }
                 }
             }
@@ -256,19 +251,17 @@ document.addEventListener('keyup', function (e) {
                     popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
                         e.preventDefault();
                         favorisChannelSelected.remove();
-                        fetch('data/db.json')
-                            .then(res => res.json())
-                            .then(data =>
-                                {
-                                    let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
-                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                    let favorisChannel = document.querySelectorAll('.list-channels .channel');
-                                    favorisChannel[0].classList.add('selected');
-                                    getFav[0].channels = getFavChannels;
-                                    console.log(data.favoris);
-                                }
-                            )
-                            .catch(err => console.log(err));
+
+                        read().then(data => {
+                            if (data) {
+                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                let favorisChannel = document.querySelectorAll('.list-channels .channel');
+                                favorisChannel[0].classList.add('selected');
+                                getFav[0].channels = getFavChannels;
+                                save(data);
+                            }
+                        })
                     })
                 }
             }
@@ -356,9 +349,9 @@ document.addEventListener('keyup', function (e) {
                 var popupFav = document.querySelector('.popup.popup-favoris');
                 var popupFavForm = document.querySelector('.popup.popup-favoris form');
                 popupFav.classList.add('active');
-                fetch('data/db.json')
-                    .then(res => res.json())
-                    .then(data => {
+
+                read().then(data => {
+                    if (data) {
                         popupFavList.innerHTML = '';
                         (data.favoris).forEach((element, index) => {
                             const li = document.createElement('li');
@@ -369,9 +362,8 @@ document.addEventListener('keyup', function (e) {
                             `;
                             popupFavList.appendChild(li);
                         });
-                    })
-                    .catch(err => console.log(err));
-
+                    }
+                })
 
                 popupFavForm.addEventListener('submit', (e) => {
                     e.preventDefault();
@@ -388,9 +380,8 @@ document.addEventListener('keyup', function (e) {
                     })
                     console.log(favArr);
 
-                    fetch('data/db.json')
-                        .then(res => res.json())
-                        .then(data => {
+                    read().then(data => {
+                        if (data) {
                             (data.favoris).forEach((element, index) => {
                                 if (favArr.indexOf(element.favori_id) !== -1) {
                                     console.log(element);
@@ -400,9 +391,9 @@ document.addEventListener('keyup', function (e) {
                                     });
                                 }
                             });
-                            console.log(data.favoris);
-                        })
-                        .catch(err => console.log(err));
+                            save(data);
+                        }
+                    })
                 })
                 console.log('Key code nbr 6 clicked!');
             }
@@ -421,19 +412,17 @@ function checkPin() {
     PINField.focus()
     let confirmPin = document.querySelector('.action-pin-ok');
     confirmPin.addEventListener('click', function (event) {
-        fetch('data/db.json')
-            .then(res => res.json())
-            .then(data =>
-                {
-                    if (PINField.value === data.pin) {
-                        showChannels();
-                        popupAction = false;
-                        popupPin.classList.remove('active');
-                        PINField.value = "";
-                    }
+
+        read().then(data => {
+            if (data) {
+                if (PINField.value === data.pin) {
+                    showChannels();
+                    popupAction = false;
+                    popupPin.classList.remove('active');
+                    PINField.value = "";
                 }
-            )
-            .catch(err => console.log(err));
+            }
+        })
     })
 }
 

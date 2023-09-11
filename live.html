@@ -173,62 +173,48 @@
                 </div>
             </div>
         </div>
+        <script type="text/javascript" src="js/data.js"></script>
         <script  type="text/javascript">
             var listFav = document.getElementById('sidebar-favoris__list');
             var listBouquet = document.getElementById('sidebar-bouquet__list');
             var listChannels0 = document.getElementById('list-channels');
             var popupFavList = document.getElementById('popup-favoris-list-fav');
-            
-            fetch('data/db.json')
-                .then(res => res.json())
-                .then(data =>
-                    {
-                        (data.favoris).forEach((element, index) => {
+
+            read().then(data => {
+                if (data) {
+                    (data.favoris).forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('id', element.favori_id);
+                        li.setAttribute('data-name', element.favori_name);
+                        li.setAttribute('data-pin', element.pin);
+                        li.setAttribute('class', 'favoris');
+                        li.style.order = element.order;
+                        li.innerHTML = element.favori_name;
+                        if (element.pin) {
+                            const iconLock = document.createElement('i');
+                            iconLock.setAttribute('class', 'icon-lock');
+                            li.appendChild(iconLock);
+                        }
+                        listFav.appendChild(li);
+                    });
+                    (data.bouquets).forEach((element, index) => {
+                        if (!element.hidden) {
                             const li = document.createElement('li');
-                            li.setAttribute('id', element.favori_id);
-                            li.setAttribute('data-name', element.favori_name);
+                            li.setAttribute('id', element.bouquet_id);
+                            li.setAttribute('data-name', element.bouquet_name);
                             li.setAttribute('data-pin', element.pin);
-                            li.setAttribute('class', 'favoris');
-                            li.style.order = element.order;
-                            li.innerHTML = element.favori_name;
+                            li.setAttribute('class', 'bouquet');
+                            li.innerHTML = element.bouquet_name;
                             if (element.pin) {
                                 const iconLock = document.createElement('i');
                                 iconLock.setAttribute('class', 'icon-lock');
                                 li.appendChild(iconLock);
                             }
-                            listFav.appendChild(li);
-                        });
-                        (data.bouquets).forEach((element, index) => {
-                            if (!element.hidden) {
-                                const li = document.createElement('li');
-                                li.setAttribute('id', element.bouquet_id);
-                                li.setAttribute('data-name', element.bouquet_name);
-                                li.setAttribute('data-pin', element.pin);
-                                li.setAttribute('class', 'bouquet');
-                                li.innerHTML = element.bouquet_name;
-                                if (element.pin) {
-                                    const iconLock = document.createElement('i');
-                                    iconLock.setAttribute('class', 'icon-lock');
-                                    li.appendChild(iconLock);
-                                }
-                                listBouquet.appendChild(li);
-                            }
-                        });
-                        (data.channels).forEach((element, index) => {
-                            const li = document.createElement('li');
-                            li.setAttribute('data-attr-id', element.channel_id);
-                            li.setAttribute('data-attr-name', element.channel_name);
-                            if (index == 0) {
-                                li.setAttribute('class', 'channel selected');
-                            } else {
-                                li.setAttribute('class', 'channel');
-                            }
-                            li.innerHTML = element.channel_name;
-                            listChannels0.appendChild(li);
-                        });
-                    }
-                )
-                .catch(err => console.log(err));
+                            listBouquet.appendChild(li);
+                        }
+                    });
+                }
+            });
         </script>
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>
