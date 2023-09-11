@@ -96,21 +96,15 @@
                         <br>
                         <div>
                             <button type="button" class="action-rename-save">Enregistrer</button>
-                            <button type="button" class="action-cancel btn-cancel" data-popup="popup-rename">Annuler</button>
+                            <button type="button" class="action-cancel">Annuler</button>
                         </div>
                     </div>
                     <div class="container-action-delete" style="display: none">
                         <div class="popup-title">Supprimer le favoris: <span class="popup-title-additional"></span></div>
                         <div>
                             <button type="button" class="action-delete-confirm">Confirmer la suppression</button>
-                            <button type="button" class="action-cancel btn-cancel" data-popup="popup-rename">Annuler</button>
+                            <button type="button" class="action-cancel">Annuler</button>
                         </div>
-                    </div>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
                     </div>
                 </div>
             </div>
@@ -118,13 +112,12 @@
         <div class="popup popup-favoris">
             <div class="popup-inner">
                 <div class="popup-content">
-                    <div class="popup-title">Ajouter au favoris</div>
-                    <div class="popup-favoris-name"></div>
-                    <ul class="popup-favoris-list-fav" id="popup-favoris-list-fav"></ul>
-                    <div>
-                        <button type="button" class="action-favoris-save">Enregistrer</button>
-                        <button type="button" class="action-favoris-cancel btn-cancel" data-popup="popup-favoris">Annuler</button>
-                    </div>
+                    <form action="post">
+                        <div class="popup-title">Ajouter au favoris</div>
+                        <div class="popup-favoris-name"></div>
+                        <ul class="popup-favoris-list-fav" id="popup-favoris-list-fav"></ul>
+                        <button type="submit"></button>
+                    </form>
                 </div>
                 <div class="popup-success">
                     <div class="popup-success-inner">
@@ -141,10 +134,7 @@
                     <form id="add-wishlist-form" name="add-wishlist-form" action="post">
                         <input type="text" id="add" name="favoris_name" minlength="3" required
                                title="Définir le nom de favoris" placeholder="Définir le nom de favoris">
-                        <div>
-                            <button type="submit" class="action-submit">Enregistrer</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-add-wishlist">Annuler</button>
-                        </div>
+                        <button type="submit"></button>
                     </form>
                 </div>
                 <div class="popup-success">
@@ -160,10 +150,7 @@
                 <div class="popup-content">
                     <div class="popup-title"></div>
                     <form id="remove-from-wishlist-form" name="remove-from-wishlist-form" action="post">
-                        <div>
-                            <button type="submit" class="action-remove-from-wishlist-submit">Yes</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-remove-from-wishlist">Cancel</button>
-                        </div>
+                        <button type="submit">Yes</button>
                     </form>
                 </div>
                 <div class="popup-success">
@@ -184,22 +171,13 @@
                         <button type="button" class="btn-cancel" data-popup="popup-check-pin">Annuler</button>
                     </div>
                 </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
-                    </div>
-                </div>
             </div>
         </div>
         <script  type="text/javascript">
-            var favButton = document.querySelector('.add-to-favoris');
-            var popupFav = document.querySelector('.popup.popup-favoris');
             var listFav = document.getElementById('sidebar-favoris__list');
             var listBouquet = document.getElementById('sidebar-bouquet__list');
             var listChannels0 = document.getElementById('list-channels');
             var popupFavList = document.getElementById('popup-favoris-list-fav');
-            var buttonFavSave = document.querySelector('.action-favoris-save');
             
             fetch('data/db.json')
                 .then(res => res.json())
@@ -251,63 +229,6 @@
                     }
                 )
                 .catch(err => console.log(err));
-
-            favButton.addEventListener('click', () => {
-                popupAction = true;
-                popupFav.classList.add('active');
-
-                fetch('data/db.json')
-                    .then(res => res.json())
-                    .then(data => {
-                        popupFavList.innerHTML = '';
-                        (data.favoris).forEach((element, index) => {
-                            const li = document.createElement('li');
-                            li.setAttribute('id', element.favori_id);
-                            li.setAttribute('class', 'favoris');
-                            li.innerHTML = `
-                                <input type="checkbox" id="${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
-                            `;
-                            popupFavList.appendChild(li);
-                        });
-                    })
-                    .catch(err => console.log(err));
-            });
-
-
-            buttonFavSave.addEventListener('click', () => {
-                const listChanSelected = document.querySelector('#list-channels .channel.selected');
-                const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
-                const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
-                const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
-                
-                console.log(checkedFav);
-                var favArr = [];
-                checkedFav.forEach(el => {
-                    favArr.push(parseInt(el.value));
-                    console.log(el.value);
-                })
-                console.log(favArr);
-
-                
-                fetch('data/db.json')
-                    .then(res => res.json())
-                    .then(data => {
-                        (data.favoris).forEach((element, index) => {
-                            if (favArr.indexOf(element.favori_id) !== -1) {
-                                console.log(element);
-                                element.channels.push({
-                                    "channel_id": parseInt(listChanSelectedID),
-                                    "channel_name": listChanSelectedName
-                                });
-                            }
-                        });
-                        console.log(data.favoris);
-                    })
-                    .catch(err => console.log(err));
-                
-
-            })
-
         </script>
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>

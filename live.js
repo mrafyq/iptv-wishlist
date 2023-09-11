@@ -4,12 +4,15 @@ var bouquets = document.getElementsByClassName('bouquet');
 var favoris = document.getElementsByClassName('favoris');
 var channels = document.getElementsByClassName('channel');
 var groupName = document.querySelector('.group-name');
+var searchForm = document.querySelector('#searchForm');
 var serachInput = document.getElementById('search');
 var tab_btns;
 var sortAscDesc = true;
 var sortBy = document.querySelector('.sortBy');
 
-var popupPin = document.querySelector('.popup.popup-check-pin')
+var popupPin = document.querySelector('.popup.popup-check-pin');
+
+var popupAction = false;
 
 var parsedChannels = [];
 
@@ -70,14 +73,14 @@ document.addEventListener('keyup', function (e) {
     switch (key) {
         case 'Enter':
             if (popupAction === true) {
-                var popupSubmitBtn = document.querySelector('.popup.active button[type="submit"]');
+                var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 var popupActive = document.querySelector('.popup.active');
                 popupSubmitBtn.click();
                 popupActive.classList.add('confirmed');
                 setTimeout(() => {
                     popupActive.classList.remove('confirmed');
                     popupActive.classList.remove('active');
-                }, 3000);
+                }, 2000);
                 popupAction = false;
             } else {
                 if (listSelected === 'tabs') {
@@ -103,6 +106,7 @@ document.addEventListener('keyup', function (e) {
                     listChannels.setAttribute('data-attr-back-list-index', current_index)
                     listChannels.innerHTML = '';
                     groupName.setAttribute('list-selected', listSelected);
+                    searchForm.classList.add('visible');
                     if (listSelected === 'bouquets') {
                         // @TODO Saad fetch channels from bouquet
                         let bouquetId = tab_btns[current_index].getAttribute('id');
@@ -228,43 +232,48 @@ document.addEventListener('keyup', function (e) {
                 tab_btns[current_index].classList.add('selected');
             }
             break;
-        case '1':
+        case '1': // Remove channel from favoris
             if (listSelected === 'channels') {
-                
-                var favorisSelected = document.querySelector('.group-name');
-                var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
-                var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
-                var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
-                var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
-                
-                // Popup title => Favoris
-                popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
-                
-                // Popup title => Bouquet
-                // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
-                
-                // Show popup remove channel item from wishlist
-                popupAction = true;
-                popupRemoveFromWishlist.classList.add('active');
+                var groupNameSelected = document.querySelector('.group-name');
+                if (groupNameSelected.getAttribute('list-selected') === 'favoris') {
+                    popupAction = true;
+                    var favorisSelected = document.querySelector('.group-name');
+                    var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
+                    var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
+                    var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
+                    var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
 
-                // Submit form remove channel item from wishlist
-                popupRemoveFromWishlistForm.addEventListener('submit', (e) => {  
-                    e.preventDefault();
-                    fetch('data/db.json')
-                        .then(res => res.json())
-                        .then(data =>
-                            {
-                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
-                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                getFav[0].channels = getFavChannels;
-                                console.log(data.favoris);
-                            }
-                        )
-                        .catch(err => console.log(err));
-                })
+                    // Popup title => Favoris
+                    popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
+
+                    // Popup title => Bouquet
+                    // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
+
+                    // Show popup remove channel item from wishlist
+                    popupRemoveFromWishlist.classList.add('active');
+
+                    // Submit form remove channel item from wishlist
+                    popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        favorisChannelSelected.remove();
+                        fetch('data/db.json')
+                            .then(res => res.json())
+                            .then(data =>
+                                {
+                                    let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                    let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                    let favorisChannel = document.querySelectorAll('.list-channels .channel');
+                                    favorisChannel[0].classList.add('selected');
+                                    getFav[0].channels = getFavChannels;
+                                    console.log(data.favoris);
+                                }
+                            )
+                            .catch(err => console.log(err));
+                    })
+                }
             }
             break;
-        case '2':
+        case '2': // Sort channels by ASC or DESC
             let newArr = [];
             var getAllChannels = document.querySelectorAll('#list-channels .channel');
             listChannels0.innerHTML = '';
@@ -331,6 +340,71 @@ document.addEventListener('keyup', function (e) {
                 PINWishlist()
             } else if (listSelected === 'bouquets') {
                 PINBucket()
+            }
+            break;
+        case '5': // Add new favoris
+            if (listSelected === 'favoris') {
+                popupAction = true;
+                var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+                popupWishlist.classList.add('active');
+                addNewFavoris();
+            }
+            break;
+        case '6': // Add channel to favoris
+            if (listSelected === 'channels') {
+                popupAction = true;
+                var popupFav = document.querySelector('.popup.popup-favoris');
+                var popupFavForm = document.querySelector('.popup.popup-favoris form');
+                popupFav.classList.add('active');
+                fetch('data/db.json')
+                    .then(res => res.json())
+                    .then(data => {
+                        popupFavList.innerHTML = '';
+                        (data.favoris).forEach((element, index) => {
+                            const li = document.createElement('li');
+                            li.setAttribute('id', element.favori_id);
+                            li.setAttribute('class', 'favoris');
+                            li.innerHTML = `
+                                <input type="checkbox" id="${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
+                            `;
+                            popupFavList.appendChild(li);
+                        });
+                    })
+                    .catch(err => console.log(err));
+
+
+                popupFavForm.addEventListener('submit', (e) => {
+                    e.preventDefault();
+                    const listChanSelected = document.querySelector('#list-channels .channel.selected');
+                    const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
+                    const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
+                    const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
+
+                    console.log(checkedFav);
+                    var favArr = [];
+                    checkedFav.forEach(el => {
+                        favArr.push(parseInt(el.value));
+                        console.log(el.value);
+                    })
+                    console.log(favArr);
+
+                    fetch('data/db.json')
+                        .then(res => res.json())
+                        .then(data => {
+                            (data.favoris).forEach((element, index) => {
+                                if (favArr.indexOf(element.favori_id) !== -1) {
+                                    console.log(element);
+                                    element.channels.push({
+                                        "channel_id": parseInt(listChanSelectedID),
+                                        "channel_name": listChanSelectedName
+                                    });
+                                }
+                            });
+                            console.log(data.favoris);
+                        })
+                        .catch(err => console.log(err));
+                })
+                console.log('Key code nbr 6 clicked!');
             }
             break;
     }
