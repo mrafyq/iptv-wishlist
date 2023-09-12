@@ -214,17 +214,24 @@ document.addEventListener('keyup', function (e) {
             break;
         case "ArrowUp":
             if (listSelected !== 'tabs') {
-                tab_btns[current_index].classList.remove('selected');
-                current_index = mod(current_index - 1, tab_btns.length);
-                tab_btns[current_index].classList.add('selected');
+                if (tab_btns[current_index].classList.contains('move')) {
+                    moveWishlist(tab_btns[current_index], 'moveUp')
+                } else {
+                    tab_btns[current_index].classList.remove('selected');
+                    current_index = mod(current_index - 1, tab_btns.length);
+                    tab_btns[current_index].classList.add('selected');
+                }
             }
             break;
         case 'ArrowDown':
             if (listSelected !== 'tabs') {
-                tab_btns[current_index].classList.remove('selected');
-                console.log(listSelected)
-                current_index = mod(current_index + 1, tab_btns.length);
-                tab_btns[current_index].classList.add('selected');
+                if (tab_btns[current_index].classList.contains('move')) {
+                    moveWishlist(tab_btns[current_index], 'moveDown')
+                } else {
+                    tab_btns[current_index].classList.remove('selected');
+                    current_index = mod(current_index + 1, tab_btns.length);
+                    tab_btns[current_index].classList.add('selected');
+                }
             }
             break;
         case '1': // Remove channel from favoris
@@ -358,7 +365,9 @@ document.addEventListener('keyup', function (e) {
                     sortAscDesc = 0;
                 }
             }
-
+            if (listSelected === 'favoris') {
+                moveWishlist(tab_btns[current_index])
+            }
             break;
         case '3':
             if (listSelected === 'bouquets') {
