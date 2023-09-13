@@ -75,6 +75,7 @@ document.addEventListener('keyup', function (e) {
             if (moveWishlistAction === true) {
                 saveMoveWishlist(tab_btns[current_index])
                 moveWishlistAction = false
+                current_index = 0
             } else if (popupAction === true) {
                 var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 var popupActive = document.querySelector('.popup.active');
@@ -369,6 +370,7 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             if (listSelected === 'favoris') {
+                moveWishlistAction = true;
                 moveWishlist(tab_btns[current_index])
             }
             break;

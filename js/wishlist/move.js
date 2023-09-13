@@ -1,3 +1,5 @@
+
+
 function moveWishlist (elementToMove, action = 'select') {
     console.log(elementToMove)
     var oldOrder =  parseInt(elementToMove.getAttribute('data-order'))
@@ -33,13 +35,13 @@ function saveMoveWishlist(elementToMove) {
             let i = 0;
             data.favoris.forEach(element => {
                 if (favoris[i].getAttribute('id') == element.favori_id) {
-                    element.order = favoris[i].getAttribute('data-order')
+                    element.order = parseInt(favoris[i].getAttribute('data-order'))
                 }
                 i++
             })
+            data.favoris.sort((a, b) => (a.order > b.order) ? 1 : -1)
+            fetchWishlists(data.favoris)
             save(data)
-            elementToMove.classList.remove('move')
-            elementToMove.querySelector('i.arrow').remove()
         }
     })
 }
