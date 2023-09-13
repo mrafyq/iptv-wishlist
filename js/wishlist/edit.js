@@ -13,7 +13,8 @@ popupRename.addEventListener('submit', (e) => {
             {
                 (data.favoris).forEach((element) => {
                     if (element.favori_id == favorisId) {
-                        element.favori_name = inputRename.value
+                        favorisSelected.textContent = inputRename.value;
+                        element.favori_name = inputRename.value;
                     }
                 });
 
