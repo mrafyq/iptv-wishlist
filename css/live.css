@@ -262,6 +262,11 @@ input[type="text"]{
     font-weight: 600;
     text-transform: uppercase;
 }
+.popup button {
+    opacity: 0;
+    visibility: hidden;
+    position: absolute;
+}
 #searchForm {
     opacity: 0;
     visibility: hidden;

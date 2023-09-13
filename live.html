@@ -80,7 +80,7 @@
             <div class="popup-inner">
                 <div class="popup-content">
                     <form>
-                        <div class="popup-title">Renommer le favoris: <span class="popup-title-additional"></span></div>
+                        <div class="popup-title">Renommer le favoris: <strong></strong></div>
                         <br>
                         <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... ">
                         <br>
@@ -91,18 +91,29 @@
                         </div>
                     </form>
                 </div>
+                <div class="popup-success">
+                    <div class="popup-success-inner">
+                        <i class="icon-check-success"></i>
+                        <div>Success !</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="popup popup-delete">
             <div class="popup-inner">
                 <div class="popup-content">
                     <form>
-                        <div class="popup-title">Supprimer le favoris: <span class="popup-title-additional"></span></div>
+                        <div class="popup-title">Supprimer le favoris: <strong></strong></div>
                         <div>
                             <button type="submit" class="action-delete-confirm">Confirmer la suppression</button>
                             <button type="button" class="btn-cancel" data-popup="popup-delete">Annuler</button>
                         </div>
                     </form>
+                </div>
+                <div class="popup-success">
+                    <div class="popup-success-inner">
+                        <i class="icon-check-success"></i>
+                        <div>Success !</div>
                     </div>
                 </div>
             </div>
@@ -223,7 +234,8 @@
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>
         <script type="text/javascript" src="js/wishlist/move.js"></script>
-        <script type="text/javascript" src="js/wishlist/edit-remove.js"></script>
+        <script type="text/javascript" src="js/wishlist/edit.js"></script>
+        <script type="text/javascript" src="js/wishlist/delete.js"></script>
         <script type="text/javascript" src="js/wishlist/pin.js"></script>
         <script type="text/javascript" src="js/bucket/pin.js"></script>
         <script type="text/javascript" src="js/bucket/hide.js"></script>

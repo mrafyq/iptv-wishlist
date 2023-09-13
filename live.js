@@ -372,13 +372,20 @@ document.addEventListener('keyup', function (e) {
         case '3':
             if (listSelected === 'bouquets') {
                 HideBucket()
+            } else if (listSelected === 'favoris') {
+                popupAction = true;
+                let popupFavDelete = document.querySelector('.popup-delete');
+                popupFavDelete.classList.add('active');
+                let favSelectedName = document.querySelector('.list-favoris .favoris.selected');
+                let popupTitles = document.querySelector('.popup-delete .popup-title strong');
+                popupTitles.innerText = favSelectedName.textContent;
             }
             break;
         case '4':
             if (listSelected === 'favoris') {
-                PINWishlist()
+                PINWishlist();
             } else if (listSelected === 'bouquets') {
-                PINBucket()
+                PINBucket();
             }
             break;
         case '5': // Add new favoris
