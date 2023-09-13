@@ -120,17 +120,33 @@ document.addEventListener('keyup', function (e) {
                         read().then(data => {
                             if (data) {
                                 let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                console.log(result);
+                                console.log('This is result buckets : ');
+                                console.log(result[0].pin);
                                 parsedChannels = result[0].channels
                                 if (result[0].pin) {
-                                    checkPin()
-                                    console.log('checkPin bouquets')
+                                    popupAction = true;
+                                    let popupPin = document.querySelector('.popup-check-pin-buckets');
+                                    let popupPinForm = document.querySelector('.popup-check-pin-buckets form');
+                                    let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
+                                    popupPin.classList.add('active');
+                                    popupPinInput.focus();
+                                    popupPinForm.addEventListener('submit', function (e) {
+                                        e.preventDefault();
+                                        read().then(data => {
+                                            if (data) {
+                                                if (popupPinInput.value === data.pin) {
+                                                    showChannels();
+                                                    popupPinInput.value = "";
+                                                }
+                                            }
+                                        })
+                                    })
                                 } else {
                                     showChannels()
                                 }
                             }
                         })
-                    } else if (listSelected === 'favoris') {
+                    } else {
                         let favorisId = tab_btns[current_index].getAttribute('id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
 
@@ -141,10 +157,27 @@ document.addEventListener('keyup', function (e) {
                             if (data) {
                                 const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                                 console.log(result);
+                                console.log('This is result buckets : ');
+                                console.log(result[0].pin);
                                 parsedChannels = result[0].channels;
                                 if (result[0].pin) {
-                                    checkPin()
-                                    console.log('checkPin favoris')
+                                    popupAction = true;
+                                    let popupPin = document.querySelector('.popup-check-pin-favoris');
+                                    let popupPinForm = document.querySelector('.popup-check-pin-favoris form');
+                                    let popupPinInput = document.querySelector('.popup-check-pin-favoris #pin-field-favoris');
+                                    popupPin.classList.add('active');
+                                    popupPinInput.focus();
+                                    popupPinForm.addEventListener('submit', function (e) {
+                                        e.preventDefault();
+                                        read().then(data => {
+                                            if (data) {
+                                                if (popupPinInput.value === data.pin) {
+                                                    showChannels();
+                                                    popupPinInput.value = "";
+                                                }
+                                            }
+                                        })
+                                    })
                                 } else {
                                     showChannels()
                                 }
@@ -477,27 +510,6 @@ document.addEventListener('keyup', function (e) {
 //////////////////////////
 /// Start PIN
 //////////////////////////
-function checkPin() {
-    let PINField = document.querySelector('#pin-field');
-    popupAction = true;
-    popupPin.classList.add('active');
-    PINField.focus()
-    let popupPinForm = document.querySelector('.popup-check-pin form')
-    popupPinForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        read().then(data => {
-            if (data) {
-                if (PINField.value === data.pin) {
-                    showChannels();
-                    popupAction = false;
-                    popupPin.classList.remove('active');
-                    PINField.value = "";
-                }
-            }
-        })
-    })
-}
-
 function showChannels() {
     (parsedChannels).forEach((element, index) => {
         const li = document.createElement('li');
