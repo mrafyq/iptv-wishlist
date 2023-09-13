@@ -105,7 +105,7 @@ document.addEventListener('keyup', function (e) {
                     }
                     current_index = 0;
                     tab_btns[current_index].classList.add('selected');
-                } else if (listSelected === 'bouquets' || listSelected === 'favoris') {
+                } else if ((listSelected === 'bouquets' || listSelected === 'favoris') && popupAction === false) {
                     listChannels.setAttribute('data-attr-back-list', listSelected)
                     listChannels.setAttribute('data-attr-back-list-index', current_index)
                     listChannels.innerHTML = '';
@@ -124,12 +124,13 @@ document.addEventListener('keyup', function (e) {
                                 parsedChannels = result[0].channels
                                 if (result[0].pin) {
                                     checkPin()
+                                    console.log('checkPin bouquets')
                                 } else {
                                     showChannels()
                                 }
                             }
                         })
-                    } else {
+                    } else if (listSelected === 'favoris') {
                         let favorisId = tab_btns[current_index].getAttribute('id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
 
@@ -140,9 +141,10 @@ document.addEventListener('keyup', function (e) {
                             if (data) {
                                 const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                                 console.log(result);
-                                parsedChannels = result[0].channels
+                                parsedChannels = result[0].channels;
                                 if (result[0].pin) {
                                     checkPin()
+                                    console.log('checkPin favoris')
                                 } else {
                                     showChannels()
                                 }
@@ -247,7 +249,7 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '2':
-            if (listSelected === 'favoris') {
+            if (listSelected === 'favoris' && popupAction === false) {
                 moveWishlistAction = true;
                 moveWishlist(tab_btns[current_index]);
             }
@@ -365,8 +367,12 @@ document.addEventListener('keyup', function (e) {
             break;
         case '5':
             if (listSelected === 'favoris' && popupAction === false) {
+                popupAction = true;
+                console.log('from favoris')
                 PINWishlist();
             } else if (listSelected === 'bouquets' && popupAction === false) {
+                popupAction = true;
+                console.log('from bouquets')
                 PINBucket();
             } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
                 let normalArr = [];
@@ -469,12 +475,12 @@ document.addEventListener('keyup', function (e) {
 //////////////////////////
 function checkPin() {
     let PINField = document.querySelector('#pin-field');
-    popupAction = false;
+    popupAction = true;
     popupPin.classList.add('active');
     PINField.focus()
-    let confirmPin = document.querySelector('.action-pin-ok');
-    confirmPin.addEventListener('click', function (event) {
-
+    let popupPinForm = document.querySelector('.popup-check-pin form')
+    popupPinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
         read().then(data => {
             if (data) {
                 if (PINField.value === data.pin) {
