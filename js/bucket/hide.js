@@ -1,34 +1,26 @@
-var popupPin = document.querySelector('.popup-check-pin');
+var popupPin = document.querySelector('.popup-check-pin-hide-buckets form');
 
-function HideBucket() {
-    let PINField = document.querySelector('#pin-field');
-    popupAction = true;
-    popupPin.classList.add('active');
-    PINField.focus()
-    let popupPinForm = document.querySelector('.popup-check-pin form')
-    popupPinForm.addEventListener('submit', function (e) {
-        e.preventDefault();
-        read().then(data => {
-            if (data) {
-                if (PINField.value === data.pin) {
-                    let bucketList = document.querySelectorAll('.list-bouquet .bouquet');
-                    let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
-                    let bouquetId = bucketSelected.getAttribute('id')
-                    const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                    if (result[0].hidden) {
-                        result[0].hidden = 0
-                    } else {
-                        result[0].hidden = 1
-                    }
-                    save(data)
-                    bucketList[0].classList.add('selected');
-                    bucketSelected.remove();
-                    popupAction = false;
-                    PINField.value = "";
-                    popupPin.classList.remove('active');
+popupPin.addEventListener('submit', function (e) {
+    e.preventDefault();
+    let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
+    read().then(data => {
+        if (data) {
+            if (popupPinInput.value === data.pin) {
+                let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
+                let bouquetId = bucketSelected.getAttribute('id')
+                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                if (result[0].hidden) {
+                    result[0].hidden = 0
+                } else {
+                    result[0].hidden = 1
+                    bucketSelected.remove()
                 }
+                save(data)
+                let bucketList = document.querySelectorAll('.list-bouquet .bouquet');
+                bucketList[0].classList.add('selected');
+                popupPinInput.value = "";
             }
-        })
+        }
     })
-}
+})
 

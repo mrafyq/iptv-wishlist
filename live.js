@@ -288,8 +288,13 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '3':
+            console.log(popupAction)
             if (listSelected === 'bouquets' && popupAction === false) {
-                HideBucket();
+                popupAction = true;
+                let popupPin = document.querySelector('.popup-check-pin-hide-buckets');
+                let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
+                popupPin.classList.add('active');
+                popupPinInput.focus();
             } else if (listSelected === 'favoris' && popupAction === false) {
                 popupAction = true;
                 let popupFavDelete = document.querySelector('.popup-delete');
