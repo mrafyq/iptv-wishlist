@@ -238,164 +238,30 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
-        case '1': // Remove channel from favoris
-            if (listSelected === 'channels') {
-                var groupNameSelected = document.querySelector('.group-name');
-                if (groupNameSelected.getAttribute('list-selected') === 'favoris') {
-                    popupAction = true;
-                    var favorisSelected = document.querySelector('.group-name');
-                    var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
-                    var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
-                    var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
-                    var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
-
-                    // Popup title => Favoris
-                    popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
-
-                    // Popup title => Bouquet
-                    // popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + bouquetSelected.getAttribute('data-name') + '</strong> ?'
-
-                    // Show popup remove channel item from wishlist
-                    popupRemoveFromWishlist.classList.add('active');
-
-                    // Submit form remove channel item from wishlist
-                    popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        favorisChannelSelected.remove();
-
-                        read().then(data => {
-                            if (data) {
-                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
-                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
-                                let favorisChannel = document.querySelectorAll('.list-channels .channel');
-                                favorisChannel[0].classList.add('selected');
-                                getFav[0].channels = getFavChannels;
-                                save(data);
-                            }
-                        })
-                    })
-                }
-            }
-            break;
-        case '2': // Sort channels by ASC or DESC
-            if (listSelected === 'channels') {
-                let normalArr = [];
-                let newArr = [];
-                var getAllChannels = document.querySelectorAll('#list-channels .channel');
-                listChannels0.innerHTML = '';
-                getAllChannels.forEach(el => {
-                    var channelID = el.getAttribute('data-attr-id');
-                    var channelName = el.getAttribute('data-attr-name');
-                    var channelOrder = el.getAttribute('data-attr-order');
-                    newArr.push({
-                        "channel_id" : parseInt(channelID),
-                        "channel_name" : channelName,
-                        "channel_order" : parseInt(channelOrder)
-                    });
-                    normalArr.push({
-                        "channel_id" : parseInt(channelID),
-                        "channel_name" : channelName,
-                        "channel_order" : parseInt(channelOrder)
-                    });
-                });
-                
-                newArr.sort((a, b) => {
-                    if ( a.channel_name < b.channel_name ){
-                      return -1;
-                    }
-                    if ( a.channel_name > b.channel_name ){
-                      return 1;
-                    }
-                    return 0;
-                });
-                normalArr.sort((a, b) => {
-                    if ( a.channel_order < b.channel_order ){
-                      return -1;
-                    }
-                    if ( a.channel_order > b.channel_order ){
-                      return 1;
-                    }
-                    return 0;
-                });
-    
-                if (sortAscDesc === 0) {
-                    newArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(A-Z)';
-                    sortAscDesc = 1;
-                } else if (sortAscDesc === 1) {
-                    newArr.reverse();
-                    newArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(Z-A)';
-                    sortAscDesc = 2;
-                } else if (sortAscDesc === 2) {
-                    normalArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(Normal)';
-                    sortAscDesc = 0;
-                }
-            }
-            if (listSelected === 'favoris') {
-                moveWishlistAction = true;
-                moveWishlist(tab_btns[current_index])
-            }
-            break;
-        case '3':
-            if (listSelected === 'bouquets') {
-                HideBucket()
-            }
-            break;
-        case '4':
-            if (listSelected === 'favoris') {
-                PINWishlist()
-            } else if (listSelected === 'bouquets') {
-                PINBucket()
-            }
-            break;
-        case '5': // Add new favoris
-            if (listSelected === 'favoris') {
+        case '1':
+            if (listSelected === 'favoris' && popupAction === false) { // Add new favoris
                 popupAction = true;
                 var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
                 popupWishlist.classList.add('active');
                 addNewFavoris();
             }
             break;
-        case '6': // Add channel to favoris
-            if (listSelected === 'channels') {
+        case '2':
+            if (listSelected === 'favoris') {
+                moveWishlist(tab_btns[current_index])
+            }
+            break;
+        case '3':
+            if (listSelected === 'bouquets' && popupAction === false) {
+                HideBucket();
+            } else if (listSelected === 'favoris' && popupAction === false) {
+                popupAction = true;
+                let popupFavDelete = document.querySelector('.popup-delete');
+                popupFavDelete.classList.add('active');
+                let favSelectedName = document.querySelector('.list-favoris .favoris.selected');
+                let popupTitles = document.querySelector('.popup-delete .popup-title strong');
+                popupTitles.innerText = favSelectedName.textContent;
+            } else if (listSelected === 'channels' && popupAction === false) { // Add channel to favoris
                 popupAction = true;
                 var popupFav = document.querySelector('.popup.popup-favoris');
                 var popupFavForm = document.querySelector('.popup.popup-favoris form');
@@ -449,6 +315,148 @@ document.addEventListener('keyup', function (e) {
                     })
                 })
                 console.log('Key code nbr 6 clicked!');
+            }
+            break;
+        case '4':
+            if (listSelected === 'favoris' && popupAction === false) { // Rename favoris
+                popupAction = true;
+                let popupFavRename = document.querySelector('.popup-rename');
+                popupFavRename.classList.add('active');
+                let favSelectedName = document.querySelector('.list-favoris .favoris.selected');
+                let popupTitles = document.querySelector('.popup-rename .popup-title strong');
+                let inputRename = document.querySelector('.popup-rename #rename');
+                popupTitles.innerText = favSelectedName.textContent;
+                inputRename.value = favSelectedName.textContent
+                inputRename.focus();
+            } else if (listSelected === 'channels' && popupAction === false) { // Remove channel from favoris
+                var groupNameSelected = document.querySelector('.group-name');
+                if (groupNameSelected.getAttribute('list-selected') === 'favoris') {
+                    popupAction = true;
+                    var favorisSelected = document.querySelector('.group-name');
+                    var favorisChannelSelected = document.querySelector('.list-channels .channel.selected');
+                    var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
+                    var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
+                    var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
+
+                    // Popup title => Favoris
+                    popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + favorisChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + favorisSelected.textContent + '</strong> ?'
+
+                    // Show popup remove channel item from wishlist
+                    popupRemoveFromWishlist.classList.add('active');
+
+                    // Submit form remove channel item from wishlist
+                    popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
+                        e.preventDefault();
+                        favorisChannelSelected.remove();
+                        read().then(data => {
+                            if (data) {
+                                let getFav = data.favoris.filter(item => item.favori_id == favorisSelected.id);
+                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != favorisChannelSelected.getAttribute('data-attr-id'));
+                                let favorisChannel = document.querySelectorAll('.list-channels .channel');
+                                favorisChannel[0].classList.add('selected');
+                                getFav[0].channels = getFavChannels;
+                                save(data);
+                            }
+                        })
+                    })
+                }
+            }
+            break;
+        case '5':
+            if (listSelected === 'favoris' && popupAction === false) {
+                PINWishlist();
+            } else if (listSelected === 'bouquets' && popupAction === false) {
+                PINBucket();
+            } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
+                let normalArr = [];
+                let newArr = [];
+                var getAllChannels = document.querySelectorAll('#list-channels .channel');
+                listChannels0.innerHTML = '';
+                getAllChannels.forEach(el => {
+                    var channelID = el.getAttribute('data-attr-id');
+                    var channelName = el.getAttribute('data-attr-name');
+                    var channelOrder = el.getAttribute('data-attr-order');
+                    newArr.push({
+                        "channel_id" : parseInt(channelID),
+                        "channel_name" : channelName,
+                        "channel_order" : parseInt(channelOrder)
+                    });
+                    normalArr.push({
+                        "channel_id" : parseInt(channelID),
+                        "channel_name" : channelName,
+                        "channel_order" : parseInt(channelOrder)
+                    });
+                });
+
+                newArr.sort((a, b) => {
+                    if ( a.channel_name < b.channel_name ){
+                        return -1;
+                    }
+                    if ( a.channel_name > b.channel_name ){
+                        return 1;
+                    }
+                    return 0;
+                });
+                normalArr.sort((a, b) => {
+                    if ( a.channel_order < b.channel_order ){
+                        return -1;
+                    }
+                    if ( a.channel_order > b.channel_order ){
+                        return 1;
+                    }
+                    return 0;
+                });
+
+                if (sortAscDesc === 0) {
+                    newArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(A-Z)';
+                    sortAscDesc = 1;
+                } else if (sortAscDesc === 1) {
+                    newArr.reverse();
+                    newArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(Z-A)';
+                    sortAscDesc = 2;
+                } else if (sortAscDesc === 2) {
+                    normalArr.forEach((element, index) => {
+                        const li = document.createElement('li');
+                        li.setAttribute('data-attr-id', element.channel_id);
+                        li.setAttribute('data-attr-name', element.channel_name);
+                        li.setAttribute('data-attr-order', element.channel_order);
+                        if (index == 0) {
+                            li.setAttribute('class', 'channel selected');
+                        } else {
+                            li.setAttribute('class', 'channel');
+                        }
+                        li.innerHTML = element.channel_name;
+                        listChannels0.appendChild(li);
+                    });
+                    sortBy.textContent = '(Normal)';
+                    sortAscDesc = 0;
+                }
             }
             break;
     }
