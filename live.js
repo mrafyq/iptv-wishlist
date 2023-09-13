@@ -72,7 +72,10 @@ document.addEventListener('keyup', function (e) {
 
     switch (key) {
         case 'Enter':
-            if (popupAction === true) {
+            if (moveWishlistAction === true) {
+                saveMoveWishlist(tab_btns[current_index])
+                moveWishlistAction = false
+            } else if (popupAction === true) {
                 var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 var popupActive = document.querySelector('.popup.active');
                 popupSubmitBtn.click();
