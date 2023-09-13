@@ -278,3 +278,30 @@ input[type="password"] {
     visibility: visible;
     pointer-events: auto;
 }
+.move i.arrow {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    justify-content: space-between;
+    width: 16px;
+    height: 20px;
+    margin-left: auto;
+    margin-right: 20px;
+    position: relative;
+}
+.move i.arrow:before,
+.move i.arrow:after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 12px;
+    transform: rotate(45deg);
+}
+.move i.arrow:before {
+    border-top: 2px solid;
+    border-left: 2px solid;
+}
+.move i.arrow:after {
+    border-right: 2px solid;
+    border-bottom: 2px solid;
+}
