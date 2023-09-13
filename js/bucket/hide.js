@@ -1,17 +1,17 @@
-var hideBucketBtn = document.querySelector('.bucket-action-hide');
-
-hideBucketBtn.addEventListener('click', HideBucket)
+var popupPin = document.querySelector('.popup-check-pin');
 
 function HideBucket() {
     let PINField = document.querySelector('#pin-field');
     popupAction = true;
     popupPin.classList.add('active');
     PINField.focus()
-    let confirmPin = document.querySelector('.action-pin-ok')
-    confirmPin.addEventListener('click', function (event) {
+    let popupPinForm = document.querySelector('.popup-check-pin form')
+    popupPinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
         read().then(data => {
             if (data) {
                 if (PINField.value === data.pin) {
+                    let bucketList = document.querySelectorAll('.list-bouquet .bouquet');
                     let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
                     let bouquetId = bucketSelected.getAttribute('id')
                     const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
@@ -21,10 +21,11 @@ function HideBucket() {
                         result[0].hidden = 1
                     }
                     save(data)
+                    bucketList[0].classList.add('selected');
                     bucketSelected.remove();
                     popupAction = false;
-                    popupPin.classList.remove('active');
                     PINField.value = "";
+                    popupPin.classList.remove('active');
                 }
             }
         })

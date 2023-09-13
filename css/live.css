@@ -128,7 +128,8 @@ body{
     border-radius: 50%;
     display: inline-block;
 }
-input[type="text"]{
+input[type="text"],
+input[type="password"] {
     background-color: black;
     color: white;
     padding: 10px 15px;

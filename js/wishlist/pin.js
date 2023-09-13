@@ -1,13 +1,13 @@
-var PinWishlistBtn = document.querySelector('.action-pin');
-
-PinWishlistBtn.addEventListener('click', PINWishlist)
+var popupPin = document.querySelector('.popup-check-pin');
 
 function PINWishlist() {
-    let PINField = document.querySelector('#pin-field')
-    popupPin.style.display = 'flex'
+    let PINField = document.querySelector('#pin-field');
+    popupAction = true;
+    popupPin.classList.add('active');
     PINField.focus()
-    let confirmPin = document.querySelector('.action-pin-ok')
-    confirmPin.addEventListener('click', function (event) {
+    let popupPinForm = document.querySelector('.popup-check-pin form')
+    popupPinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
         read().then(data => {
             if (data) {
                 if (PINField.value === data.pin) {
@@ -27,7 +27,8 @@ function PINWishlist() {
                     }
                     save(data)
 
-                    popupPin.style.display = 'none'
+                    popupAction = false;
+                    popupPin.classList.remove('active');
                     PINField.value = "";
                 }
             }

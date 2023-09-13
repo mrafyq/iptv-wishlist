@@ -1,14 +1,13 @@
-var PinBucketBtn = document.querySelector('.bucket-action-pin');
-
-PinBucketBtn.addEventListener('click', PINBucket)
+var popupPin = document.querySelector('.popup-check-pin');
 
 function PINBucket() {
     let PINField = document.querySelector('#pin-field');
     popupAction = true;
     popupPin.classList.add('active');
     PINField.focus()
-    let confirmPin = document.querySelector('.action-pin-ok')
-    confirmPin.addEventListener('click', function (event) {
+    let popupPinForm = document.querySelector('.popup-check-pin form')
+    popupPinForm.addEventListener('submit', function (e) {
+        e.preventDefault();
         read().then(data => {
             if (data) {
                 if (PINField.value === data.pin) {
