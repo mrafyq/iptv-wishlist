@@ -27,4 +27,20 @@ function moveWishlist (elementToMove, action = 'select') {
             break;
     }
 }
+function saveMoveWishlist(elementToMove) {
+    read().then(data => {
+        if (data) {
+            let i = 0;
+            data.favoris.forEach(element => {
+                if (favoris[i].getAttribute('id') == element.favori_id) {
+                    element.order = favoris[i].getAttribute('data-order')
+                }
+                i++
+            })
+            save(data)
+            elementToMove.classList.remove('move')
+            elementToMove.querySelector('i.arrow').remove()
+        }
+    })
+}
 
