@@ -368,12 +368,16 @@ document.addEventListener('keyup', function (e) {
         case '5':
             if (listSelected === 'favoris' && popupAction === false) {
                 popupAction = true;
-                console.log('from favoris')
-                PINWishlist();
+                let popupPin = document.querySelector('.popup-check-pin-favoris');
+                let popupPinInput = document.querySelector('.popup-check-pin-favoris #pin-field-favoris');
+                popupPin.classList.add('active');
+                popupPinInput.focus();
             } else if (listSelected === 'bouquets' && popupAction === false) {
                 popupAction = true;
-                console.log('from bouquets')
-                PINBucket();
+                let popupPin = document.querySelector('.popup-check-pin-buckets');
+                let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
+                popupPin.classList.add('active');
+                popupPinInput.focus();
             } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
                 let normalArr = [];
                 let newArr = [];

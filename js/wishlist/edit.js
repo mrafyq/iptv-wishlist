@@ -1,7 +1,7 @@
-var popupRename = document.querySelector('.popup-rename');
+var popupRenameForm = document.querySelector('.popup-rename form');
 var inputRename = document.querySelector('.popup-rename #rename');
 
-popupRename.addEventListener('submit', (e) => {
+popupRenameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log(inputRename.value)
     let favorisSelected = document.querySelector('.list-favoris .favoris.selected');
