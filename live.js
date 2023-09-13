@@ -248,7 +248,8 @@ document.addEventListener('keyup', function (e) {
             break;
         case '2':
             if (listSelected === 'favoris') {
-                moveWishlist(tab_btns[current_index])
+                moveWishlistAction = true;
+                moveWishlist(tab_btns[current_index]);
             }
             break;
         case '3':
