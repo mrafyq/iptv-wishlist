@@ -10,8 +10,6 @@ var tab_btns;
 var sortAscDesc = 0;
 var sortBy = document.querySelector('.sortBy');
 
-var popupPin = document.querySelector('.popup.popup-check-pin');
-
 var popupAction = false;
 
 var parsedChannels = [];
@@ -74,10 +72,7 @@ document.addEventListener('keyup', function (e) {
 
     switch (key) {
         case 'Enter':
-            if (moveWishlistAction === true) {
-                saveMoveWishlist(tab_btns[current_index])
-                moveWishlistAction = false
-            } else if (popupAction === true) {
+            if (popupAction === true) {
                 var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 var popupActive = document.querySelector('.popup.active');
                 popupSubmitBtn.click();
@@ -371,7 +366,6 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             if (listSelected === 'favoris') {
-                moveWishlistAction = true
                 moveWishlist(tab_btns[current_index])
             }
             break;

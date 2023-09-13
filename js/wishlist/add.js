@@ -1,9 +1,10 @@
 function addNewFavoris () {
     var form = document.getElementById('add-wishlist-form');
     var inputAdd = document.querySelector('.popup #add');
+    inputAdd.focus();
 
-    form.addEventListener('submit', (event) => {
-        event.preventDefault()
+    form.addEventListener('submit', (e) => {
+        e.preventDefault()
         read().then(data => {
             if (data) {
                 const ids = data.favoris.map(favoris => favoris.favori_id);
@@ -25,7 +26,7 @@ function addNewFavoris () {
                 // li.style.order = data.favoris.length;
                 // li.innerHTML = inputAdd.value;
                 // listFav.appendChild(li);
-                save(data)
+                save(data);
             }
         })
     })
