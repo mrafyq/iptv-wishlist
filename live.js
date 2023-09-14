@@ -120,14 +120,12 @@ document.addEventListener('keyup', function (e) {
                         read().then(data => {
                             if (data) {
                                 let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                console.log('This is result buckets : ');
-                                console.log(result[0].pin);
                                 parsedChannels = result[0].channels
-                                if (result[0].pin) {
+                                if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
-                                    let popupPin = document.querySelector('.popup-check-pin-buckets');
-                                    let popupPinForm = document.querySelector('.popup-check-pin-buckets form');
-                                    let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
+                                    let popupPin = document.querySelector('.popup-check-pin-access');
+                                    let popupPinForm = document.querySelector('.popup-check-pin-access form');
+                                    let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
                                     popupPin.classList.add('active');
                                     popupPinInput.focus();
                                     popupPinForm.addEventListener('submit', function (e) {
@@ -157,14 +155,12 @@ document.addEventListener('keyup', function (e) {
                             if (data) {
                                 const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                                 console.log(result);
-                                console.log('This is result buckets : ');
-                                console.log(result[0].pin);
                                 parsedChannels = result[0].channels;
-                                if (result[0].pin) {
+                                if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
-                                    let popupPin = document.querySelector('.popup-check-pin-favoris');
-                                    let popupPinForm = document.querySelector('.popup-check-pin-favoris form');
-                                    let popupPinInput = document.querySelector('.popup-check-pin-favoris #pin-field-favoris');
+                                    let popupPin = document.querySelector('.popup-check-pin-access');
+                                    let popupPinForm = document.querySelector('.popup-check-pin-access form');
+                                    let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
                                     popupPin.classList.add('active');
                                     popupPinInput.focus();
                                     popupPinForm.addEventListener('submit', function (e) {
@@ -276,9 +272,10 @@ document.addEventListener('keyup', function (e) {
         case '1':
             if (listSelected === 'favoris' && popupAction === false) { // Add new favoris
                 popupAction = true;
-                var popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+                let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
                 popupWishlist.classList.add('active');
-                addNewFavoris();
+                let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
+                popupPinInput.focus();
             }
             break;
         case '2':
