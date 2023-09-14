@@ -6,20 +6,16 @@ popupRenameForm.addEventListener('submit', (e) => {
     console.log(inputRename.value)
     let favorisSelected = document.querySelector('.list-favoris .favoris.selected');
     let favorisId = favorisSelected.getAttribute('id')
-
-    fetch('data/db.json')
-        .then(res => res.json())
-        .then(data =>
-            {
-                (data.favoris).forEach((element) => {
-                    if (element.favori_id == favorisId) {
-                        favorisSelected.textContent = inputRename.value;
-                        element.favori_name = inputRename.value;
-                    }
-                });
-
-                console.log(data.favoris);
-            }
-        )
-        .catch(err => console.log(err));
+    read().then(data => {
+        if (data && popupAction === true) {
+            (data.favoris).forEach((element) => {
+                if (element.favori_id == favorisId) {
+                    favorisSelected.textContent = inputRename.value;
+                    favorisSelected.setAttribute('data-name', inputRename.value);
+                    element.favori_name = inputRename.value;
+                }
+            });
+            save(data)
+        }
+    })
 })

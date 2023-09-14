@@ -5,16 +5,13 @@ popupDelete.addEventListener('submit', (e) => {
     let favList = document.querySelectorAll('.list-favoris .favoris');
     let favDeleteSelected = document.querySelector('.list-favoris .favoris.selected');
     let favDeleteID = favDeleteSelected.getAttribute('id');
-    fetch('data/db.json')
-        .then(res => res.json())
-        .then(data =>
-            {
-                let favoris = data.favoris.filter(item => item.favori_id != favDeleteID);
-                data.favoris = favoris;
-                favList[0].classList.add('selected');
-                favDeleteSelected.remove();
-                console.log(data.favoris);
-            }
-        )
-        .catch(err => console.log(err));
+    read().then(data => {
+        if (data) {
+            let favoris = data.favoris.filter(item => item.favori_id != favDeleteID);
+            data.favoris = favoris;
+            favList[0].classList.add('selected');
+            favDeleteSelected.remove();
+            save(data)
+        }
+    })
 })

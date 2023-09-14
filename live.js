@@ -45,8 +45,8 @@ popupCloseBtn.forEach(el => {
 
 document.addEventListener('keyup', function (e) {
 
-    var key = event.key;
-    console.log(key);
+    var key = e.key;
+    console.log("key = " + key);
 
     var listChannels = document.getElementById('list-channels');
     // console.log(listChannels);
@@ -352,7 +352,6 @@ document.addEventListener('keyup', function (e) {
                         }
                     })
                 })
-                console.log('Key code nbr 6 clicked!');
             }
             break;
         case '4':
