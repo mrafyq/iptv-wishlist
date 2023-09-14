@@ -285,7 +285,6 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '3':
-            console.log(popupAction)
             if (listSelected === 'bouquets' && popupAction === false) {
                 popupAction = true;
                 let popupPin = document.querySelector('.popup-check-pin-hide-buckets');

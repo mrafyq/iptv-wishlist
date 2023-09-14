@@ -82,4 +82,5 @@ A a voir ou on va le sauvegarder ...............................................
     2 - 1 multiselect deplacer favoris work with keys ........................... DONE without multiple
     2 - 2 multiselect deplacer channel work with keys ........................... IN PROGRESS
     3 popups works with keys .................................................... IN PROGRESS
+                                                                                  deplacer channel
     4 Refactoring code + centralize save and read data FN ....................... DONE
