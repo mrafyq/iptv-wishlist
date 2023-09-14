@@ -78,9 +78,9 @@ A a voir ou on va le sauvegarder ...............................................
 
 22/23 Septembre dernier date
 
-    1 Order multiselect .........................................................
-    2 - 1 multiselect deplacer favoris work with keys ........................... DONE without multiple
-    2 - 2 multiselect deplacer channel work with keys ........................... IN PROGRESS
+    1 Order multiselect ......................................................... IN PROGRESS
+        Order favoris dossier ................................................... DONE
+        Order favoris channel ................................................... IN PROGRESS
+    2 multiselect deplacer favoris work with keys ............................... IN PROGRESS
     3 popups works with keys .................................................... IN PROGRESS
-                                                                                  deplacer channel
     4 Refactoring code + centralize save and read data FN ....................... DONE

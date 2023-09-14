@@ -18,6 +18,7 @@ var popupAction = false;
 var popupSuccess = false;
 
 var moveWishlistAction = false;
+var moveChannelAction = false;
 
 
 serachInput.addEventListener('keyup', function (e) {
@@ -72,7 +73,11 @@ document.addEventListener('keyup', function (e) {
 
     switch (key) {
         case 'Enter':
-            if (moveWishlistAction === true) {
+            if (moveChannelAction === true) {
+                saveMoveChannel()
+                moveChannelAction = false
+                current_index = 0
+            } else if (moveWishlistAction === true) {
                 saveMoveWishlist(tab_btns[current_index])
                 moveWishlistAction = false
                 current_index = 0
@@ -250,7 +255,11 @@ document.addEventListener('keyup', function (e) {
         case "ArrowUp":
             if (listSelected !== 'tabs') {
                 if (tab_btns[current_index].classList.contains('move')) {
-                    moveWishlist(tab_btns[current_index], 'moveUp')
+                    if (moveChannelAction) {
+                        moveChannel(tab_btns[current_index], 'moveUp')
+                    } else if (moveWishlistAction) {
+                        moveWishlist(tab_btns[current_index], 'moveUp')
+                    }
                 } else {
                     tab_btns[current_index].classList.remove('selected');
                     current_index = mod(current_index - 1, tab_btns.length);
@@ -261,7 +270,11 @@ document.addEventListener('keyup', function (e) {
         case 'ArrowDown':
             if (listSelected !== 'tabs') {
                 if (tab_btns[current_index].classList.contains('move')) {
-                    moveWishlist(tab_btns[current_index], 'moveDown')
+                    if (moveChannelAction) {
+                        moveChannel(tab_btns[current_index], 'moveDown')
+                    } else if (moveWishlistAction) {
+                        moveWishlist(tab_btns[current_index], 'moveDown')
+                    }
                 } else {
                     tab_btns[current_index].classList.remove('selected');
                     current_index = mod(current_index + 1, tab_btns.length);
@@ -503,6 +516,12 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
+        case '6':
+            if (listSelected === 'channels' && popupAction === false) {
+                moveChannelAction = true;
+                moveChannel(tab_btns[current_index]);
+            }
+            break;
     }
 
 });
@@ -516,6 +535,7 @@ function showChannels() {
         li.setAttribute('data-attr-id', element.channel_id);
         li.setAttribute('data-attr-name', element.channel_name);
         li.setAttribute('data-attr-order', element.channel_order);
+        li.style.order = element.channel_order
         if (index == 0) {
             li.setAttribute('class', 'channel selected');
         } else {
