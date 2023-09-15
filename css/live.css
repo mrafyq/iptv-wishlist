@@ -167,6 +167,18 @@ input[type="password"] {
 .popup.confirmed .popup-content {
     display: none;
 }
+.popup .error-msg {
+    display: none;
+}
+.popup.error .error-msg {
+    display: block;
+}
+.error-msg {
+    background: #ffbdb6;
+    border: 2px solid #ea6c59;
+    padding: 8px 14px;
+    margin-top: 10px;
+}
 
 .popup-inner {
     background: white;
