@@ -16,6 +16,8 @@ var parsedChannels = [];
 
 var popupAction = false;
 var popupSuccess = false;
+var popupError = false;
+var popupCheckPin = false;
 
 var moveWishlistAction = false;
 var moveChannelAction = false;
@@ -85,12 +87,18 @@ document.addEventListener('keyup', function (e) {
                 var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 var popupActive = document.querySelector('.popup.active');
                 popupSubmitBtn.click();
-                popupActive.classList.add('confirmed');
-                setTimeout(() => {
-                    popupActive.classList.remove('confirmed');
+                if (popupCheckPin === true) {
                     popupActive.classList.remove('active');
-                }, 2000);
-                popupAction = false;
+                    popupCheckPin = false;
+                    popupAction = false;
+                } else {
+                    popupActive.classList.add('confirmed');
+                    setTimeout(() => {
+                        popupActive.classList.remove('confirmed');
+                        popupActive.classList.remove('active');
+                    }, 2000);
+                    popupAction = false;
+                }
             } else {
                 if (listSelected === 'tabs') {
                     if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
@@ -128,6 +136,7 @@ document.addEventListener('keyup', function (e) {
                                 parsedChannels = result[0].channels
                                 if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
+                                    popupCheckPin = true;
                                     let popupPin = document.querySelector('.popup-check-pin-access');
                                     let popupPinForm = document.querySelector('.popup-check-pin-access form');
                                     let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
@@ -139,6 +148,8 @@ document.addEventListener('keyup', function (e) {
                                             if (data) {
                                                 if (popupPinInput.value === data.pin) {
                                                     showChannels();
+                                                    popupPinInput.value = "";
+                                                } else {
                                                     popupPinInput.value = "";
                                                 }
                                             }
@@ -163,6 +174,7 @@ document.addEventListener('keyup', function (e) {
                                 parsedChannels = result[0].channels;
                                 if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
+                                    popupCheckPin = true;
                                     let popupPin = document.querySelector('.popup-check-pin-access');
                                     let popupPinForm = document.querySelector('.popup-check-pin-access form');
                                     let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
@@ -176,7 +188,7 @@ document.addEventListener('keyup', function (e) {
                                                     showChannels();
                                                     popupPinInput.value = "";
                                                 } else {
-                                                    // TODO show popup error
+                                                    popupPinInput.value = "";
                                                 }
                                             }
                                         })

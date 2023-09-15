@@ -276,6 +276,9 @@ input[type="password"] {
     font-weight: 600;
     text-transform: uppercase;
 }
+.popup form {
+    width: 100%;
+}
 .popup button {
     opacity: 0;
     visibility: hidden;
