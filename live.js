@@ -175,6 +175,8 @@ document.addEventListener('keyup', function (e) {
                                                 if (popupPinInput.value === data.pin) {
                                                     showChannels();
                                                     popupPinInput.value = "";
+                                                } else {
+                                                    // TODO show popup error
                                                 }
                                             }
                                         })
@@ -404,6 +406,7 @@ document.addEventListener('keyup', function (e) {
                                 let favorisChannel = document.querySelectorAll('.list-channels .channel');
                                 favorisChannel[0].classList.add('selected');
                                 getFav[0].channels = getFavChannels;
+                                // TODO saves two time
                                 save(data);
                             }
                         })

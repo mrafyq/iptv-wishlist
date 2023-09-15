@@ -254,42 +254,50 @@
         {
           "channel_id": 1,
           "channel_name": "Bouquet 1 - Al oula",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 1
         },
         {
           "channel_id": 2,
           "channel_name": "Bouquet 1 - 2M",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 2
         },
         {
           "channel_id": 3,
           "channel_name": "Bouquet 1 - Arriyadya",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 3
         },
         {
           "channel_id": 4,
           "channel_name": "Bouquet 1 - Arrabiaa",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 4
         },
         {
           "channel_id": 5,
           "channel_name": "Bouquet 1 - Almaghribiya",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 5
         },
         {
           "channel_id": 6,
           "channel_name": "Bouquet 1 - Assadissa",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 6
         },
         {
           "channel_id": 7,
           "channel_name": "Bouquet 1 - Assabi3a",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 7
         },
         {
           "channel_id": 8,
           "channel_name": "Bouquet 1 - Attamina",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 8
         }
       ]
     },
@@ -302,12 +310,14 @@
         {
           "channel_id": 2,
           "channel_name": "Bouquet 2 - 2M",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 1
         },
         {
           "channel_id": 1,
           "channel_name": "Bouquet 2 - Al oula",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 2
         }
       ]
     },
@@ -320,12 +330,14 @@
         {
           "channel_id": 2,
           "channel_name": "Bouquet 3 - 2M",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 1
         },
         {
           "channel_id": 3,
           "channel_name": "Bouquet 3 - Arriyadya",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 2
         }
       ]
     },
@@ -338,12 +350,14 @@
         {
           "channel_id": 1,
           "channel_name": "Bouquet 4 - Al oula",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 1
         },
         {
           "channel_id": 3,
           "channel_name": "Bouquet 4 - Arriyadya",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 2
         }
       ]
     },
@@ -356,12 +370,14 @@
         {
           "channel_id": 50,
           "channel_name": "Bouquet 5 - Al oula",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 1
         },
         {
           "channel_id": 51,
           "channel_name": "Bouquet 5 - Arriyadya",
-          "channel_link": "snrt.ma"
+          "channel_link": "snrt.ma",
+          "channel_order": 2
         }
       ]
     }

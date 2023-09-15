@@ -25,7 +25,7 @@ Favoris
 	Dossier
 		1 Renommer/Supprimer................................................... Ok
 			save..................................................... Stand by
-		2 Deplacer Order ...................................................... Pas encore
+		2 Deplacer Order ...................................................... OK without Multiple
 			save..................................................... Stand by
 		4 Ajouter ............................................................. OK
 			save..................................................... Stand by
@@ -36,7 +36,7 @@ Favoris
 			save..................................................... Stand by
 		3 Suppression de channel............................................... OK
 			save..................................................... Stand by
-		4 deplacer (order multiple) ........................................... Pas Encore
+		4 deplacer (order multiple) ........................................... OK without Multiple
 
 		5 deplacer (vers un autre dossier de favoris) ......................... NEW OKK
 
@@ -45,7 +45,7 @@ navigation => Group Name (dynamic bucket name|favoris name) ................... 
 search......................................................................... NEW OKK
 	search for channels (bucket channels & favoris channels)
 
-Favoris Order ................................................................. Pas encore
+Favoris Order ................................................................. OK
 	button deplacer ofr order channel in each wishlist folder
 
 Favoris Tri
@@ -53,8 +53,8 @@ Favoris Tri
 
 	    (No confirmation needed)
 	    normal mode (order sauvegardé)
-	    ASC
-	    DESC
+	    ASC (A-Z)
+	    DESC (Z-A)
 
 
 
@@ -78,9 +78,9 @@ A a voir ou on va le sauvegarder ...............................................
 
 22/23 Septembre dernier date
 
-    1 Order multiselect ......................................................... IN PROGRESS
+    1 Order multiorder .......................................................... IN PROGRESS
         Order favoris dossier ................................................... DONE
         Order favoris channel ................................................... IN PROGRESS
-    2 multiselect deplacer favoris work with keys ............................... IN PROGRESS
-    3 popups works with keys .................................................... IN PROGRESS
+    2 multiselect (deplacer favoris) work with keys ............................. IN PROGRESS
+    3 popups works with keys .................................................... DONE
     4 Refactoring code + centralize save and read data FN ....................... DONE

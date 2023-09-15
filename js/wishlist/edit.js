@@ -13,6 +13,12 @@ popupRenameForm.addEventListener('submit', (e) => {
                     favorisSelected.textContent = inputRename.value;
                     favorisSelected.setAttribute('data-name', inputRename.value);
                     element.favori_name = inputRename.value;
+                    if (parseInt(favorisSelected.getAttribute('data-pin'))) {
+
+                        const iconLock = document.createElement('i');
+                        iconLock.setAttribute('class', 'icon-lock');
+                        favorisSelected.appendChild(iconLock)
+                    }
                 }
             });
             save(data)
