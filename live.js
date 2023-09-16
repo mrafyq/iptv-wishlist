@@ -62,6 +62,8 @@ document.addEventListener('keyup', function (e) {
         tab_btns = favoris;
     } else if (listSelected === 'channels') {
         tab_btns = channels;
+    } else if (listSelected === 'checkboxes-channels') {
+        tab_btns = document.getElementsByClassName('checkbox-favoris');
     }
 
     var current_index;
@@ -74,6 +76,14 @@ document.addEventListener('keyup', function (e) {
     console.log('current index = ' + current_index)
 
     switch (key) {
+        case ' ':
+            if (listSelected === 'checkboxes-channels') {
+                let checkbox = tab_btns[current_index].querySelector('input');
+                if (checkbox) {
+                    checkbox.checked = !checkbox.checked;
+                }
+            }
+            break;
         case 'Enter':
             if (moveChannelAction === true) {
                 saveMoveChannel(tab_btns[current_index])
@@ -211,6 +221,10 @@ document.addEventListener('keyup', function (e) {
                     var popupActive = document.querySelector('.popup.active');
                     popupActive.classList.remove('active');
                     popupAction = false;
+                    if (listSelected === 'checkboxes-channels') {
+                        listSelected = 'channels'
+                        document.querySelector('#list-channels .channel.selected').classList.remove('active');
+                    }
                 } else {
                     if (listSelected === 'bouquets' || listSelected === 'favoris') {
                         if (listSelected === 'bouquets') {
@@ -330,19 +344,23 @@ document.addEventListener('keyup', function (e) {
                 var popupFav = document.querySelector('.popup.popup-favoris');
                 var popupFavForm = document.querySelector('.popup.popup-favoris form');
                 popupFav.classList.add('active');
-
+                tab_btns[current_index].classList.add('active')
                 read().then(data => {
                     if (data) {
                         popupFavList.innerHTML = '';
                         (data.favoris).forEach((element, index) => {
                             const li = document.createElement('li');
                             li.setAttribute('id', element.favori_id);
-                            li.setAttribute('class', 'favoris');
+                            li.setAttribute('class', 'checkbox-favoris');
                             li.innerHTML = `
-                                <input type="checkbox" id="${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
+                                <input type="checkbox" id="checkbox-${element.favori_id}" name="${element.favori_name}" value="${element.favori_id}" /> ${element.favori_name}
                             `;
+                            if (index === 0) {
+                                li.classList.add('selected')
+                            }
                             popupFavList.appendChild(li);
                         });
+                        listSelected = 'checkboxes-channels'
                     }
                 })
 
@@ -351,16 +369,13 @@ document.addEventListener('keyup', function (e) {
                     const listChanSelected = document.querySelector('#list-channels .channel.selected');
                     const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
                     const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
-                    const listChanSelectedOrder = listChanSelected.getAttribute('data-attr-order');
                     const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
 
-                    console.log(checkedFav);
                     var favArr = [];
                     checkedFav.forEach(el => {
                         favArr.push(parseInt(el.value));
                         console.log(el.value);
                     })
-                    console.log(favArr);
 
                     read().then(data => {
                         if (data) {
@@ -370,7 +385,7 @@ document.addEventListener('keyup', function (e) {
                                     element.channels.push({
                                         "channel_id": parseInt(listChanSelectedID),
                                         "channel_name": listChanSelectedName,
-                                        "channel_id": parseInt(listChanSelectedOrder)
+                                        "channel_order": element.channels.length + 1
                                     });
                                 }
                             });

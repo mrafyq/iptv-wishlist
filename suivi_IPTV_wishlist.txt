@@ -83,6 +83,6 @@ A a voir ou on va le sauvegarder ...............................................
         Order favoris channel ................................................... DONE
         Multi Order favoris dossier ............................................. IN PROGRESS
         Multi Order favoris channel ............................................. IN PROGRESS
-    2 multiselect (deplacer favoris) work with keys ............................. IN PROGRESS
+    2 multiselect (deplacer favoris) work with keys ............................. DONE
     3 popups works with keys .................................................... DONE
     4 Refactoring code + centralize save and read data FN ....................... DONE
