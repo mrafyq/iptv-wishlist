@@ -76,7 +76,7 @@ document.addEventListener('keyup', function (e) {
     switch (key) {
         case 'Enter':
             if (moveChannelAction === true) {
-                saveMoveChannel()
+                saveMoveChannel(tab_btns[current_index])
                 moveChannelAction = false
                 current_index = 0
             } else if (moveWishlistAction === true) {
