@@ -21,7 +21,8 @@ function fetchWishlists(wishlists) {
     listFav.innerHTML = '';
     (wishlists).forEach((element, index) => {
         const li = document.createElement('li');
-        li.setAttribute('id', element.favori_id);
+        li.setAttribute('id', 'wishlits-' + element.favori_id);
+        li.setAttribute('data-id', element.favori_id);
         li.setAttribute('data-name', element.favori_name);
         li.setAttribute('data-pin', element.pin);
         li.setAttribute('data-order', element.order);

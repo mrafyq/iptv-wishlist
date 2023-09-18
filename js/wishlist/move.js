@@ -34,7 +34,7 @@ function saveMoveWishlist(elementToMove) {
         if (data) {
             let i = 0;
             data.favoris.forEach(element => {
-                if (favoris[i].getAttribute('id') == element.favori_id) {
+                if (favoris[i].getAttribute('data-id') == element.favori_id) {
                     element.order = parseInt(favoris[i].getAttribute('data-order'))
                 }
                 i++

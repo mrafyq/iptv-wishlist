@@ -1,13 +1,15 @@
-var popupPin = document.querySelector('.popup-check-pin-favoris form');
+var popupCheckPinWishlist = document.querySelector('.popup-check-pin-favoris');
+var popupCheckPinWishlistForm = document.querySelector('.popup-check-pin-favoris form');
 
-popupPin.addEventListener('submit', function (e) {
+popupCheckPinWishlistForm.addEventListener('submit', function (e) {
+    console.log('submit from pin wishlist!')
     e.preventDefault();
     let popupPinInput = document.querySelector('.popup-check-pin-favoris #pin-field-favoris');
     read().then(data => {
         if (data) {
             if (popupPinInput.value === data.pin) {
                 let favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-                let favorisId = favorisSelected.getAttribute('id')
+                let favorisId = favorisSelected.getAttribute('data-id')
                 const result = data.favoris.filter(favoris => favoris.favori_id == favorisId);
                 if (parseInt(favorisSelected.getAttribute('data-pin'))) {
                     result[0].pin = 0
@@ -21,8 +23,11 @@ popupPin.addEventListener('submit', function (e) {
                     favorisSelected.appendChild(iconLock);
                 }
                 save(data)
-                popupPinInput.value = "";
+            } else {
+                popupError = true
             }
+            popupPinInput.value = "";
+            adaptPopup(popupCheckPinWishlist);
         }
     })
 });

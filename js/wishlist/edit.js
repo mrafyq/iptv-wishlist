@@ -1,3 +1,4 @@
+var popupRename = document.querySelector('.popup-rename');
 var popupRenameForm = document.querySelector('.popup-rename form');
 var inputRename = document.querySelector('.popup-rename #rename');
 
@@ -5,7 +6,7 @@ popupRenameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log(inputRename.value)
     let favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-    let favorisId = favorisSelected.getAttribute('id')
+    let favorisId = favorisSelected.getAttribute('data-id')
     read().then(data => {
         if (data && popupAction === true) {
             (data.favoris).forEach((element) => {
@@ -22,6 +23,7 @@ popupRenameForm.addEventListener('submit', (e) => {
                 }
             });
             save(data)
+            adaptPopup(popupRename);
         }
     })
 })

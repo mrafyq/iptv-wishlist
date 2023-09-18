@@ -125,7 +125,7 @@
             <div class="popup-inner">
                 <div class="popup-content">
                     <form>
-                        <div class="popup-title">Ajouter au favoris</div>
+                        <div class="popup-title">Ajouter au favoris : <strong></strong></div>
                         <div class="popup-favoris-name"></div>
                         <ul class="popup-favoris-list-fav" id="popup-favoris-list-fav"></ul>
                         <button type="submit">Enregistrer</button>
@@ -263,7 +263,8 @@
                 if (data) {
                     (data.favoris).forEach((element, index) => {
                         const li = document.createElement('li');
-                        li.setAttribute('id', element.favori_id);
+                        li.setAttribute('id', 'wishlist-' + element.favori_id);
+                        li.setAttribute('data-id', element.favori_id);
                         li.setAttribute('data-name', element.favori_name);
                         li.setAttribute('data-pin', element.pin);
                         li.setAttribute('data-order', element.order);
@@ -280,7 +281,8 @@
                     (data.bouquets).forEach((element, index) => {
                         if (!element.hidden) {
                             const li = document.createElement('li');
-                            li.setAttribute('id', element.bouquet_id);
+                            li.setAttribute('id', 'bucket-' + element.bouquet_id);
+                            li.setAttribute('data-id', element.bouquet_id);
                             li.setAttribute('data-name', element.bouquet_name);
                             li.setAttribute('data-pin', element.pin);
                             li.setAttribute('class', 'bouquet');

@@ -52,6 +52,8 @@ function saveMoveChannel(elementToMove) {
             }
             save(data)
             elementToMove.classList.remove('move')
+            console.log(elementToMove)
+            elementToMove.innerHTML = elementToMove.getAttribute('data-attr-name')
         }
     })
 }

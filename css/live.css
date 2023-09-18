@@ -221,7 +221,8 @@ input[type="password"] {
     align-items: center;
     justify-content: flex-start;
     white-space: nowrap;
-    padding: 6px 0;
+    font-size: 1.3em;
+    padding: 6px 10px !important;
 }
 .popup-favoris-list-fav li input {
     width: auto;
@@ -320,4 +321,8 @@ input[type="password"] {
 .move i.arrow:after {
     border-right: 2px solid;
     border-bottom: 2px solid;
+}
+li.channel {
+    display: flex;
+    align-items: center;
 }

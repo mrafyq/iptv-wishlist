@@ -18,9 +18,11 @@ popupWishlistForm.addEventListener('submit', (e) => {
             if (popupAction === true) {
                 // create element without fetch
                 const li = document.createElement('li');
-                li.setAttribute('id', nextId);
+                li.setAttribute('id', 'wishlist-' + nextId);
+                li.setAttribute('data-id', nextId);
                 li.setAttribute('data-name', inputAdd.value);
                 li.setAttribute('data-pin', 0);
+                li.setAttribute('data-order', data.favoris.length);
                 li.setAttribute('class', 'favoris');
                 li.style.order = data.favoris.length;
                 li.innerHTML = inputAdd.value;

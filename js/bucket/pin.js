@@ -1,13 +1,15 @@
-var popupPin = document.querySelector('.popup-check-pin-buckets form');
+var popupCheckPinBuckets = document.querySelector('.popup-check-pin-buckets');
+var popupCheckPinBucketsForm = document.querySelector('.popup-check-pin-buckets form');
 
-popupPin.addEventListener('submit', function (e) {
+popupCheckPinBucketsForm.addEventListener('submit', function (e) {
+    console.log('submit from pin buckets!')
     e.preventDefault();
     let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
     read().then(data => {
         if (data) {
             if (popupPinInput.value === data.pin) {
                 let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
-                let bouquetId = bucketSelected.getAttribute('id')
+                let bouquetId = bucketSelected.getAttribute('data-id')
                 const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
                 let pin;
                 if (parseInt(bucketSelected.getAttribute('data-pin'))) {
@@ -24,8 +26,11 @@ popupPin.addEventListener('submit', function (e) {
                     bucketSelected.appendChild(iconLock);
                 }
                 save(data)
-                popupPinInput.value = "";
+            } else {
+                popupError = true
             }
+            popupPinInput.value = "";
+            adaptPopup(popupCheckPinBuckets);
         }
     });
 });
