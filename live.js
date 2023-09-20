@@ -317,6 +317,7 @@ document.addEventListener('keyup', function (e) {
                         }
                         document.getElementById('sidebar').style.display = "";
                         document.getElementById('right-buttons').style.display = '';
+                        document.querySelector('#searchForm').classList.remove('visible');
                     }
                 }
             }
