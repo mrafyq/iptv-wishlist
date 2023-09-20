@@ -85,7 +85,8 @@
                     <form>
                         <div class="popup-title">Renommer le favoris: <strong></strong></div>
                         <br>
-                        <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... ">
+                        <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... "
+                               onkeypress="if (event.which == 13) {event.preventDefault();}">
                         <br>
                         <br>
                         <div>
@@ -146,7 +147,7 @@
                     <div class="popup-title">Ajouter un nouveau favoris</div>
                     <form id="add-wishlist-form" name="add-wishlist-form">
                         <input type="text" id="add" name="favoris_name" minlength="3" required
-                               title="Définir le nom de favoris" placeholder="Définir le nom de favoris">
+                               title="Définir le nom de favoris" placeholder="Définir le nom de favoris" onkeypress="if (event.which == 13) {event.preventDefault();}">
                         <button type="submit">Enregistrer</button>
                         <button type="button" class="btn-cancel" data-popup="popup-add-wishlist">Annuler</button>
                     </form>
@@ -176,7 +177,8 @@
                     <form>
                         <div class="popup-title">Pin/Unpin - Entrer votre PIN</div>
                         <br>
-                        <input id="pin-field-favoris" type="password" class="field" placeholder="0000" title="Entrer votre PIN"/>
+                        <input id="pin-field-favoris" type="password" class="field" placeholder="0000" maxlength="4"
+                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
                             <button type="submit">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-favoris">Annuler</button>
@@ -198,7 +200,8 @@
                     <form>
                         <div class="popup-title">Pin/Unpin - Entrer votre PIN</div>
                         <br>
-                        <input id="pin-field-bucket" type="password" class="field" placeholder="0000" title="Entrer votre PIN"/>
+                        <input id="pin-field-bucket" type="password" class="field" placeholder="0000" maxlength="4"
+                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
                             <button type="submit">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-buckets">Annuler</button>
@@ -220,7 +223,8 @@
                     <form>
                         <div class="popup-title">Masquer - Entrer votre PIN</div>
                         <br>
-                        <input id="pin-hide-field-bucket" type="password" class="field" placeholder="0000" title="Entrer votre PIN"/>
+                        <input id="pin-hide-field-bucket" type="password" class="field" placeholder="1234" maxlength="4"
+                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
                             <button type="submit">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-hide-buckets">Annuler</button>
@@ -242,7 +246,8 @@
                     <form>
                         <div class="popup-title">Entrer votre PIN</div>
                         <br>
-                        <input id="pin-field" type="password" class="field" placeholder="0000" title="Entrer votre PIN"/>
+                        <input id="pin-field" type="password" class="field" placeholder="0000" title="Entrer votre PIN"
+                               maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
                             <button type="submit">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-access">Annuler</button>
@@ -301,11 +306,12 @@
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>
         <script type="text/javascript" src="js/wishlist/move.js"></script>
-        <script type="text/javascript" src="js/wishlist/edit.js"></script>
+        <script type="text/javascript" src="js/wishlist/rename.js"></script>
         <script type="text/javascript" src="js/wishlist/delete.js"></script>
         <script type="text/javascript" src="js/wishlist/pin.js"></script>
         <script type="text/javascript" src="js/bucket/pin.js"></script>
         <script type="text/javascript" src="js/bucket/hide.js"></script>
         <script type="text/javascript" src="js/channel/move.js"></script>
+        <script type="text/javascript" src="js/channel/search.js"></script>
     </body>
 </html>

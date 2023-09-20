@@ -4,8 +4,6 @@ var bouquets = document.getElementsByClassName('bouquet');
 var favoris = document.getElementsByClassName('favoris');
 var channels = document.getElementsByClassName('channel');
 var groupName = document.querySelector('.group-name');
-var searchForm = document.querySelector('#searchForm');
-var serachInput = document.getElementById('search');
 var tab_btns;
 var sortAscDesc = 0;
 var sortBy = document.querySelector('.sortBy');
@@ -14,25 +12,12 @@ var popupAction = false;
 
 var parsedChannels = [];
 
-var popupSuccess = false;
 var popupError = false;
 var popupCheckPin = false;
 
 var moveWishlistAction = false;
 var moveChannelAction = false;
 
-
-serachInput.addEventListener('keyup', function (e) {
-    var filter = serachInput.value.toLowerCase();
-    for (var i = 0; i < channels.length; i++) {
-        var textValue = channels[i].textContent || channels[i].innerText;
-        if (textValue.toLowerCase().indexOf(filter) > -1) {
-            channels[i].style.display = '';
-        } else {
-            channels[i].style.display = 'none';
-        }
-    }
-});
 
 var popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
 popupCloseBtn.forEach(el => {
@@ -45,7 +30,41 @@ popupCloseBtn.forEach(el => {
     });
 });
 
+///////////////////////////////////////////////////////
+/// BUCKETS/WISHLISTS : CHECK PIN ACCESS /// START
+///////////////////////////////////////////////////////
+var popupPin = document.querySelector('.popup-check-pin-access');
+var popupPinForm = document.querySelector('.popup-check-pin-access form');
+var popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
+
+popupPinForm.addEventListener('submit', function (e) {
+    e.preventDefault();
+    read().then(data => {
+        if (data) {
+            if (popupPinInput.value === data.pin) {
+                if (listSelected === 'bouquets') {
+                    let bucketId = document.querySelector('.bouquet.selected').getAttribute('data-id')
+                    console.log(bucketId)
+                    let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bucketId);
+                    parsedChannels = result[0].channels
+
+                } else if (listSelected === 'favoris') {
+                    let favoriId = document.querySelector('.favoris.selected').getAttribute('data-id')
+                    let result = data.favoris.filter(favori => favori.favori_id == favoriId);
+                    parsedChannels = result[0].channels
+                }
+                showChannels();
+            } else {
+                popupError = true;
+            }
+            popupPinInput.value = "";
+            adaptPopupCheckPin(popupPin);
+        }
+    })
+})
+
 function adaptPopupCheckPin(popupActive) {
+    console.log("fn adaptPopupCheckPin")
     if (popupCheckPin === true) {
         if (popupError === true) {
             popupActive.classList.add('error');
@@ -59,8 +78,12 @@ function adaptPopupCheckPin(popupActive) {
     popupError = false;
 }
 
+///////////////////////////////////////////////////////
+/// BUCKETS/WISHLISTS : CHECK PIN ACCESS /// END
+///////////////////////////////////////////////////////
+
 function adaptPopup(popupActive) {
-    console.log("Warning")
+    console.log("fn adaptPopup")
     if (popupError === true) {
         popupActive.classList.add('error');
     } else {
@@ -74,6 +97,56 @@ function adaptPopup(popupActive) {
     }
     popupError = false;
 }
+
+
+//////////////////////////////////////////////
+/// CHANNELS : ADD TO WISHLIST /// START
+//////////////////////////////////////////////
+var popupFav = document.querySelector('.popup.popup-favoris');
+var popupFavForm = document.querySelector('.popup.popup-favoris form');
+popupFavForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const listChanSelected = document.querySelector('#list-channels .channel.selected');
+    const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
+    const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
+    const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
+
+    var favArr = [];
+    checkedFav.forEach(el => {
+        favArr.push(parseInt(el.value));
+        console.log(el.value);
+    })
+
+    read().then(data => {
+        if (data) {
+            (data.favoris).forEach((element, index) => {
+                if (favArr.indexOf(element.favori_id) !== -1) {
+                    console.log(element);
+                    element.channels.push({
+                        "channel_id": parseInt(listChanSelectedID),
+                        "channel_name": listChanSelectedName,
+                        "channel_order": element.channels.length + 1
+                    });
+                }
+            });
+            save(data);
+            popupFav.classList.remove('error');
+            popupFav.classList.add('confirmed');
+            setTimeout(() => {
+                popupFav.classList.remove('confirmed');
+                popupFav.classList.remove('active');
+            }, 2000);
+            popupAction = false;
+
+            listSelected = 'channels';
+            document.querySelector('#list-channels .channel.selected').classList.remove('active');
+            // tab_btns = channels
+        }
+    })
+})
+//////////////////////////////////////////////
+/// CHANNELS : ADD TO WISHLIST /// END
+//////////////////////////////////////////////
 
 document.addEventListener('keyup', function (e) {
 
@@ -114,7 +187,10 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case 'Enter':
-            if (moveChannelAction === true) {
+            if (popupAction === true) {
+                var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
+                popupSubmitBtn.click();
+            } else if (moveChannelAction === true) {
                 saveMoveChannel(tab_btns[current_index])
                 moveChannelAction = false
                 current_index = 0
@@ -122,9 +198,6 @@ document.addEventListener('keyup', function (e) {
                 saveMoveWishlist(tab_btns[current_index])
                 moveWishlistAction = false
                 current_index = 0
-            } else if (popupAction === true) {
-                var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
-                popupSubmitBtn.click();
             } else {
                 if (listSelected === 'tabs') {
                     if (tab_btns[current_index].getAttribute('data-list') === 'list-favoris') {
@@ -149,7 +222,7 @@ document.addEventListener('keyup', function (e) {
                     listChannels.setAttribute('data-attr-back-list-index', current_index)
                     listChannels.innerHTML = '';
                     groupName.setAttribute('list-selected', listSelected);
-                    searchForm.classList.add('visible');
+                    document.querySelector('#searchForm').classList.add('visible');
                     if (listSelected === 'bouquets') {
                         let bouquetId = tab_btns[current_index].getAttribute('data-id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
@@ -158,28 +231,8 @@ document.addEventListener('keyup', function (e) {
                         if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                             popupAction = true;
                             popupCheckPin = true;
-                            let popupPin = document.querySelector('.popup-check-pin-access');
-                            let popupPinForm = document.querySelector('.popup-check-pin-access form');
-                            let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
                             popupPin.classList.add('active');
                             popupPinInput.focus();
-                            popupPinForm.addEventListener('submit', function (e) {
-                                e.preventDefault();
-                                console.log("submit form : popupError is => " + popupError);
-                                read().then(data => {
-                                    if (data) {
-                                        if (popupPinInput.value === data.pin) {
-                                            let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                            parsedChannels = result[0].channels
-                                            showChannels();
-                                        } else {
-                                            popupError = true;
-                                        }
-                                        popupPinInput.value = "";
-                                        adaptPopupCheckPin(popupPin);
-                                    }
-                                })
-                            })
                         } else {
                             read().then(data => {
                                 if (data) {
@@ -189,7 +242,7 @@ document.addEventListener('keyup', function (e) {
                                 }
                             })
                         }
-                    } else {
+                    } else if (listSelected === 'favoris') {
                         let favorisId = tab_btns[current_index].getAttribute('data-id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
 
@@ -204,26 +257,8 @@ document.addEventListener('keyup', function (e) {
                                 if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
                                     popupCheckPin = true;
-                                    let popupPin = document.querySelector('.popup-check-pin-access');
-                                    let popupPinForm = document.querySelector('.popup-check-pin-access form');
-                                    let popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
                                     popupPin.classList.add('active');
                                     popupPinInput.focus();
-                                    popupPinForm.addEventListener('submit', function (e) {
-                                        e.preventDefault();
-                                        console.log("submit form : popupError is => " + popupError);
-                                        read().then(data => {
-                                            if (data) {
-                                                if (popupPinInput.value === data.pin) {
-                                                    showChannels();
-                                                } else {
-                                                    popupError = true;
-                                                }
-                                                popupPinInput.value = "";
-                                                adaptPopupCheckPin(popupPin);
-                                            }
-                                        })
-                                    })
                                 } else {
                                     showChannels()
                                 }
@@ -289,7 +324,7 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowRight"
         :
-            if (listSelected === 'tabs') {
+            if (listSelected === 'tabs' && popupAction === false) {
                 tab_btns[current_index].classList.remove('selected');
                 getItem(tab_btns[current_index], 'none');
                 current_index = mod(current_index - 1, tab_btns.length);
@@ -300,7 +335,7 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowLeft"
         :
-            if (listSelected === 'tabs') {
+            if (listSelected === 'tabs' && popupAction === false) {
                 tab_btns[current_index].classList.remove('selected');
                 getItem(tab_btns[current_index], 'none');
                 current_index = mod(current_index + 1, tab_btns.length);
@@ -311,7 +346,7 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowUp"
         :
-            if (listSelected !== 'tabs') {
+            if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
                 if (tab_btns[current_index].classList.contains('move')) {
                     if (moveChannelAction) {
                         moveChannel(tab_btns[current_index], 'moveUp')
@@ -328,7 +363,7 @@ document.addEventListener('keyup', function (e) {
         case
         'ArrowDown'
         :
-            if (listSelected !== 'tabs') {
+            if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
                 if (tab_btns[current_index].classList.contains('move')) {
                     if (moveChannelAction) {
                         moveChannel(tab_btns[current_index], 'moveDown')
@@ -366,9 +401,9 @@ document.addEventListener('keyup', function (e) {
         :
             if (listSelected === 'bouquets' && popupAction === false) {
                 popupAction = true;
-                let popupPin = document.querySelector('.popup-check-pin-hide-buckets');
+                let popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
                 let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
-                popupPin.classList.add('active');
+                popupPinHideBucket.classList.add('active');
                 popupPinInput.focus();
             } else if (listSelected === 'favoris' && popupAction === false) {
                 popupAction = true;
@@ -379,8 +414,6 @@ document.addEventListener('keyup', function (e) {
                 popupTitles.innerText = favSelectedName.textContent;
             } else if (listSelected === 'channels' && popupAction === false) { // Add channel to favoris
                 popupAction = true;
-                var popupFav = document.querySelector('.popup.popup-favoris');
-                var popupFavForm = document.querySelector('.popup.popup-favoris form');
                 popupFav.classList.add('active');
                 tab_btns[current_index].classList.add('active')
                 read().then(data => {
@@ -400,36 +433,6 @@ document.addEventListener('keyup', function (e) {
                         });
                         listSelected = 'checkboxes-channels'
                     }
-                })
-
-                popupFavForm.addEventListener('submit', (e) => {
-                    e.preventDefault();
-                    const listChanSelected = document.querySelector('#list-channels .channel.selected');
-                    const listChanSelectedID = listChanSelected.getAttribute('data-attr-id');
-                    const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
-                    const checkedFav = document.querySelectorAll('.popup-favoris-list-fav li input:checked');
-
-                    var favArr = [];
-                    checkedFav.forEach(el => {
-                        favArr.push(parseInt(el.value));
-                        console.log(el.value);
-                    })
-
-                    read().then(data => {
-                        if (data) {
-                            (data.favoris).forEach((element, index) => {
-                                if (favArr.indexOf(element.favori_id) !== -1) {
-                                    console.log(element);
-                                    element.channels.push({
-                                        "channel_id": parseInt(listChanSelectedID),
-                                        "channel_name": listChanSelectedName,
-                                        "channel_order": element.channels.length + 1
-                                    });
-                                }
-                            });
-                            save(data);
-                        }
-                    })
                 })
             }
             break;
@@ -486,15 +489,15 @@ document.addEventListener('keyup', function (e) {
         :
             if (listSelected === 'favoris' && popupAction === false) {
                 popupAction = true;
-                let popupPin = document.querySelector('.popup-check-pin-favoris');
+                let popupCheckPinWishlist = document.querySelector('.popup-check-pin-favoris');
                 let popupPinInput = document.querySelector('.popup-check-pin-favoris #pin-field-favoris');
-                popupPin.classList.add('active');
+                popupCheckPinWishlist.classList.add('active');
                 popupPinInput.focus();
             } else if (listSelected === 'bouquets' && popupAction === false) {
                 popupAction = true;
-                let popupPin = document.querySelector('.popup-check-pin-buckets');
+                let popupCheckPinBucket = document.querySelector('.popup-check-pin-buckets');
                 let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
-                popupPin.classList.add('active');
+                popupCheckPinBucket.classList.add('active');
                 popupPinInput.focus();
             } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
                 let normalArr = [];
@@ -601,9 +604,9 @@ document.addEventListener('keyup', function (e) {
 })
 ;
 
-//////////////////////////
-/// Start PIN
-//////////////////////////
+////////////////////////////////////////////////////
+/// SHOW CHANNELS AFTER CHECK PIN /// START
+////////////////////////////////////////////////////
 function showChannels() {
     (parsedChannels).forEach((element, index) => {
         const li = document.createElement('li');
@@ -634,9 +637,9 @@ function hideSidebar() {
     tab_btns = channels;
 }
 
-//////////////////////////
-/// END PIN
-//////////////////////////
+////////////////////////////////////////////////////
+/// SHOW CHANNELS AFTER CHECK PIN /// END
+////////////////////////////////////////////////////
 
 function mod(n, m) {
     return ((n % m) + m) % m;

@@ -1,3 +1,4 @@
+let popupAddWishlist = document.querySelector('.popup-add-wishlist');
 let popupWishlistForm = document.querySelector('.popup-add-wishlist form');
 let inputAdd = document.querySelector('.popup.popup-add-wishlist #add');
 
@@ -30,6 +31,7 @@ popupWishlistForm.addEventListener('submit', (e) => {
                 document.querySelector('.list-favoris .favoris.selected').classList.remove('selected')
                 li.classList.add('selected')
                 save(data);
+                adaptPopup(popupAddWishlist)
             }
         }
     })
