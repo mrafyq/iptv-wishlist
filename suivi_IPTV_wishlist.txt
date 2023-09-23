@@ -3,15 +3,15 @@ suivi IPTV wishlist
 System Onglet
 	Bucket..................................................................... OK
 	Favoris.................................................................... OK
-	navigation Right/left between tabs ........................................ OOOK
+	navigation Right/left between tabs ........................................ OK
 
 Dynamic Navigation Between Lists............................................... OK
 	(buckets & favoris)
 
 Bouquet .... NEW
 	Dossier
-		1 PIN code (pass for open) ........................................;... NEW OOOK
-		2 Hide => multiselect : move to new list HIDE_LIST for example ........ NEW OOOK
+		1 PIN code (pass for open) ........................................;... OK
+		2 Hide => multiselect : move to new list HIDE_LIST for example ........ OK
 		    On rajoute un params pour chaque bouquet
 		    (hide prend une valeur boolean 0/1)
 		    lors du parse dans les bouquet on affichons que les bouquets
@@ -38,11 +38,11 @@ Favoris
 			save..................................................... Stand by
 		4 deplacer (order multiple) ........................................... OK without Multiple
 
-		5 deplacer (vers un autre dossier de favoris) ......................... NEW OKK
+		5 deplacer (vers un autre dossier de favoris) ......................... OK
 
-navigation => Group Name (dynamic bucket name|favoris name) ................... NEW OKK
+navigation => Group Name (dynamic bucket name|favoris name) ................... OK
 
-search......................................................................... NEW OKK
+search......................................................................... OK
 	search for channels (bucket channels & favoris channels)
 
 Favoris Order ................................................................. OK
@@ -86,3 +86,14 @@ A a voir ou on va le sauvegarder ...............................................
     2 multiselect (deplacer favoris) work with keys ............................. DONE
     3 popups works with keys .................................................... DONE
     4 Refactoring code + centralize save and read data FN ....................... DONE
+
+
+point 23/09/2023
+    0 - multi order
+        lors du clique sur 6 pour deplacer je flag l'action-move a true
+        apres les deplacements entre les channel se fait avec les fleches
+        et la selection to move avec le boutton Entrer
+        apres il valide le groupe selectionné
+
+    1 - le boutton "Ajouter favoris" sera deplacer ver la dernier <li> dans la liste
+    2 - ajouter deux boutton Oui/Non dans les popups de suppression
