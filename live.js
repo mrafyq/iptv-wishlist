@@ -195,7 +195,7 @@ document.addEventListener('keyup', function (e) {
                 moveChannelAction = false
                 current_index = 0
             } else if (moveWishlistAction === true) {
-                saveMoveWishlist(tab_btns[current_index])
+                saveMoveWishlist()
                 moveWishlistAction = false
                 current_index = 0
             } else {
@@ -348,12 +348,16 @@ document.addEventListener('keyup', function (e) {
         "ArrowUp"
         :
             if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
-                if (tab_btns[current_index].classList.contains('move')) {
-                    if (moveChannelAction) {
-                        moveChannel(tab_btns[current_index], 'moveUp')
-                    } else if (moveWishlistAction) {
-                        moveWishlist(tab_btns[current_index], 'moveUp')
-                    }
+                // if (tab_btns[current_index].classList.contains('move')) {
+                //     if (moveChannelAction) {
+                //         moveChannel(tab_btns[current_index], 'moveUp')
+                //     } else if (moveWishlistAction) {
+
+                        // moveWishlist(tab_btns[current_index], 'moveUp')
+                    // }
+                if (moveWishlistAction) {
+                    console.log("move them up")
+                    moveWishlists('up')
                 } else {
                     tab_btns[current_index].classList.remove('selected');
                     current_index = mod(current_index - 1, tab_btns.length);
@@ -365,12 +369,15 @@ document.addEventListener('keyup', function (e) {
         'ArrowDown'
         :
             if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
-                if (tab_btns[current_index].classList.contains('move')) {
-                    if (moveChannelAction) {
-                        moveChannel(tab_btns[current_index], 'moveDown')
-                    } else if (moveWishlistAction) {
-                        moveWishlist(tab_btns[current_index], 'moveDown')
-                    }
+                // if (tab_btns[current_index].classList.contains('move')) {
+                //     if (moveChannelAction) {
+                //         moveChannel(tab_btns[current_index], 'moveDown')
+                //     } else if (moveWishlistAction) {
+                        // moveWishlist(tab_btns[current_index], 'moveDown')
+                    // }
+                if (moveWishlistAction) {
+                    console.log("move them down")
+                    moveWishlists('down')
                 } else {
                     tab_btns[current_index].classList.remove('selected');
                     current_index = mod(current_index + 1, tab_btns.length);
@@ -393,8 +400,13 @@ document.addEventListener('keyup', function (e) {
         '2'
         :
             if (listSelected === 'favoris' && popupAction === false) {
-                moveWishlistAction = true;
-                moveWishlist(tab_btns[current_index]);
+                // moveWishlist(tab_btns[current_index]);
+                if (tab_btns[current_index].classList.contains('move')) {
+                    moveWishlistAction = true;
+                    console.log('confirm selected')
+                } else {
+                    addElementToMove(tab_btns[current_index]);
+                }
             }
             break;
         case

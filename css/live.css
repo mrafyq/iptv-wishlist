@@ -17,7 +17,7 @@ body {
     background-color: rgba(243, 223, 5, 0.9);
     color: #0c1114;
 }
-.selected{
+.move, .selected{
     background-color: #ccc016b0;
     color: #0c1114;
 }

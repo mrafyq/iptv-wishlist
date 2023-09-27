@@ -81,7 +81,7 @@ A a voir ou on va le sauvegarder ...............................................
     1 Order .......... .......................................................... IN PROGRESS
         Order favoris dossier ................................................... DONE
         Order favoris channel ................................................... DONE
-        Multi Order favoris dossier ............................................. IN PROGRESS
+        Multi Order favoris dossier ............................................. DONE
         Multi Order favoris channel ............................................. IN PROGRESS
     2 multiselect (deplacer favoris) work with keys ............................. DONE
     3 popups works with keys .................................................... DONE
