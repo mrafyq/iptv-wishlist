@@ -38,6 +38,25 @@ function fetchWishlists(wishlists) {
             iconLock.setAttribute('class', 'icon-lock');
             li.appendChild(iconLock);
         }
+        console.log(li)
         listFav.appendChild(li);
+    });
+}
+
+function fetchChannels(channels) {
+    listChannels0.innerHTML = '';
+    (channels).forEach((element, index) => {
+        const li = document.createElement('li');
+        li.setAttribute('data-attr-id', element.channel_id);
+        li.setAttribute('data-attr-name', element.channel_name);
+        li.setAttribute('data-attr-order', element.channel_order);
+        li.style.order = element.channel_order
+        if (index == 0) {
+            li.setAttribute('class', 'channel selected');
+        } else {
+            li.setAttribute('class', 'channel');
+        }
+        li.innerHTML = element.channel_name;
+        listChannels0.appendChild(li);
     });
 }

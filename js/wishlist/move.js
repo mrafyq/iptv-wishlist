@@ -101,13 +101,7 @@ function saveMoveWishlist() {
                 }
                 i++
             })
-            /*
             data.favoris.sort((a, b) => (a.order > b.order) ? 1 : -1)
-            data.favoris.forEach(element => {
-                console.log(element.order + ' | ' +  element.favori_name)
-
-            })
-             */
             fetchWishlists(data.favoris)
             save(data)
         }
