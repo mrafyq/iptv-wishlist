@@ -326,3 +326,10 @@ li.channel {
     display: flex;
     align-items: center;
 }
+
+.popup-delete button,
+.popup-remove-from-wishlist button {
+    opacity: 1;
+    visibility: visible;
+    position: unset;
+}
