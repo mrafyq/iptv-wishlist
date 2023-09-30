@@ -6,7 +6,7 @@ function addElementToMove(elementToMove) {
 }
 
 function moveWishlists(direction) {
-    let elementsToMove = document.querySelectorAll('li.favoris.move'),
+    let elementsToMove = document.querySelectorAll('li.wishlist.move'),
         minOrderSelected, maxOrderSelected;
     minOrderSelected = parseInt(elementsToMove.item(0).getAttribute('data-order'))
     maxOrderSelected = parseInt(elementsToMove.item(elementsToMove.length - 1).getAttribute('data-order'))
@@ -25,7 +25,7 @@ function moveWishlists(direction) {
 }
 
 function getElementNotSelectedForMove(minOrder, maxOrder, direction) {
-    let elementsNotSelectedToMove = document.querySelectorAll('li.favoris')
+    let elementsNotSelectedToMove = document.querySelectorAll('li.wishlist')
     let count = 0;
     if (direction === 'up') {
         elementsNotSelectedToMove = [...elementsNotSelectedToMove];
@@ -58,13 +58,13 @@ function moveElementsToMove(elementsToMove, minOrderSelected, maxOrderSelected, 
         diff = 1;
         diffUp = diff;
         if (direction === 'up') {
-            let prevElement = document.querySelector('li.favoris[data-order="' + (minOrderSelected - 1) + '"]')
+            let prevElement = document.querySelector('li.wishlist[data-order="' + (minOrderSelected - 1) + '"]')
             if (prevElement) {
                 prevElement.setAttribute('data-order', maxOrderSelected)
                 prevElement.style.order = maxOrderSelected
             }
         } else if (direction === 'down') {
-            let nextElement = document.querySelector('li.favoris[data-order="' + (maxOrderSelected + 1) + '"]')
+            let nextElement = document.querySelector('li.wishlist[data-order="' + (maxOrderSelected + 1) + '"]')
             if (nextElement) {
                 nextElement.setAttribute('data-order', minOrderSelected)
                 nextElement.style.order = minOrderSelected
@@ -73,7 +73,7 @@ function moveElementsToMove(elementsToMove, minOrderSelected, maxOrderSelected, 
     }
     console.log("moveElementsToMove diff: " + diff)
     console.log(direction)
-    let countAll = document.querySelectorAll('li.favoris')
+    let countAll = document.querySelectorAll('li.wishlist')
     let countUp = 0;
     let countDown = elementsToMove.length;
     elementsToMove.forEach(element => {
@@ -95,14 +95,14 @@ function saveMoveWishlist() {
     read().then(data => {
         if (data) {
             let i = 0;
-            data.favoris.forEach(element => {
-                if (favoris[i].getAttribute('data-id') == element.favori_id) {
-                    element.order = parseInt(favoris[i].getAttribute('data-order'))
+            data.wishlists.forEach(element => {
+                if (wishlist[i].getAttribute('data-id') == element.wishlist_id) {
+                    element.order = parseInt(wishlist[i].getAttribute('data-order'))
                 }
                 i++
             })
-            data.favoris.sort((a, b) => (a.order > b.order) ? 1 : -1)
-            fetchWishlists(data.favoris)
+            data.wishlists.sort((a, b) => (a.order > b.order) ? 1 : -1)
+            fetchWishlists(data.wishlists)
             save(data)
         }
     })
@@ -122,7 +122,7 @@ function saveMoveWishlist() {
 //             break;
 //         case "moveUp":
 //             console.log("move up")
-//             let prevElement = document.querySelector('.favoris[data-order="' + (oldOrder - 1) + '"]')
+//             let prevElement = document.querySelector('.wishlist[data-order="' + (oldOrder - 1) + '"]')
 //             prevElement.setAttribute('data-order', oldOrder)
 //             prevElement.style.order = oldOrder
 //             elementToMove.setAttribute('data-order', oldOrder - 1)
@@ -130,7 +130,7 @@ function saveMoveWishlist() {
 //             break;
 //         case "moveDown":
 //             console.log("move down")
-//             let nextElement = document.querySelector('.favoris[data-order="' + (oldOrder + 1) + '"]')
+//             let nextElement = document.querySelector('.wishlist[data-order="' + (oldOrder + 1) + '"]')
 //             nextElement.setAttribute('data-order', oldOrder)
 //             nextElement.style.order = oldOrder
 //             elementToMove.setAttribute('data-order', oldOrder + 1)

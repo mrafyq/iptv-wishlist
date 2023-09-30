@@ -98,7 +98,7 @@ body{
     background-color: #0c1114;
     overflow: auto;
 }
-.sidebar-favoris {
+.sidebar-wishlist {
     position: absolute;
     top:0;
     left:30%;
@@ -142,7 +142,7 @@ input[type="password"] {
 }
 
 #right-buttons,
-.list-favoris {
+.list-wishlist {
     display: none;
 }
 
@@ -207,7 +207,7 @@ input[type="password"] {
     color: black;
 }
 
-.popup-favoris-list-fav {
+.popup-wishlist-list-fav {
     padding: 0;
     margin: 0;
     display: flex;
@@ -216,7 +216,7 @@ input[type="password"] {
     list-style: none;
     text-align: left;
 }
-.popup-favoris-list-fav li {
+.popup-wishlist-list-fav li {
     display: flex;
     align-items: center;
     justify-content: flex-start;
@@ -224,19 +224,19 @@ input[type="password"] {
     font-size: 1.3em;
     padding: 6px 10px !important;
 }
-.popup-favoris-list-fav li input {
+.popup-wishlist-list-fav li input {
     width: auto;
     margin: 0 10px 0 0;
 }
 
 .list-bouquet,
-.list-favoris,
+.list-wishlist,
 .list-channels {
     flex-flow: column;
     padding-right: 20px;
 }
 
-.remove-from-favoris {
+.remove-from-wishlist {
     display: none;
 }
 

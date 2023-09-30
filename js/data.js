@@ -21,18 +21,18 @@ function fetchWishlists(wishlists) {
     listFav.innerHTML = '';
     (wishlists).forEach((element, index) => {
         const li = document.createElement('li');
-        li.setAttribute('id', 'wishlits-' + element.favori_id);
-        li.setAttribute('data-id', element.favori_id);
-        li.setAttribute('data-name', element.favori_name);
+        li.setAttribute('id', 'wishlits-' + element.wishlist_id);
+        li.setAttribute('data-id', element.wishlist_id);
+        li.setAttribute('data-name', element.wishlist_name);
         li.setAttribute('data-pin', element.pin);
         li.setAttribute('data-order', element.order);
         if (index == 0) {
-            li.setAttribute('class', 'favoris selected');
+            li.setAttribute('class', 'wishlist selected');
         } else {
-            li.setAttribute('class', 'favoris');
+            li.setAttribute('class', 'wishlist');
         }
         li.style.order = element.order;
-        li.innerHTML = element.favori_name;
+        li.innerHTML = element.wishlist_name;
         if (element.pin) {
             const iconLock = document.createElement('i');
             iconLock.setAttribute('class', 'icon-lock');
@@ -41,6 +41,20 @@ function fetchWishlists(wishlists) {
         console.log(li)
         listFav.appendChild(li);
     });
+    addActionAddWishlist(wishlists.length)
+}
+
+function addActionAddWishlist(count) {
+    const li = document.createElement('li');
+    li.setAttribute('class', 'wishlist action-add-wishlist');
+    li.innerHTML = 'Ajouter';
+    li.style.order = count + 1;
+    listFav.appendChild(li);
+}
+
+function removeActionAddWishlist() {
+    const li = document.querySelector('li.action-add-wishlist');
+    li.remove();
 }
 
 function fetchChannels(channels) {

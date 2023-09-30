@@ -3,13 +3,13 @@ var popupDelete = document.querySelector('.popup-delete');
 
 popupDeleteForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let favList = document.querySelectorAll('.list-favoris .favoris');
-    let favDeleteSelected = document.querySelector('.list-favoris .favoris.selected');
+    let favList = document.querySelectorAll('.list-wishlist .wishlist');
+    let favDeleteSelected = document.querySelector('.list-wishlist .wishlist.selected');
     let favDeleteID = favDeleteSelected.getAttribute('data-id');
     read().then(data => {
         if (data) {
-            let favoris = data.favoris.filter(item => item.favori_id != favDeleteID);
-            data.favoris = favoris;
+            let wishlist = data.wishlists.filter(item => item.wishlist_id != favDeleteID);
+            data.wishlists = wishlist;
             favList[0].classList.add('selected');
             favDeleteSelected.remove();
             save(data)

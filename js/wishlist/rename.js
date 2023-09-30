@@ -5,20 +5,20 @@ var inputRename = document.querySelector('.popup-rename #rename');
 popupRenameForm.addEventListener('submit', (e) => {
     e.preventDefault();
     console.log(inputRename.value)
-    let favorisSelected = document.querySelector('.list-favoris .favoris.selected');
-    let favorisId = favorisSelected.getAttribute('data-id')
+    let wishlistSelected = document.querySelector('.list-wishlist .wishlist.selected');
+    let wishlistId = wishlistSelected.getAttribute('data-id')
     read().then(data => {
         if (data && popupAction === true) {
-            (data.favoris).forEach((element) => {
-                if (element.favori_id == favorisId) {
-                    favorisSelected.textContent = inputRename.value;
-                    favorisSelected.setAttribute('data-name', inputRename.value);
-                    element.favori_name = inputRename.value;
-                    if (parseInt(favorisSelected.getAttribute('data-pin'))) {
+            (data.wishlists).forEach((element) => {
+                if (element.wishlist_id == wishlistId) {
+                    wishlistSelected.textContent = inputRename.value;
+                    wishlistSelected.setAttribute('data-name', inputRename.value);
+                    element.wishlist_name = inputRename.value;
+                    if (parseInt(wishlistSelected.getAttribute('data-pin'))) {
 
                         const iconLock = document.createElement('i');
                         iconLock.setAttribute('class', 'icon-lock');
-                        favorisSelected.appendChild(iconLock)
+                        wishlistSelected.appendChild(iconLock)
                     }
                 }
             });

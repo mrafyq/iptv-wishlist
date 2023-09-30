@@ -78,11 +78,11 @@ A a voir ou on va le sauvegarder ...............................................
 
 22/23 Septembre dernier date
 
-    1 Order .......... .......................................................... IN PROGRESS
+    1 Order .......... .......................................................... DONE
         Order favoris dossier ................................................... DONE
         Order favoris channel ................................................... DONE
         Multi Order favoris dossier ............................................. DONE
-        Multi Order favoris channel ............................................. IN PROGRESS
+        Multi Order favoris channel ............................................. DONE
     2 multiselect (deplacer favoris) work with keys ............................. DONE
     3 popups works with keys .................................................... DONE
     4 Refactoring code + centralize save and read data FN ....................... DONE
@@ -91,9 +91,10 @@ A a voir ou on va le sauvegarder ...............................................
 point 23/09/2023
     0 - multi order
         lors du clique sur 6 pour deplacer je flag l'action-move a true
-        apres les deplacements entre les channel se fait avec les fleches
+        apres les deplacements entre les channels se fait avec les fleches
         et la selection to move avec le boutton Entrer
-        apres il valide le groupe selectionné
+        apres il valide le groupe selectionné ............................................. WIP
 
-    1 - le boutton "Ajouter favoris" sera deplacer ver la dernier <li> dans la liste
-    2 - ajouter deux boutton Oui/Non dans les popups de suppression
+    1 - le boutton "Ajouter favoris" sera deplacer ver la dernier <li> dans la liste ...... WIP
+    2 - ajouter deux boutton Oui/Non dans les popups de suppression ....................... WIP
+    3 - le menu des actions sur les channels .............................................. WAITING
