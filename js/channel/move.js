@@ -94,7 +94,7 @@ function moveChannelsToMove(elementsToMove, minOrderSelected, maxOrderSelected, 
 function saveMoveChannel() {
     read().then(data => {
         if (data) {
-            var groupSelected = document.querySelector('.group-name');
+            let groupSelected = document.querySelector('.group-name');
             let listSelectedName = groupSelected.getAttribute('list-selected'),
             listSelectedId = parseInt(groupSelected.getAttribute('id'));
             if (listSelectedName === 'wishlists') {
@@ -117,6 +117,30 @@ function saveMoveChannel() {
                 fetchChannels(result.channels)
             }
             save(data)
+        }
+    })
+}
+
+function cancelChannelsMove() {
+    for (var i = 0; i < channels.length; i++) {
+        if (channels[i].classList.contains('move')) {
+            channels[i].classList.remove('move');
+            channels[i].innerHTML = channels[i].getAttribute('data-attr-name');
+        }
+    }
+    read().then(data => {
+        if (data) {
+            let groupSelected = document.querySelector('.group-name'),
+                listSelectedName = groupSelected.getAttribute('list-selected'),
+                listSelectedId = parseInt(groupSelected.getAttribute('id'));
+            if (listSelectedName === 'wishlists') {
+                const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == listSelectedId)[0];
+                fetchChannels(result.channels)
+            } else if (listSelectedName === 'buckets') {
+                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == listSelectedId)[0];
+                result.channels.sort((a, b) => (a.channel_order > b.channel_order) ? 1 : -1)
+                fetchChannels(result.channels)
+            }
         }
     })
 }

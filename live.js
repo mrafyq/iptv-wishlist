@@ -17,6 +17,8 @@ var popupCheckPin = false;
 var moveWishlistAction = false;
 var moveChannelAction = false;
 
+var generalMoveAction = false;
+
 
 var popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
 popupCloseBtn.forEach(el => {
@@ -186,7 +188,17 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case 'Enter':
-            if (popupAction === true) {
+            if (generalMoveAction) {
+                if (tab_btns[current_index].classList.contains('move')) {
+                    if (listSelected === 'wishlists') {
+                        moveWishlistAction = true;
+                    } else if (listSelected === 'channels') {
+                        moveChannelAction = true;
+                    }
+                    generalMoveAction = false
+                }
+                return;
+            } else if (popupAction === true) {
                 var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
                 popupSubmitBtn.click();
             } else if (moveChannelAction === true) {
@@ -280,6 +292,13 @@ document.addEventListener('keyup', function (e) {
         :
             if (listSelected === 'tabs') {
                 return false;
+            } else if (generalMoveAction) { // cancel move
+                generalMoveAction = false;
+                if (listSelected === 'channels') {
+                    cancelChannelsMove()
+                } else if (listSelected === 'wishlists') {
+                    cancelWishlistsMove()
+                }
             } else {
                 if (popupAction === true) {
                     var popupActive = document.querySelector('.popup.active');
@@ -416,17 +435,21 @@ document.addEventListener('keyup', function (e) {
         '2'
         :
             if (listSelected === 'wishlists' && popupAction === false) {
-                if (tab_btns[current_index].classList.contains('move')) {
-                    moveWishlistAction = true;
-                } else {
+                if (!tab_btns[current_index].classList.contains('move')) {
+                    generalMoveAction = true;
                     addElementToMove(tab_btns[current_index]);
+                } else {
+                    tab_btns[current_index].classList.remove('move')
+                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-name')
                 }
             }
             break;
         case
         '3'
         :
-            if (listSelected === 'buckets' && popupAction === false) {
+            if (generalMoveAction === true) {
+                return;
+            } else if (listSelected === 'buckets' && popupAction === false) {
                 popupAction = true;
                 let popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
                 let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
@@ -466,7 +489,9 @@ document.addEventListener('keyup', function (e) {
         case
         '4'
         :
-            if (listSelected === 'wishlists' && popupAction === false) { // Rename wishlist
+            if (generalMoveAction === true) {
+                return;
+            } else if (listSelected === 'wishlists' && popupAction === false) { // Rename wishlist
                 popupAction = true;
                 let popupFavRename = document.querySelector('.popup-rename');
                 popupFavRename.classList.add('active');
@@ -514,7 +539,9 @@ document.addEventListener('keyup', function (e) {
         case
         '5'
         :
-            if (listSelected === 'wishlists' && popupAction === false) {
+            if (generalMoveAction === true) {
+                return;
+            } else if (listSelected === 'wishlists' && popupAction === false) {
                 popupAction = true;
                 let popupCheckPinWishlist = document.querySelector('.popup-check-pin-wishlist');
                 let popupPinInput = document.querySelector('.popup-check-pin-wishlist #pin-field-wishlist');
@@ -625,6 +652,7 @@ document.addEventListener('keyup', function (e) {
                 if (tab_btns[current_index].classList.contains('move')) {
                     moveChannelAction = true;
                 } else {
+                    generalMoveAction = true;
                     addChannelToMove(tab_btns[current_index]);
                 }
             }

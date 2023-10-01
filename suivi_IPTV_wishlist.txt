@@ -93,7 +93,7 @@ point 23/09/2023
         lors du clique sur 6 pour deplacer je flag l'action-move a true
         apres les deplacements entre les channels se fait avec les fleches
         et la selection to move avec le boutton Entrer
-        apres il valide le groupe selectionné ............................................. WIP
+        apres il valide le groupe selectionné ............................................. DONE
 
     1 - le boutton "Ajouter favoris" sera deplacer ver la dernier <li> dans la liste ...... DONE
     2 - ajouter deux boutton Oui/Non dans les popups de suppression ....................... WIP

@@ -108,6 +108,20 @@ function saveMoveWishlist() {
     })
 }
 
+function cancelWishlistsMove() {
+    for (var i = 0; i < wishlist.length; i++) {
+        if (wishlist[i].classList.contains('move')) {
+            wishlist[i].classList.remove('move');
+            wishlist[i].innerHTML = wishlist[i].getAttribute('data-name')
+        }
+    }
+    read().then(data => {
+        if (data) {
+            fetchWishlists(data.wishlists)
+        }
+    })
+}
+
 // OLD method for mono move
 // function moveWishlist(elementToMove, action = 'select') {
 //     console.log(elementToMove)
