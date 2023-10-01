@@ -8,10 +8,9 @@ var tab_btns;
 var sortAscDesc = 0;
 var sortBy = document.querySelector('.sortBy');
 
-var popupAction = false;
-
 var parsedChannels = [];
 
+var popupAction = false;
 var popupError = false;
 var popupCheckPin = false;
 
@@ -243,8 +242,7 @@ document.addEventListener('keyup', function (e) {
                             })
                         }
                     } else if (listSelected === 'wishlists') {
-
-                        if (tab_btns[current_index].classList.contains('action-add-wishlist') && popupAction === false) { // Add new wishlist
+                        if (document.querySelector('li.action-add-wishlist').classList.contains('selected') && popupAction === false) { // Add new wishlist
                             popupAction = true;
                             let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
                             popupWishlist.classList.add('active');
@@ -361,9 +359,18 @@ document.addEventListener('keyup', function (e) {
                 } else if (moveWishlistAction) {
                     moveWishlists('up')
                 } else {
-                    tab_btns[current_index].classList.remove('selected');
-                    current_index = mod(current_index - 1, tab_btns.length);
-                    tab_btns[current_index].classList.add('selected');
+                    if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
+                        document.querySelector('li.action-add-wishlist').classList.remove('selected')
+                        tab_btns[tab_btns.length - 1].classList.add('selected');
+                    } else {
+                        tab_btns[current_index].classList.remove('selected');
+                        if (current_index === 0) {
+                            document.querySelector('li.action-add-wishlist').classList.add("selected")
+                        } else {
+                            current_index = mod(current_index - 1, tab_btns.length);
+                            tab_btns[current_index].classList.add('selected');
+                        }
+                    }
                 }
             }
             break;
@@ -376,9 +383,21 @@ document.addEventListener('keyup', function (e) {
                 } else if (moveWishlistAction) {
                     moveWishlists('down')
                 } else {
-                    tab_btns[current_index].classList.remove('selected');
-                    current_index = mod(current_index + 1, tab_btns.length);
-                    tab_btns[current_index].classList.add('selected');
+                    if (current_index >= 0) {
+                        tab_btns[current_index].classList.remove('selected');
+                    }
+                    if (listSelected === 'wishlists' && current_index == wishlist.length - 1) {
+                        document.querySelector('li.action-add-wishlist').classList.add("selected")
+                    } else {
+                        if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
+                            document.querySelector('li.action-add-wishlist').classList.remove('selected')
+                            tab_btns[0].classList.add('selected');
+                        } else {
+                            current_index = mod(current_index + 1, tab_btns.length);
+                            tab_btns[current_index].classList.add('selected');
+                        }
+                    }
+
                 }
             }
             break;

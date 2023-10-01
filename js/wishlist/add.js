@@ -27,11 +27,7 @@ popupWishlistForm.addEventListener('submit', (e) => {
                 li.setAttribute('class', 'wishlists');
                 li.style.order = data.wishlists.length;
                 li.innerHTML = inputAdd.value;
-                removeActionAddWishlist()
-                listFav.appendChild(li);
-                // document.querySelector('.list-wishlist .wishlist.selected').classList.remove('selected')
-                li.classList.add('selected')
-                addActionAddWishlist(data.wishlists.length)
+                fetchWishlists(data.wishlists)
                 save(data);
                 adaptPopup(popupAddWishlist)
             }

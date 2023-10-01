@@ -46,7 +46,7 @@ function fetchWishlists(wishlists) {
 
 function addActionAddWishlist(count) {
     const li = document.createElement('li');
-    li.setAttribute('class', 'wishlist action-add-wishlist');
+    li.setAttribute('class', 'action-add-wishlist');
     li.innerHTML = 'Ajouter';
     li.style.order = count + 1;
     listFav.appendChild(li);
