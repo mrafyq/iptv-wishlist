@@ -90,7 +90,7 @@
                         <br>
                         <br>
                         <div>
-                            <button type="submit" class="action-rename-save">Enregistrer</button>
+                            <button type="submit" class="action-rename-save active">Enregistrer</button>
                             <button type="button" class="btn-cancel" data-popup="popup-rename">Annuler</button>
                         </div>
                     </form>
@@ -110,8 +110,8 @@
                         <div class="popup-title">Supprimer le favoris: <strong></strong></div>
                         <br>
                         <div>
-                            <button type="submit" class="action-delete-confirm">Oui</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-delete">Non</button>
+                            <button type="submit" class="btn action-delete-confirm">Oui</button>
+                            <button type="button" class="btn btn-cancel active" data-popup="popup-delete">Non</button>
                         </div>
                     </form>
                 </div>
@@ -130,7 +130,7 @@
                         <div class="popup-title">Ajouter au favoris : <strong></strong></div>
                         <div class="popup-wishlist-name"></div>
                         <ul class="popup-wishlist-list-fav" id="popup-wishlist-list-fav"></ul>
-                        <button type="submit">Enregistrer</button>
+                        <button type="submit" class="active">Enregistrer</button>
                         <button type="button" class="btn-cancel" data-popup="popup-wishlist">Annuler</button>
                     </form>
                 </div>
@@ -149,7 +149,7 @@
                     <form id="add-wishlist-form" name="add-wishlist-form">
                         <input type="text" id="add" name="wishlist_name" minlength="3" required
                                title="Définir le nom de favoris" placeholder="Définir le nom de favoris" onkeypress="if (event.which == 13) {event.preventDefault();}">
-                        <button type="submit">Enregistrer</button>
+                        <button type="submit" class="active">Enregistrer</button>
                         <button type="button" class="btn-cancel" data-popup="popup-add-wishlist">Annuler</button>
                     </form>
                 </div>
@@ -167,9 +167,15 @@
                     <form id="remove-from-wishlist-form" name="remove-from-wishlist-form">
                         <div class="popup-title"></div>
                         <br>
-                        <button type="submit">Oui</button>
-                        <button type="button" class="btn-cancel" data-popup="popup-remove-from-wishlist">Non</button>
+                        <button type="submit" class="btn">Oui</button>
+                        <button type="button" class="btn btn-cancel active" data-popup="popup-remove-from-wishlist">Non</button>
                     </form>
+                </div>
+                <div class="popup-success">
+                    <div class="popup-success-inner">
+                        <i class="icon-check-success"></i>
+                        <div>Success !</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -182,7 +188,7 @@
                         <input id="pin-field-wishlist" type="password" class="field" placeholder="0000" maxlength="4"
                                title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
-                            <button type="submit">OK</button>
+                            <button type="submit" class="active">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-wishlist">Annuler</button>
                         </div>
                     </form>
@@ -205,7 +211,7 @@
                         <input id="pin-field-bucket" type="password" class="field" placeholder="0000" maxlength="4"
                                title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
-                            <button type="submit">OK</button>
+                            <button type="submit" class="active">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-buckets">Annuler</button>
                         </div>
                     </form>
@@ -228,7 +234,7 @@
                         <input id="pin-hide-field-bucket" type="password" class="field" placeholder="1234" maxlength="4"
                                title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
-                            <button type="submit">OK</button>
+                            <button type="submit" class="active">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-hide-buckets">Annuler</button>
                         </div>
                     </form>
@@ -251,7 +257,7 @@
                         <input id="pin-field" type="password" class="field" placeholder="0000" title="Entrer votre PIN"
                                maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
                         <div>
-                            <button type="submit">OK</button>
+                            <button type="submit" class="active">OK</button>
                             <button type="button" class="btn-cancel" data-popup="popup-check-pin-access">Annuler</button>
                         </div>
                     </form>
@@ -315,6 +321,7 @@
         <script type="text/javascript" src="js/bucket/pin.js"></script>
         <script type="text/javascript" src="js/bucket/hide.js"></script>
         <script type="text/javascript" src="js/channel/move.js"></script>
+        <script type="text/javascript" src="js/channel/remove-from-wishlist.js"></script>
         <script type="text/javascript" src="js/channel/search.js"></script>
     </body>
 </html>

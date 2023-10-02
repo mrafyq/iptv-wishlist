@@ -199,8 +199,8 @@ document.addEventListener('keyup', function (e) {
                 }
                 return;
             } else if (popupAction === true) {
-                var popupSubmitBtn = document.querySelector('.popup.active form button[type="submit"]');
-                popupSubmitBtn.click();
+                let popupBtnActive = document.querySelector('.popup.active form button[class~="active"]');
+                popupBtnActive.click();
             } else if (moveChannelAction === true) {
                 saveMoveChannel()
                 moveChannelAction = false
@@ -357,6 +357,9 @@ document.addEventListener('keyup', function (e) {
                 tab_btns[current_index].classList.add('selected');
                 getItem(tab_btns[current_index], 'flex');
             }
+            if (popupAction) {
+                switchPopupActiveYesNo()
+            }
             break;
         case
         "ArrowLeft"
@@ -367,6 +370,9 @@ document.addEventListener('keyup', function (e) {
                 current_index = mod(current_index + 1, tab_btns.length);
                 tab_btns[current_index].classList.add('selected');
                 getItem(tab_btns[current_index], 'flex');
+            }
+            if (popupAction) {
+                switchPopupActiveYesNo()
             }
             break;
         case
@@ -502,37 +508,19 @@ document.addEventListener('keyup', function (e) {
                 inputRename.value = favSelectedName.textContent
                 inputRename.focus();
             } else if (listSelected === 'channels' && popupAction === false) { // Remove channel from wishlist
-                var groupNameSelected = document.querySelector('.group-name');
+                let groupNameSelected = document.querySelector('.group-name');
                 if (groupNameSelected.getAttribute('list-selected') === 'wishlists') {
                     popupAction = true;
-                    var wishlistSelected = document.querySelector('.group-name');
-                    var wishlistChannelSelected = document.querySelector('.list-channels .channel.selected');
-                    var popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
-                    var popupRemoveFromWishlistForm = document.getElementById('remove-from-wishlist-form');
-                    var popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
-
-                    // Popup title => Favoris
-                    popupRemoveFromWishlistTitle.innerHTML = 'Are you sure you want to remove <strong>' + wishlistChannelSelected.getAttribute('data-attr-name') + '</strong> from <strong>' + wishlistSelected.textContent + '</strong> ?'
-
+                    let wishlistSelected = document.querySelector('.group-name');
+                    let wishlistChannelSelected = document.querySelector('.list-channels .channel.selected');
+                    let popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
+                    let popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
+                    // Popup title => Wishlist
+                    popupRemoveFromWishlistTitle.innerHTML = 'Etes vous sur de vouloir supprimer <strong>' +
+                        wishlistChannelSelected.getAttribute('data-attr-name') +
+                        '</strong> depuis <strong>' + wishlistSelected.textContent + '</strong> ?'
                     // Show popup remove channel item from wishlist
                     popupRemoveFromWishlist.classList.add('active');
-
-                    // Submit form remove channel item from wishlist
-                    popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
-                        e.preventDefault();
-                        wishlistChannelSelected.remove();
-                        read().then(data => {
-                            if (data) {
-                                let getFav = data.wishlists.filter(item => item.wishlist_id == wishlistSelected.id);
-                                let getFavChannels = getFav[0].channels.filter(item => item.channel_id != wishlistChannelSelected.getAttribute('data-attr-id'));
-                                let wishlistChannel = document.querySelectorAll('.list-channels .channel');
-                                wishlistChannel[0].classList.add('selected');
-                                getFav[0].channels = getFavChannels;
-                                // TODO saves two time
-                                save(data);
-                            }
-                        })
-                    })
                 }
             }
             break;
@@ -698,6 +686,18 @@ function hideSidebar() {
 ////////////////////////////////////////////////////
 /// SHOW CHANNELS AFTER CHECK PIN /// END
 ////////////////////////////////////////////////////
+
+function switchPopupActiveYesNo() {
+    let popupButtons = document.querySelectorAll('.popup.active form button');
+    let popupBtnActive = document.querySelector('.popup.active form button[class~="active"]');
+    popupButtons.forEach(button => {
+        if (button === popupBtnActive) {
+            button.classList.remove('active')
+        } else {
+            button.classList.add('active')
+        }
+    })
+}
 
 function mod(n, m) {
     return ((n % m) + m) % m;

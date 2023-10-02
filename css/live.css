@@ -333,3 +333,14 @@ li.channel {
     visibility: visible;
     position: unset;
 }
+
+.btn {
+    font-size: 1rem;
+    padding: 0.5rem 0.9rem;
+    border: white;
+}
+.btn.active {
+    font-weight: bold;
+    border: peru;
+    background-color: gold;
+}
