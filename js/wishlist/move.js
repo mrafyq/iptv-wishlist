@@ -104,8 +104,23 @@ function saveMoveWishlist() {
             data.wishlists.sort((a, b) => (a.order > b.order) ? 1 : -1)
             fetchWishlists(data.wishlists)
             save(data)
+            changeLabel('Déplacer')
+            manageActionsButtons('block', true)
         }
     })
+}
+
+function manageActionsButtons(display = 'none', applyDisplayForMoveBtn = false) {
+    document.querySelector('.action-delete').style.display = display
+    document.querySelector('.action-rename').style.display = display
+    document.querySelector('.action-pin').style.display = display
+    if (applyDisplayForMoveBtn) {
+        document.querySelector('.action-move').style.display = display
+    }
+}
+
+function changeLabel(label = 'Déplacer') {
+    document.querySelector('.action-move').innerHTML = '<div class="dot blue"> </div> ' + label + '</div>'
 }
 
 function cancelWishlistsMove() {
@@ -121,34 +136,3 @@ function cancelWishlistsMove() {
         }
     })
 }
-
-// OLD method for mono move
-// function moveWishlist(elementToMove, action = 'select') {
-//     console.log(elementToMove)
-//     let oldOrder = parseInt(elementToMove.getAttribute('data-order'))
-//     switch (action) {
-//         case "select":
-//             console.log("select for move")
-//             const iconMove = document.createElement('i');
-//             iconMove.setAttribute('class', 'arrow');
-//             elementToMove.classList.add("move")
-//             elementToMove.appendChild(iconMove)
-//             break;
-//         case "moveUp":
-//             console.log("move up")
-//             let prevElement = document.querySelector('.wishlist[data-order="' + (oldOrder - 1) + '"]')
-//             prevElement.setAttribute('data-order', oldOrder)
-//             prevElement.style.order = oldOrder
-//             elementToMove.setAttribute('data-order', oldOrder - 1)
-//             elementToMove.style.order = oldOrder - 1
-//             break;
-//         case "moveDown":
-//             console.log("move down")
-//             let nextElement = document.querySelector('.wishlist[data-order="' + (oldOrder + 1) + '"]')
-//             nextElement.setAttribute('data-order', oldOrder)
-//             nextElement.style.order = oldOrder
-//             elementToMove.setAttribute('data-order', oldOrder + 1)
-//             elementToMove.style.order = oldOrder + 1
-//             break;
-//     }
-// }

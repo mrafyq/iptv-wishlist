@@ -192,6 +192,7 @@ document.addEventListener('keyup', function (e) {
                 if (tab_btns[current_index].classList.contains('move')) {
                     if (listSelected === 'wishlists') {
                         moveWishlistAction = true;
+                        manageActionsButtons('none', true)
                     } else if (listSelected === 'channels') {
                         moveChannelAction = true;
                     }
@@ -394,6 +395,13 @@ document.addEventListener('keyup', function (e) {
                         } else {
                             current_index = mod(current_index - 1, tab_btns.length);
                             tab_btns[current_index].classList.add('selected');
+                            if (generalMoveAction && listSelected === 'wishlists') {
+                                if (tab_btns[current_index].classList.contains('move')) {
+                                    changeLabel("Désélectionner")
+                                } else {
+                                    changeLabel("Sélectionner")
+                                }
+                            }
                         }
                     }
                 }
@@ -420,6 +428,13 @@ document.addEventListener('keyup', function (e) {
                         } else {
                             current_index = mod(current_index + 1, tab_btns.length);
                             tab_btns[current_index].classList.add('selected');
+                            if (generalMoveAction && listSelected === 'wishlists') {
+                                if (tab_btns[current_index].classList.contains('move')) {
+                                    changeLabel("Désélectionner")
+                                } else {
+                                    changeLabel("Sélectionner")
+                                }
+                            }
                         }
                     }
 
@@ -440,13 +455,16 @@ document.addEventListener('keyup', function (e) {
         case
         '2'
         :
-            if (listSelected === 'wishlists' && popupAction === false) {
+            if (listSelected === 'wishlists' && popupAction === false && !moveWishlistAction) {
                 if (!tab_btns[current_index].classList.contains('move')) {
                     generalMoveAction = true;
+                    manageActionsButtons('none')
                     addElementToMove(tab_btns[current_index]);
+                    changeLabel("Désélectionner")
                 } else {
                     tab_btns[current_index].classList.remove('move')
                     tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-name')
+                    changeLabel("Sélectionner")
                 }
             }
             break;
