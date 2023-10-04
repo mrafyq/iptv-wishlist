@@ -203,6 +203,8 @@ document.addEventListener('keyup', function (e) {
                 saveMoveChannel()
                 moveChannelAction = false
                 current_index = 0
+                channelSelected = null
+                manageChannelsAction(false)
             } else if (moveWishlistAction === true) {
                 saveMoveWishlist()
                 moveWishlistAction = false
@@ -608,6 +610,10 @@ document.addEventListener('keyup', function (e) {
             break;
         case '6':
             if (listSelected === 'channels' && channelSelected && popupAction === false) {
+                if (tab_btns[current_index].classList.contains('checked')) {
+                    tab_btns[current_index].classList.remove('checked')
+                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-attr-name')
+                }
                 if (tab_btns[current_index].classList.contains('move')) {
                     moveChannelAction = true;
                 } else {
