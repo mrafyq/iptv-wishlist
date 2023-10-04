@@ -1,13 +1,6 @@
-var popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
-var popupPinHideBucketForm = document.querySelector('.popup-check-pin-hide-buckets form');
-var popupPinHideBucketFormInput = document.querySelector('.popup-check-pin-hide-buckets form #pin-hide-field-bucket');
-
-// popupPinHideBucketFormInput.addEventListener('keypress',function (e) {
-//     console.log(e.which)
-//     if (e.which == 13) {
-//         e.preventDefault();
-//     }
-// })
+const popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
+const popupPinHideBucketForm = document.querySelector('.popup-check-pin-hide-buckets form');
+const popupPinHideBucketFormInput = document.querySelector('.popup-check-pin-hide-buckets form #pin-hide-field-bucket');
 
 popupPinHideBucketForm.addEventListener('submit', function (e) {
     e.preventDefault();

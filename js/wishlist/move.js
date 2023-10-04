@@ -124,10 +124,10 @@ function changeLabel(label = 'Déplacer') {
 }
 
 function cancelWishlistsMove() {
-    for (var i = 0; i < wishlist.length; i++) {
-        if (wishlist[i].classList.contains('move')) {
-            wishlist[i].classList.remove('move');
-            wishlist[i].innerHTML = wishlist[i].getAttribute('data-name')
+    for (const element of wishlist) {
+        if (element.classList.contains('move')) {
+            element.classList.remove('move');
+            element.innerHTML = element.getAttribute('data-name')
         }
     }
     read().then(data => {

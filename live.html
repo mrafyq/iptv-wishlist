@@ -16,10 +16,10 @@
             <ul class="list-bouquet" id="sidebar-bouquet__list"></ul>
             <ul class="list-wishlist" id="sidebar-wishlist__list"></ul>
             <div id="wishlist-buttons" class="wishlist-buttons" style="display: none">
-                <div class="action-move"><div class="dot blue"> </div> Déplacer</div>
                 <div class="action-delete"><div class="dot red"> </div> Supprimer</div>
                 <div class="action-rename"><div class="dot green"> </div> Renommer</div>
                 <div class="action-pin"><div class="dot yellow"> </div> Verrouiller</div>
+                <div class="action-move"><div class="dot blue"> </div> Déplacer</div>
             </div>
             <div id="buckets-buttons" class="bucket-buttons" style="display: none">
                 <div class="bucket-action-hide"><div class="dot blue"> </div> Masquer</div>
@@ -54,25 +54,31 @@
                     </ul>
                 </div>
                 <div class="buttons" id="right-buttons">
-                    <div>
+                    <div  class="channels-list-action">
+                        <div class="dot red"></div> Sélectionner (1)
+                    </div>
+                    <div class="channels-list-action">
                         <div class="dot green"></div> EPG guide
                     </div>
-                    <div>
+                    <div  class="channels-list-action">
                         <div class="dot yellow"></div> Control parental
                     </div>
+                    <div  class="channels-list-action">
+                        <div class="dot blue"></div> Trier (5) <span class="sortBy"></span>
+                    </div>
+                    <div  class="channels-action" style="display: none">
+                        <div class="dot red"></div> Désélectionner (1)
+                    </div>
                     <!-- Add to Favoris -->
-                    <div class="add-to-wishlist">
-                        <div class="dot blue"></div> Déplacer vers
+                    <div class="channels-action add-to-wishlist" style="display: none">
+                        <div class="dot green"></div> Déplacer vers (3)
                     </div>
                     <!-- Remove from Favoris -->
-                    <div class="remove-from-wishlist">
-                        <div class="dot red"></div> Retirer de favoris
+                    <div class="channels-action remove-from-wishlist" style="display: none">
+                        <div class="dot yellow"></div> Retirer de favoris (4)
                     </div>
-                    <div>
-                        <div class="dot white"></div> Trier <span class="sortBy"></span>
-                    </div>
-                    <div>
-                        <div class="dot white"></div> Déplacer (6)</span>
+                    <div class="channels-action" style="display: none">
+                        <div class="dot blue"></div> Déplacer (6)</span>
                     </div>
                 </div>
             </div>
@@ -319,6 +325,7 @@
         <script type="text/javascript" src="js/wishlist/pin.js"></script>
         <script type="text/javascript" src="js/bucket/pin.js"></script>
         <script type="text/javascript" src="js/bucket/hide.js"></script>
+        <script type="text/javascript" src="js/channel/select.js"></script>
         <script type="text/javascript" src="js/channel/move.js"></script>
         <script type="text/javascript" src="js/channel/remove-from-wishlist.js"></script>
         <script type="text/javascript" src="js/channel/search.js"></script>

@@ -1,5 +1,5 @@
-var popupCheckPinWishlist = document.querySelector('.popup-check-pin-wishlist');
-var popupCheckPinWishlistForm = document.querySelector('.popup-check-pin-wishlist form');
+const popupCheckPinWishlist = document.querySelector('.popup-check-pin-wishlist');
+const popupCheckPinWishlistForm = document.querySelector('.popup-check-pin-wishlist form');
 
 popupCheckPinWishlistForm.addEventListener('submit', function (e) {
     console.log('submit from pin wishlist!')

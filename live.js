@@ -11,14 +11,14 @@ var sortBy = document.querySelector('.sortBy');
 var parsedChannels = [];
 
 var popupAction = false;
-var popupError = false;
+const popupError = false;
 var popupCheckPin = false;
 
 var moveWishlistAction = false;
 var moveChannelAction = false;
 
 var generalMoveAction = false;
-
+var channelSelected = null
 
 var popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
 popupCloseBtn.forEach(el => {
@@ -141,7 +141,6 @@ popupFavForm.addEventListener('submit', (e) => {
 
             listSelected = 'channels';
             document.querySelector('#list-channels .channel.selected').classList.remove('active');
-            // tab_btns = channels
         }
     })
 })
@@ -150,12 +149,10 @@ popupFavForm.addEventListener('submit', (e) => {
 //////////////////////////////////////////////
 
 document.addEventListener('keyup', function (e) {
-
     var key = e.key;
     console.log("key = " + key);
 
     var listChannels = document.getElementById('list-channels');
-    // console.log(listChannels);
 
     if (listSelected === 'tabs') {
         tab_btns = tabs;
@@ -170,7 +167,7 @@ document.addEventListener('keyup', function (e) {
     }
 
     var current_index;
-    for (var i = 0; i < tab_btns.length; i++) {
+    for (let i = 0; i < tab_btns.length; i++) {
         if (tab_btns[i].classList.contains('selected')) {
             current_index = i;
         }
@@ -296,13 +293,19 @@ document.addEventListener('keyup', function (e) {
             } else if (generalMoveAction) { // cancel move
                 generalMoveAction = false;
                 if (listSelected === 'channels') {
+                    moveChannelAction = false
                     cancelChannelsMove()
+                    channelSelected = null
+                    manageChannelsAction(false)
                 } else if (listSelected === 'wishlists') {
                     cancelWishlistsMove()
                 }
+            } else if (channelSelected) { // unselect channel
+                channelSelected = null
+                manageChannelsAction(false)
             } else {
                 if (popupAction === true) {
-                    var popupActive = document.querySelector('.popup.active');
+                    let popupActive = document.querySelector('.popup.active');
                     popupActive.classList.remove('active');
                     popupActive.classList.remove('error');
                     popupAction = false;
@@ -315,19 +318,19 @@ document.addEventListener('keyup', function (e) {
                         if (listSelected === 'buckets') {
                             document.getElementById('buckets-buttons').style.display = 'none';
                             // remove class selected from bouquet list
-                            for (var k = 0; k < bouquets.length; k++) {
-                                bouquets[k].classList.remove('selected')
+                            for (const element of bouquets) {
+                                element.classList.remove('selected')
                             }
                         } else {
                             document.getElementById('wishlist-buttons').style.display = 'none';
                             // remove class selected from wishlist list
-                            for (var l = 0; l < wishlist.length; l++) {
-                                wishlist[l].classList.remove('selected')
+                            for (const element of wishlist) {
+                                element.classList.remove('selected')
                             }
                         }
                         listSelected = 'tabs';
                         tab_btns = tabs;
-                        for (var j = 0; j < tab_btns.length; j++) {
+                        for (let j = 0; j < tab_btns.length; j++) {
                             if (tab_btns[j].classList.contains('active')) {
                                 current_index = j;
                                 tab_btns[j].classList.remove('active')
@@ -384,7 +387,7 @@ document.addEventListener('keyup', function (e) {
                     moveChannels('up')
                 } else if (moveWishlistAction) {
                     moveWishlists('up')
-                } else {
+                } else if (listSelected === 'wishlists') {
                     if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
                         document.querySelector('li.action-add-wishlist').classList.remove('selected')
                         tab_btns[tab_btns.length - 1].classList.add('selected');
@@ -404,18 +407,21 @@ document.addEventListener('keyup', function (e) {
                             }
                         }
                     }
+                } else if ((listSelected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
+                    || listSelected === 'buckets' || listSelected === 'checkboxes-channels') {
+                    tab_btns[current_index].classList.remove('selected');
+                    current_index = mod(current_index - 1, tab_btns.length);
+                    tab_btns[current_index].classList.add('selected');
                 }
             }
             break;
-        case
-        'ArrowDown'
-        :
+        case 'ArrowDown':
             if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
                 if (moveChannelAction) {
                     moveChannels('down')
                 } else if (moveWishlistAction) {
                     moveWishlists('down')
-                } else {
+                } else if (listSelected === 'wishlists') {
                     if (current_index >= 0) {
                         tab_btns[current_index].classList.remove('selected');
                     }
@@ -437,24 +443,30 @@ document.addEventListener('keyup', function (e) {
                             }
                         }
                     }
-
+                } else if ((listSelected === 'channels' && !channelSelected) ||(channelSelected && generalMoveAction)
+                    || listSelected === 'buckets' || listSelected === 'checkboxes-channels') {
+                    tab_btns[current_index].classList.remove('selected');
+                    current_index = mod(current_index + 1, tab_btns.length);
+                    tab_btns[current_index].classList.add('selected');
                 }
             }
             break;
-        case
-        '1'
-        :
-            // if (listSelected === 'wishlists' && popupAction === false) { // Add new wishlist
-            //     popupAction = true;
-            //     let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
-            //     popupWishlist.classList.add('active');
-            //     let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
-            //     popupPinInput.focus();
-            // }
+        case '1':
+            console.log(listSelected)
+            if (listSelected === 'channels' && popupAction === false) { // selectChannel for actions
+                if (!channelSelected) {
+                    channelSelected = tab_btns[current_index]
+                    const icon = document.createElement('i');
+                    icon.setAttribute('class', 'checked');
+                    channelSelected.appendChild(icon)
+                    manageChannelsAction(true)
+                } else {
+                    channelSelected = null
+                    manageChannelsAction(false)
+                }
+            }
             break;
-        case
-        '2'
-        :
+        case '2':
             if (listSelected === 'wishlists' && popupAction === false && !moveWishlistAction) {
                 if (!tab_btns[current_index].classList.contains('move')) {
                     generalMoveAction = true;
@@ -486,7 +498,7 @@ document.addEventListener('keyup', function (e) {
                 let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
                 let popupTitles = document.querySelector('.popup-delete .popup-title strong');
                 popupTitles.innerText = favSelectedName.textContent;
-            } else if (listSelected === 'channels' && popupAction === false) { // Add channel to wishlist
+            } else if (listSelected === 'channels' && channelSelected && popupAction === false) { // Add channel to wishlist
                 popupAction = true;
                 popupFav.classList.add('active');
                 tab_btns[current_index].classList.add('active')
@@ -525,7 +537,7 @@ document.addEventListener('keyup', function (e) {
                 popupTitles.innerText = favSelectedName.textContent;
                 inputRename.value = favSelectedName.textContent
                 inputRename.focus();
-            } else if (listSelected === 'channels' && popupAction === false) { // Remove channel from wishlist
+            } else if (listSelected === 'channels' && channelSelected && popupAction === false) { // Remove channel from wishlist
                 let groupNameSelected = document.querySelector('.group-name');
                 if (groupNameSelected.getAttribute('list-selected') === 'wishlists') {
                     popupAction = true;
@@ -654,7 +666,7 @@ document.addEventListener('keyup', function (e) {
         case
         '6'
         :
-            if (listSelected === 'channels' && popupAction === false) {
+            if (listSelected === 'channels' && channelSelected && popupAction === false) {
                 if (tab_btns[current_index].classList.contains('move')) {
                     moveChannelAction = true;
                 } else {
@@ -692,11 +704,6 @@ function showChannels() {
 function hideSidebar() {
     document.getElementById('sidebar').style.display = 'none';
     document.getElementById('right-buttons').style.display = 'flex';
-    if (listSelected === 'wishlists') {
-        document.querySelector('#right-buttons .remove-from-wishlist').style.display = 'block';
-    } else {
-        document.querySelector('#right-buttons .remove-from-wishlist').style.display = 'none';
-    }
     listSelected = 'channels';
     tab_btns = channels;
 }

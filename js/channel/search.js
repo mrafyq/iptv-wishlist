@@ -1,13 +1,13 @@
-var serachInput = document.getElementById('search');
+let searchInput = document.getElementById('search');
 
-serachInput.addEventListener('keyup', function (e) {
-    var filter = serachInput.value.toLowerCase();
-    for (var i = 0; i < channels.length; i++) {
-        var textValue = channels[i].textContent || channels[i].innerText;
+searchInput.addEventListener('keyup', function (e) {
+    let filter = searchInput.value.toLowerCase();
+    for (const element of channels) {
+        let textValue = element.textContent || element.innerText;
         if (textValue.toLowerCase().indexOf(filter) > -1) {
-            channels[i].style.display = '';
+            element.style.display = '';
         } else {
-            channels[i].style.display = 'none';
+            element.style.display = 'none';
         }
     }
 });

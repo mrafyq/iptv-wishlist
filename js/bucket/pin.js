@@ -1,5 +1,5 @@
-var popupCheckPinBuckets = document.querySelector('.popup-check-pin-buckets');
-var popupCheckPinBucketsForm = document.querySelector('.popup-check-pin-buckets form');
+const popupCheckPinBuckets = document.querySelector('.popup-check-pin-buckets');
+const popupCheckPinBucketsForm = document.querySelector('.popup-check-pin-buckets form');
 
 popupCheckPinBucketsForm.addEventListener('submit', function (e) {
     console.log('submit from pin buckets!')

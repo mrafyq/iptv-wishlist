@@ -9,9 +9,8 @@ function save(data) {
 
 async function read() {
     // WEB
-    var response = await fetch('data/db.json')
-    var data = await response.json();
-    return data;
+    let response = await fetch('data/db.json')
+    return await response.json();
     // ANDROID
     // let str = App.readFromFile("db.json");
     // return JSON.parse(str);

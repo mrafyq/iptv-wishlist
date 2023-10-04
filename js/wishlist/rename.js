@@ -1,6 +1,6 @@
-var popupRename = document.querySelector('.popup-rename');
-var popupRenameForm = document.querySelector('.popup-rename form');
-var inputRename = document.querySelector('.popup-rename #rename');
+const popupRename = document.querySelector('.popup-rename');
+const popupRenameForm = document.querySelector('.popup-rename form');
+const inputRename = document.querySelector('.popup-rename #rename');
 
 popupRenameForm.addEventListener('submit', (e) => {
     e.preventDefault();

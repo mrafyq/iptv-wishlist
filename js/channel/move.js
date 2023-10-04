@@ -122,10 +122,10 @@ function saveMoveChannel() {
 }
 
 function cancelChannelsMove() {
-    for (var i = 0; i < channels.length; i++) {
-        if (channels[i].classList.contains('move')) {
-            channels[i].classList.remove('move');
-            channels[i].innerHTML = channels[i].getAttribute('data-attr-name');
+    for (const element of channels) {
+        if (element.classList.contains('move')) {
+            element.classList.remove('move');
+            element.innerHTML = element.getAttribute('data-attr-name');
         }
     }
     read().then(data => {
