@@ -10,10 +10,10 @@
     <body>
         <div class="sidebar" id="sidebar">
             <ul class="list-tabs">
-                <li class="tab tab-bouquet selected" data-list="list-bouquet">Bouquet</li>
+                <li class="tab tab-bucket selected" data-list="list-bucket">Bouquets</li>
                 <li class="tab tab-wishlist" data-list="list-wishlist">Favoris</li>
             </ul>
-            <ul class="list-bouquet" id="sidebar-bouquet__list"></ul>
+            <ul class="list-bucket" id="sidebar-bucket__list"></ul>
             <ul class="list-wishlist" id="sidebar-wishlist__list"></ul>
             <div id="wishlist-buttons" class="wishlist-buttons" style="display: none">
                 <div class="action-delete"><div class="dot red"> </div> Supprimer</div>
@@ -273,7 +273,7 @@
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript">
             const listFav = document.getElementById('sidebar-wishlist__list');
-            const listBouquet = document.getElementById('sidebar-bouquet__list');
+            const listBucket = document.getElementById('sidebar-bucket__list');
             const listChannels0 = document.getElementById('list-channels');
             const popupFavList = document.getElementById('popup-wishlist-list-fav');
 
@@ -297,21 +297,21 @@
                         listFav.appendChild(li);
                     });
                     addActionAddWishlist(data.wishlists.length);
-                    (data.bouquets).forEach((element, index) => {
+                    (data.buckets).forEach((element, index) => {
                         if (!element.hidden) {
                             const li = document.createElement('li');
-                            li.setAttribute('id', 'bucket-' + element.bouquet_id);
-                            li.setAttribute('data-id', element.bouquet_id);
-                            li.setAttribute('data-name', element.bouquet_name);
+                            li.setAttribute('id', 'bucket-' + element.bucket_id);
+                            li.setAttribute('data-id', element.bucket_id);
+                            li.setAttribute('data-name', element.bucket_name);
                             li.setAttribute('data-pin', element.pin);
-                            li.setAttribute('class', 'bouquet');
-                            li.innerHTML = element.bouquet_name;
+                            li.setAttribute('class', 'bucket');
+                            li.innerHTML = element.bucket_name;
                             if (element.pin) {
                                 const iconLock = document.createElement('i');
                                 iconLock.setAttribute('class', 'icon-lock');
                                 li.appendChild(iconLock);
                             }
-                            listBouquet.appendChild(li);
+                            listBucket.appendChild(li);
                         }
                     });
                 }

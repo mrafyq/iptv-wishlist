@@ -51,11 +51,6 @@ function addActionAddWishlist(count) {
     listFav.appendChild(li);
 }
 
-function removeActionAddWishlist() {
-    const li = document.querySelector('li.action-add-wishlist');
-    li.remove();
-}
-
 function fetchChannels(channels) {
     listChannels0.innerHTML = '';
     (channels).forEach((element, index) => {

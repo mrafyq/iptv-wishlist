@@ -7,9 +7,9 @@ popupPinHideBucketForm.addEventListener('submit', function (e) {
     read().then(data => {
         if (data) {
             if (popupPinHideBucketFormInput.value === data.pin) {
-                let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
-                let bouquetId = bucketSelected.getAttribute('data-id')
-                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                let bucketSelected = document.querySelector('.list-bucket .bucket.selected');
+                let bucketId = bucketSelected.getAttribute('data-id')
+                const result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                 console.log(result)
                 if (result[0].hidden) {
                     result[0].hidden = 0
@@ -18,7 +18,7 @@ popupPinHideBucketForm.addEventListener('submit', function (e) {
                     bucketSelected.remove()
                 }
                 save(data)
-                let bucketList = document.querySelectorAll('.list-bouquet .bouquet');
+                let bucketList = document.querySelectorAll('.list-bucket .bucket');
                 bucketList[0].classList.add('selected');
             } else {
                 popupError = true

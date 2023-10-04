@@ -245,10 +245,10 @@
       ]
     }
   ],
-  "bouquets": [
+  "buckets": [
     {
-      "bouquet_id": 1,
-      "bouquet_name": "Bouquet 1",
+      "bucket_id": 1,
+      "bucket_name": "Bouquet 1",
       "pin": 1,
       "hidden": 0,
       "channels": [
@@ -303,8 +303,8 @@
       ]
     },
     {
-      "bouquet_id": 2,
-      "bouquet_name": "Bouquet 2",
+      "bucket_id": 2,
+      "bucket_name": "Bouquet 2",
       "pin": 0,
       "hidden": 1,
       "channels": [
@@ -323,8 +323,8 @@
       ]
     },
     {
-      "bouquet_id": 3,
-      "bouquet_name": "Bouquet 3",
+      "bucket_id": 3,
+      "bucket_name": "Bouquet 3",
       "pin": 1,
       "hidden": 0,
       "channels": [
@@ -343,8 +343,8 @@
       ]
     },
     {
-      "bouquet_id": 4,
-      "bouquet_name": "Bouquet 4",
+      "bucket_id": 4,
+      "bucket_name": "Bouquet 4",
       "pin": 0,
       "hidden": 0,
       "channels": [
@@ -363,8 +363,8 @@
       ]
     },
     {
-      "bouquet_id": 5,
-      "bouquet_name": "Bouquet 5",
+      "bucket_id": 5,
+      "bucket_name": "Bouquet 5",
       "pin": 0,
       "hidden": 0,
       "channels": [

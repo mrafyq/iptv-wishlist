@@ -107,9 +107,9 @@ function saveMoveChannel() {
                 result.channels.sort((a, b) => (a.channel_order > b.channel_order) ? 1 : -1)
                 fetchChannels(result.channels)
             } else if (listSelectedName === 'buckets') {
-                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == listSelectedId)[0];
+                const result = data.buckets.filter(bucket => bucket.bucket_id == listSelectedId)[0];
                 result.channels.forEach((channel, index) => {
-                    if (channels[index].getAttribute('id') == channel.bouquet_id) {
+                    if (channels[index].getAttribute('id') == channel.bucket_id) {
                         channel.channel_order = parseInt(channels[index].getAttribute('data-attr-order'))
                     }
                 })
@@ -137,7 +137,7 @@ function cancelChannelsMove() {
                 const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == listSelectedId)[0];
                 fetchChannels(result.channels)
             } else if (listSelectedName === 'buckets') {
-                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == listSelectedId)[0];
+                const result = data.buckets.filter(bucket => bucket.bucket_id == listSelectedId)[0];
                 result.channels.sort((a, b) => (a.channel_order > b.channel_order) ? 1 : -1)
                 fetchChannels(result.channels)
             }

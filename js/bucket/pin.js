@@ -8,9 +8,9 @@ popupCheckPinBucketsForm.addEventListener('submit', function (e) {
     read().then(data => {
         if (data) {
             if (popupPinInput.value === data.pin) {
-                let bucketSelected = document.querySelector('.list-bouquet .bouquet.selected');
-                let bouquetId = bucketSelected.getAttribute('data-id')
-                const result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                let bucketSelected = document.querySelector('.list-bucket .bucket.selected');
+                let bucketId = bucketSelected.getAttribute('data-id')
+                const result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                 let pin;
                 if (parseInt(bucketSelected.getAttribute('data-pin'))) {
                     pin = 0

@@ -1,22 +1,23 @@
-let listSelected = 'tabs';
 const tabs = document.getElementsByClassName('tab');
-const bouquets = document.getElementsByClassName('bouquet');
+const buckets = document.getElementsByClassName('bucket');
 const wishlist = document.getElementsByClassName('wishlist');
+const sortLabel = document.querySelector('.sortBy');
+
+let list_selected = 'tabs';
 let channels = document.getElementsByClassName('channel');
 let groupName = document.querySelector('.group-name');
-let tab_btns = [];
+let currentList = [];
 let sortAscDesc = 0;
-const sortLabel = document.querySelector('.sortBy');
 let parsedChannels = [];
 
 let popupAction = false;
 let popupError = false;
 let popupCheckPin = false;
 
+let generalMoveAction = false;
 let moveWishlistAction = false;
 let moveChannelAction = false;
 
-let generalMoveAction = false;
 let channelSelected = null
 
 let popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
@@ -42,13 +43,13 @@ popupPinForm.addEventListener('submit', function (e) {
     read().then(data => {
         if (data) {
             if (popupPinInput.value === data.pin) {
-                if (listSelected === 'buckets') {
-                    let bucketId = document.querySelector('.bouquet.selected').getAttribute('data-id')
+                if (list_selected === 'buckets') {
+                    let bucketId = document.querySelector('.bucket.selected').getAttribute('data-id')
                     console.log(bucketId)
-                    let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bucketId);
+                    let result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                     parsedChannels = result[0].channels
 
-                } else if (listSelected === 'wishlists') {
+                } else if (list_selected === 'wishlists') {
                     let wishlistId = document.querySelector('.wishlist.selected').getAttribute('data-id')
                     let result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
                     parsedChannels = result[0].channels
@@ -138,7 +139,7 @@ popupFavForm.addEventListener('submit', (e) => {
             }, 2000);
             popupAction = false;
 
-            listSelected = 'channels';
+            list_selected = 'channels';
             document.querySelector('#list-channels .channel.selected').classList.remove('active');
         }
     })
@@ -153,21 +154,21 @@ document.addEventListener('keyup', function (e) {
 
     let listChannels = document.getElementById('list-channels');
 
-    if (listSelected === 'tabs') {
-        tab_btns = tabs;
-    } else if (listSelected === 'buckets') {
-        tab_btns = bouquets;
-    } else if (listSelected === 'wishlists') {
-        tab_btns = wishlist;
-    } else if (listSelected === 'channels') {
-        tab_btns = channels;
-    } else if (listSelected === 'checkboxes-channels') {
-        tab_btns = document.getElementsByClassName('checkbox-wishlist');
+    if (list_selected === 'tabs') {
+        currentList = tabs;
+    } else if (list_selected === 'buckets') {
+        currentList = buckets;
+    } else if (list_selected === 'wishlists') {
+        currentList = wishlist;
+    } else if (list_selected === 'channels') {
+        currentList = channels;
+    } else if (list_selected === 'checkboxes-channels') {
+        currentList = document.getElementsByClassName('checkbox-wishlist');
     }
 
     let current_index;
-    for (let i = 0; i < tab_btns.length; i++) {
-        if (tab_btns[i].classList.contains('selected')) {
+    for (let i = 0; i < currentList.length; i++) {
+        if (currentList[i].classList.contains('selected')) {
             current_index = i;
             break;
         }
@@ -177,8 +178,8 @@ document.addEventListener('keyup', function (e) {
 
     switch (key) {
         case ' ':
-            if (listSelected === 'checkboxes-channels') {
-                let checkbox = tab_btns[current_index].querySelector('input');
+            if (list_selected === 'checkboxes-channels') {
+                let checkbox = currentList[current_index].querySelector('input');
                 if (checkbox) {
                     checkbox.checked = !checkbox.checked;
                 }
@@ -186,11 +187,11 @@ document.addEventListener('keyup', function (e) {
             break;
         case 'Enter':
             if (generalMoveAction) {
-                if (tab_btns[current_index].classList.contains('move')) {
-                    if (listSelected === 'wishlists') {
+                if (currentList[current_index].classList.contains('move')) {
+                    if (list_selected === 'wishlists') {
                         moveWishlistAction = true;
                         manageActionsButtons('none', true)
-                    } else if (listSelected === 'channels') {
+                    } else if (list_selected === 'channels') {
                         moveChannelAction = true;
                     }
                     generalMoveAction = false
@@ -209,36 +210,36 @@ document.addEventListener('keyup', function (e) {
                 saveMoveWishlist()
                 moveWishlistAction = false
                 current_index = 0
-            } else if (listSelected === 'tabs') {
-                if (tab_btns[current_index].getAttribute('data-list') === 'list-wishlist') {
-                    listSelected = 'wishlists';
-                    tab_btns[current_index].classList.remove('selected');
-                    tab_btns[current_index].classList.add('active');
-                    tab_btns = wishlist;
+            } else if (list_selected === 'tabs') {
+                if (currentList[current_index].getAttribute('data-list') === 'list-wishlist') {
+                    list_selected = 'wishlists';
+                    currentList[current_index].classList.remove('selected');
+                    currentList[current_index].classList.add('active');
+                    currentList = wishlist;
                     document.getElementById('wishlist-buttons').style.display = 'flex';
                     document.getElementById('buckets-buttons').style.display = 'none';
                 } else {
-                    listSelected = 'buckets';
-                    tab_btns[current_index].classList.remove('selected');
-                    tab_btns[current_index].classList.add('active');
-                    tab_btns = bouquets;
+                    list_selected = 'buckets';
+                    currentList[current_index].classList.remove('selected');
+                    currentList[current_index].classList.add('active');
+                    currentList = buckets;
                     document.getElementById('buckets-buttons').style.display = 'flex';
                     document.getElementById('wishlist-buttons').style.display = 'none';
                 }
                 current_index = 0;
-                tab_btns[current_index].classList.add('selected');
-            } else if ((listSelected === 'buckets' || listSelected === 'wishlists') && popupAction === false) {
-                listChannels.setAttribute('data-attr-back-list', listSelected)
+                currentList[current_index].classList.add('selected');
+            } else if ((list_selected === 'buckets' || list_selected === 'wishlists') && popupAction === false) {
+                listChannels.setAttribute('data-attr-back-list', list_selected)
                 listChannels.setAttribute('data-attr-back-list-index', current_index)
                 listChannels.innerHTML = '';
-                groupName.setAttribute('list-selected', listSelected);
+                groupName.setAttribute('list-selected', list_selected);
                 document.querySelector('#searchForm').classList.add('visible');
-                if (listSelected === 'buckets') {
-                    let bouquetId = tab_btns[current_index].getAttribute('data-id');
-                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
-                    groupName.innerHTML = bouquetName;
-                    groupName.setAttribute('id', bouquetId);
-                    if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
+                if (list_selected === 'buckets') {
+                    let bucketId = currentList[current_index].getAttribute('data-id');
+                    let bucketName = currentList[current_index].getAttribute('data-name');
+                    groupName.innerHTML = bucketName;
+                    groupName.setAttribute('id', bucketId);
+                    if (parseInt(currentList[current_index].getAttribute('data-pin'))) {
                         popupAction = true;
                         popupCheckPin = true;
                         popupPin.classList.add('active');
@@ -246,13 +247,13 @@ document.addEventListener('keyup', function (e) {
                     } else {
                         read().then(data => {
                             if (data) {
-                                let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                                let result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                                 parsedChannels = result[0].channels
                                 showChannels();
                             }
                         })
                     }
-                } else if (listSelected === 'wishlists') {
+                } else if (list_selected === 'wishlists') {
                     if (document.querySelector('li.action-add-wishlist').classList.contains('selected') && popupAction === false) { // Add new wishlist
                         popupAction = true;
                         let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
@@ -260,16 +261,16 @@ document.addEventListener('keyup', function (e) {
                         let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
                         popupPinInput.focus();
                     } else {
-                        let wishlistId = tab_btns[current_index].getAttribute('data-id');
-                        let bouquetName = tab_btns[current_index].getAttribute('data-name');
-                        groupName.innerHTML = bouquetName;
+                        let wishlistId = currentList[current_index].getAttribute('data-id');
+                        let bucketName = currentList[current_index].getAttribute('data-name');
+                        groupName.innerHTML = bucketName;
                         groupName.setAttribute('id', wishlistId);
                         read().then(data => {
                             if (data) {
                                 const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
                                 console.log(result);
                                 parsedChannels = result[0].channels;
-                                if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
+                                if (parseInt(currentList[current_index].getAttribute('data-pin'))) {
                                     popupAction = true;
                                     popupCheckPin = true;
                                     popupPin.classList.add('active');
@@ -287,16 +288,16 @@ document.addEventListener('keyup', function (e) {
         case
         'Escape'
         :
-            if (listSelected === 'tabs') {
+            if (list_selected === 'tabs') {
                 return false;
             } else if (generalMoveAction || moveChannelAction || moveWishlistAction) { // cancel move
                 generalMoveAction = false;
-                if (listSelected === 'channels') {
+                if (list_selected === 'channels') {
                     moveChannelAction = false
                     cancelChannelsMove()
                     channelSelected = null
                     manageChannelsAction(false)
-                } else if (listSelected === 'wishlists') {
+                } else if (list_selected === 'wishlists') {
                     moveWishlistAction = false
                     cancelWishlistsMove()
                 }
@@ -308,15 +309,15 @@ document.addEventListener('keyup', function (e) {
                 popupActive.classList.remove('active');
                 popupActive.classList.remove('error');
                 popupAction = false;
-                if (listSelected === 'checkboxes-channels') {
-                    listSelected = 'channels'
+                if (list_selected === 'checkboxes-channels') {
+                    list_selected = 'channels'
                     document.querySelector('#list-channels .channel.selected').classList.remove('active');
                 }
-            } else if (listSelected === 'buckets' || listSelected === 'wishlists') {
-                if (listSelected === 'buckets') {
+            } else if (list_selected === 'buckets' || list_selected === 'wishlists') {
+                if (list_selected === 'buckets') {
                     document.getElementById('buckets-buttons').style.display = 'none';
-                    // remove class selected from bouquet list
-                    for (const element of bouquets) {
+                    // remove class selected from bucket list
+                    for (const element of buckets) {
                         element.classList.remove('selected')
                     }
                 } else {
@@ -326,21 +327,21 @@ document.addEventListener('keyup', function (e) {
                         element.classList.remove('selected')
                     }
                 }
-                listSelected = 'tabs';
-                tab_btns = tabs;
-                for (let j = 0; j < tab_btns.length; j++) {
-                    if (tab_btns[j].classList.contains('active')) {
+                list_selected = 'tabs';
+                currentList = tabs;
+                for (let j = 0; j < currentList.length; j++) {
+                    if (currentList[j].classList.contains('active')) {
                         current_index = j;
-                        tab_btns[j].classList.remove('active')
-                        tab_btns[j].classList.add('selected')
+                        currentList[j].classList.remove('active')
+                        currentList[j].classList.add('selected')
                     }
                 }
-            } else if (listSelected === 'channels') {
-                listSelected = listChannels.getAttribute('data-attr-back-list');
-                if (listSelected === 'buckets') {
-                    tab_btns = bouquets;
+            } else if (list_selected === 'channels') {
+                list_selected = listChannels.getAttribute('data-attr-back-list');
+                if (list_selected === 'buckets') {
+                    currentList = buckets;
                 } else {
-                    tab_btns = wishlist;
+                    currentList = wishlist;
                 }
                 document.getElementById('sidebar').style.display = "";
                 document.getElementById('right-buttons').style.display = '';
@@ -350,12 +351,12 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowRight"
         :
-            if (listSelected === 'tabs' && popupAction === false) {
-                tab_btns[current_index].classList.remove('selected');
-                getItem(tab_btns[current_index], 'none');
-                current_index = mod(current_index - 1, tab_btns.length);
-                tab_btns[current_index].classList.add('selected');
-                getItem(tab_btns[current_index], 'flex');
+            if (list_selected === 'tabs' && popupAction === false) {
+                currentList[current_index].classList.remove('selected');
+                getItem(currentList[current_index], 'none');
+                current_index = mod(current_index - 1, currentList.length);
+                currentList[current_index].classList.add('selected');
+                getItem(currentList[current_index], 'flex');
             }
             if (popupAction) {
                 switchPopupActiveYesNo()
@@ -364,12 +365,12 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowLeft"
         :
-            if (listSelected === 'tabs' && popupAction === false) {
-                tab_btns[current_index].classList.remove('selected');
-                getItem(tab_btns[current_index], 'none');
-                current_index = mod(current_index + 1, tab_btns.length);
-                tab_btns[current_index].classList.add('selected');
-                getItem(tab_btns[current_index], 'flex');
+            if (list_selected === 'tabs' && popupAction === false) {
+                currentList[current_index].classList.remove('selected');
+                getItem(currentList[current_index], 'none');
+                current_index = mod(current_index + 1, currentList.length);
+                currentList[current_index].classList.add('selected');
+                getItem(currentList[current_index], 'flex');
             }
             if (popupAction) {
                 switchPopupActiveYesNo()
@@ -378,24 +379,24 @@ document.addEventListener('keyup', function (e) {
         case
         "ArrowUp"
         :
-            if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
+            if ((list_selected !== 'tabs' && popupAction === false) || list_selected === 'checkboxes-channels') {
                 if (moveChannelAction) {
                     moveChannels('up')
                 } else if (moveWishlistAction) {
                     moveWishlists('up')
-                } else if (listSelected === 'wishlists') {
+                } else if (list_selected === 'wishlists') {
                     if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
                         document.querySelector('li.action-add-wishlist').classList.remove('selected')
-                        tab_btns[tab_btns.length - 1].classList.add('selected');
+                        currentList[currentList.length - 1].classList.add('selected');
                     } else {
-                        tab_btns[current_index].classList.remove('selected');
+                        currentList[current_index].classList.remove('selected');
                         if (current_index === 0) {
                             document.querySelector('li.action-add-wishlist').classList.add("selected")
                         } else {
-                            current_index = mod(current_index - 1, tab_btns.length);
-                            tab_btns[current_index].classList.add('selected');
-                            if (generalMoveAction && listSelected === 'wishlists') {
-                                if (tab_btns[current_index].classList.contains('move')) {
+                            current_index = mod(current_index - 1, currentList.length);
+                            currentList[current_index].classList.add('selected');
+                            if (generalMoveAction && list_selected === 'wishlists') {
+                                if (currentList[current_index].classList.contains('move')) {
                                     changeLabel("Désélectionner")
                                 } else {
                                     changeLabel("Sélectionner")
@@ -403,53 +404,53 @@ document.addEventListener('keyup', function (e) {
                             }
                         }
                     }
-                } else if ((listSelected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
-                    || listSelected === 'buckets' || listSelected === 'checkboxes-channels') {
-                    tab_btns[current_index].classList.remove('selected');
-                    current_index = mod(current_index - 1, tab_btns.length);
-                    tab_btns[current_index].classList.add('selected');
+                } else if ((list_selected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
+                    || list_selected === 'buckets' || list_selected === 'checkboxes-channels') {
+                    currentList[current_index].classList.remove('selected');
+                    current_index = mod(current_index - 1, currentList.length);
+                    currentList[current_index].classList.add('selected');
                 }
             }
             break;
         case 'ArrowDown':
-            if ((listSelected !== 'tabs' && popupAction === false) || listSelected === 'checkboxes-channels') {
+            if ((list_selected !== 'tabs' && popupAction === false) || list_selected === 'checkboxes-channels') {
                 if (moveChannelAction) {
                     moveChannels('down')
                 } else if (moveWishlistAction) {
                     moveWishlists('down')
-                } else if (listSelected === 'wishlists') {
+                } else if (list_selected === 'wishlists') {
                     if (current_index >= 0) {
-                        tab_btns[current_index].classList.remove('selected');
+                        currentList[current_index].classList.remove('selected');
                     }
-                    if (listSelected === 'wishlists' && current_index == wishlist.length - 1) {
+                    if (list_selected === 'wishlists' && current_index == wishlist.length - 1) {
                         document.querySelector('li.action-add-wishlist').classList.add("selected")
                     } else if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
                         document.querySelector('li.action-add-wishlist').classList.remove('selected')
-                        tab_btns[0].classList.add('selected');
+                        currentList[0].classList.add('selected');
                     } else {
-                        current_index = mod(current_index + 1, tab_btns.length);
-                        tab_btns[current_index].classList.add('selected');
-                        if (generalMoveAction && listSelected === 'wishlists') {
-                            if (tab_btns[current_index].classList.contains('move')) {
+                        current_index = mod(current_index + 1, currentList.length);
+                        currentList[current_index].classList.add('selected');
+                        if (generalMoveAction && list_selected === 'wishlists') {
+                            if (currentList[current_index].classList.contains('move')) {
                                 changeLabel("Désélectionner")
                             } else {
                                 changeLabel("Sélectionner")
                             }
                         }
                     }
-                } else if ((listSelected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
-                    || listSelected === 'buckets' || listSelected === 'checkboxes-channels') {
-                    tab_btns[current_index].classList.remove('selected');
-                    current_index = mod(current_index + 1, tab_btns.length);
-                    tab_btns[current_index].classList.add('selected');
+                } else if ((list_selected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
+                    || list_selected === 'buckets' || list_selected === 'checkboxes-channels') {
+                    currentList[current_index].classList.remove('selected');
+                    current_index = mod(current_index + 1, currentList.length);
+                    currentList[current_index].classList.add('selected');
                 }
             }
             break;
         case '1':
-            console.log(listSelected)
-            if (listSelected === 'channels' && popupAction === false) { // selectChannel for actions
+            console.log(list_selected)
+            if (list_selected === 'channels' && popupAction === false) { // selectChannel for actions
                 if (!channelSelected) {
-                    channelSelected = tab_btns[current_index]
+                    channelSelected = currentList[current_index]
                     // init order listing
                     let getAllChannels = document.querySelectorAll('#list-channels .channel');
                     listChannels0.innerHTML = '';
@@ -463,23 +464,23 @@ document.addEventListener('keyup', function (e) {
 
                     manageChannelsAction(true)
                 } else {
-                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-attr-name');
-                    tab_btns[current_index].classList.remove('checked')
+                    currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name');
+                    currentList[current_index].classList.remove('checked')
                     channelSelected = null
                     manageChannelsAction(false)
                 }
             }
             break;
         case '2':
-            if (listSelected === 'wishlists' && popupAction === false && !moveWishlistAction) {
-                if (!tab_btns[current_index].classList.contains('move')) {
+            if (list_selected === 'wishlists' && popupAction === false && !moveWishlistAction) {
+                if (!currentList[current_index].classList.contains('move')) {
                     generalMoveAction = true;
                     manageActionsButtons('none')
-                    addElementToMove(tab_btns[current_index]);
+                    addElementToMove(currentList[current_index]);
                     changeLabel("Désélectionner")
                 } else {
-                    tab_btns[current_index].classList.remove('move')
-                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-name')
+                    currentList[current_index].classList.remove('move')
+                    currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-name')
                     changeLabel("Sélectionner")
                 }
             }
@@ -489,23 +490,23 @@ document.addEventListener('keyup', function (e) {
         :
             if (generalMoveAction === true) {
                 return;
-            } else if (listSelected === 'buckets' && popupAction === false) {
+            } else if (list_selected === 'buckets' && popupAction === false) {
                 popupAction = true;
                 let popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
                 let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
                 popupPinHideBucket.classList.add('active');
                 popupPinInput.focus();
-            } else if (listSelected === 'wishlists' && popupAction === false) {
+            } else if (list_selected === 'wishlists' && popupAction === false) {
                 popupAction = true;
                 let popupFavDelete = document.querySelector('.popup-delete');
                 popupFavDelete.classList.add('active');
                 let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
                 let popupTitles = document.querySelector('.popup-delete .popup-title strong');
                 popupTitles.innerText = favSelectedName.textContent;
-            } else if (listSelected === 'channels' && channelSelected && popupAction === false) { // Add channel to wishlist
+            } else if (list_selected === 'channels' && channelSelected && popupAction === false) { // Add channel to wishlist
                 popupAction = true;
                 popupFav.classList.add('active');
-                tab_btns[current_index].classList.add('active')
+                currentList[current_index].classList.add('active')
                 read().then(data => {
                     if (data) {
                         popupFavList.innerHTML = '';
@@ -521,7 +522,7 @@ document.addEventListener('keyup', function (e) {
                             }
                             popupFavList.appendChild(li);
                         });
-                        listSelected = 'checkboxes-channels'
+                        list_selected = 'checkboxes-channels'
                     }
                 })
             }
@@ -531,7 +532,7 @@ document.addEventListener('keyup', function (e) {
         :
             if (generalMoveAction === true) {
                 return;
-            } else if (listSelected === 'wishlists' && popupAction === false) { // Rename wishlist
+            } else if (list_selected === 'wishlists' && popupAction === false) { // Rename wishlist
                 popupAction = true;
                 let popupFavRename = document.querySelector('.popup-rename');
                 popupFavRename.classList.add('active');
@@ -541,18 +542,18 @@ document.addEventListener('keyup', function (e) {
                 popupTitles.innerText = favSelectedName.textContent;
                 inputRename.value = favSelectedName.textContent
                 inputRename.focus();
-            } else if (listSelected === 'channels' && channelSelected && popupAction === false) { // Remove channel from wishlist
+            } else if (list_selected === 'channels' && channelSelected && popupAction === false) { // Remove channel from wishlist
                 let groupNameSelected = document.querySelector('.group-name');
                 if (groupNameSelected.getAttribute('list-selected') === 'wishlists') {
                     popupAction = true;
-                    let wishlistSelected = document.querySelector('.group-name');
+                    let wishlist_selected = document.querySelector('.group-name');
                     let wishlistChannelSelected = document.querySelector('.list-channels .channel.selected');
                     let popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
                     let popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
                     // Popup title => Wishlist
                     popupRemoveFromWishlistTitle.innerHTML = 'Etes vous sur de vouloir supprimer <strong>' +
                         wishlistChannelSelected.getAttribute('data-attr-name') +
-                        '</strong> depuis <strong>' + wishlistSelected.textContent + '</strong> ?'
+                        '</strong> depuis <strong>' + wishlist_selected.textContent + '</strong> ?'
                     // Show popup remove channel item from wishlist
                     popupRemoveFromWishlist.classList.add('active');
                 }
@@ -563,20 +564,20 @@ document.addEventListener('keyup', function (e) {
         :
             if (generalMoveAction === true) {
                 return;
-            } else if (listSelected === 'wishlists' && popupAction === false) {
+            } else if (list_selected === 'wishlists' && popupAction === false) {
                 popupAction = true;
                 let popupCheckPinWishlist = document.querySelector('.popup-check-pin-wishlist');
                 let popupPinInput = document.querySelector('.popup-check-pin-wishlist #pin-field-wishlist');
                 popupCheckPinWishlist.classList.add('active');
                 popupPinInput.focus();
-            } else if (listSelected === 'buckets' && popupAction === false) {
+            } else if (list_selected === 'buckets' && popupAction === false) {
                 popupAction = true;
                 let popupCheckPinBucket = document.querySelector('.popup-check-pin-buckets');
                 let popupPinInput = document.querySelector('.popup-check-pin-buckets #pin-field-bucket');
                 popupCheckPinBucket.classList.add('active');
                 popupPinInput.focus();
-            } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
-                let current = tab_btns[current_index]
+            } else if (list_selected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
+                let current = currentList[current_index]
                 let getAllChannels = document.querySelectorAll('#list-channels .channel');
                 listChannels0.innerHTML = '';
                 let newArr = getChannels(getAllChannels);
@@ -609,16 +610,16 @@ document.addEventListener('keyup', function (e) {
             }
             break;
         case '6':
-            if (listSelected === 'channels' && channelSelected && popupAction === false) {
-                if (tab_btns[current_index].classList.contains('checked')) {
-                    tab_btns[current_index].classList.remove('checked')
-                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-attr-name')
+            if (list_selected === 'channels' && channelSelected && popupAction === false) {
+                if (currentList[current_index].classList.contains('checked')) {
+                    currentList[current_index].classList.remove('checked')
+                    currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name')
                 }
-                if (tab_btns[current_index].classList.contains('move')) {
+                if (currentList[current_index].classList.contains('move')) {
                     moveChannelAction = true;
                 } else {
                     generalMoveAction = true;
-                    addChannelToMove(tab_btns[current_index]);
+                    addChannelToMove(currentList[current_index]);
                 }
             }
             break;
@@ -651,8 +652,8 @@ function showChannels() {
 function hideSidebar() {
     document.getElementById('sidebar').style.display = 'none';
     document.getElementById('right-buttons').style.display = 'flex';
-    listSelected = 'channels';
-    tab_btns = channels;
+    list_selected = 'channels';
+    currentList = channels;
 }
 
 ////////////////////////////////////////////////////
