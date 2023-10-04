@@ -455,16 +455,13 @@ document.addEventListener('keyup', function (e) {
                     normalArr.sort((a, b) => {
                         return a.channel_order < b.channel_order ? -1 : 0;
                     })
-                    fetchChannelsOrdered(normalArr, sortLabel, 'Normal', channelSelected)
+                    fetchChannelsOrdered(normalArr, sortLabel, 'Normal', channelSelected, true)
                     sortAscDesc = 0;
                     // end init order listing
 
-                    const icon = document.createElement('i');
-                    icon.setAttribute('class', 'checked');
-                    channelSelected.appendChild(icon)
-                    tab_btns[current_index].classList.add('checked')
                     manageChannelsAction(true)
                 } else {
+                    tab_btns[current_index].innerHTML = tab_btns[current_index].getAttribute('data-attr-name');
                     tab_btns[current_index].classList.remove('checked')
                     channelSelected = null
                     manageChannelsAction(false)

@@ -14,7 +14,7 @@ function getChannels(getAllChannels) {
     return channels;
 }
 
-function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null) {
+function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null, toSelect = false) {
     channels.forEach((element, index) => {
         const li = document.createElement('li');
         li.setAttribute('data-attr-id', element.channel_id);
@@ -23,14 +23,21 @@ function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null) {
         if (sortValue === 'Normal') {
             li.style.order = element.channel_order
         }
+        li.innerHTML = element.channel_name;
         if (selected && parseInt(selected.getAttribute('data-attr-id')) === element.channel_id) {
-            li.setAttribute('class', 'channel selected');
+            if (toSelect) {
+                li.setAttribute('class', 'channel checked selected');
+                const icon = document.createElement('i');
+                icon.setAttribute('class', 'icon-check');
+                li.appendChild(icon);
+            } else {
+                li.setAttribute('class', 'channel selected');
+            }
         } else if (index === 0 && !selected) {
             li.setAttribute('class', 'channel selected');
         } else {
             li.setAttribute('class', 'channel');
         }
-        li.innerHTML = element.channel_name;
         listChannels0.appendChild(li);
     });
     sortLabel.textContent = '(' + sortValue + ')';
