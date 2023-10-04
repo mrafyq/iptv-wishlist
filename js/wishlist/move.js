@@ -135,4 +135,6 @@ function cancelWishlistsMove() {
             fetchWishlists(data.wishlists)
         }
     })
+    manageActionsButtons('block')
+    changeLabel()
 }

@@ -1,26 +1,26 @@
-var listSelected = 'tabs';
-var tabs = document.getElementsByClassName('tab');
-var bouquets = document.getElementsByClassName('bouquet');
-var wishlist = document.getElementsByClassName('wishlist');
-var channels = document.getElementsByClassName('channel');
-var groupName = document.querySelector('.group-name');
-var tab_btns;
-var sortAscDesc = 0;
-var sortBy = document.querySelector('.sortBy');
+let listSelected = 'tabs';
+const tabs = document.getElementsByClassName('tab');
+const bouquets = document.getElementsByClassName('bouquet');
+const wishlist = document.getElementsByClassName('wishlist');
+let channels = document.getElementsByClassName('channel');
+let groupName = document.querySelector('.group-name');
+let tab_btns = [];
+let sortAscDesc = 0;
+let sortBy = document.querySelector('.sortBy');
 
-var parsedChannels = [];
+let parsedChannels = [];
 
-var popupAction = false;
-const popupError = false;
-var popupCheckPin = false;
+let popupAction = false;
+let popupError = false;
+let popupCheckPin = false;
 
-var moveWishlistAction = false;
-var moveChannelAction = false;
+let moveWishlistAction = false;
+let moveChannelAction = false;
 
-var generalMoveAction = false;
-var channelSelected = null
+let generalMoveAction = false;
+let channelSelected = null
 
-var popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
+let popupCloseBtn = document.querySelectorAll('.popup .btn-cancel');
 popupCloseBtn.forEach(el => {
     el.addEventListener('click', (e) => {
         e.preventDefault();
@@ -34,9 +34,9 @@ popupCloseBtn.forEach(el => {
 ///////////////////////////////////////////////////////
 /// BUCKETS/WISHLISTS : CHECK PIN ACCESS /// START
 ///////////////////////////////////////////////////////
-var popupPin = document.querySelector('.popup-check-pin-access');
-var popupPinForm = document.querySelector('.popup-check-pin-access form');
-var popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
+const popupPin = document.querySelector('.popup-check-pin-access');
+const popupPinForm = document.querySelector('.popup-check-pin-access form');
+const popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
 
 popupPinForm.addEventListener('submit', function (e) {
     e.preventDefault();
@@ -103,8 +103,8 @@ function adaptPopup(popupActive) {
 //////////////////////////////////////////////
 /// CHANNELS : ADD TO WISHLIST /// START
 //////////////////////////////////////////////
-var popupFav = document.querySelector('.popup.popup-wishlist');
-var popupFavForm = document.querySelector('.popup.popup-wishlist form');
+const popupFav = document.querySelector('.popup.popup-wishlist');
+const popupFavForm = document.querySelector('.popup.popup-wishlist form');
 popupFavForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const listChanSelected = document.querySelector('#list-channels .channel.selected');
@@ -112,7 +112,7 @@ popupFavForm.addEventListener('submit', (e) => {
     const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
     const checkedFav = document.querySelectorAll('.popup-wishlist-list-fav li input:checked');
 
-    var favArr = [];
+    const favArr = [];
     checkedFav.forEach(el => {
         favArr.push(parseInt(el.value));
         console.log(el.value);
@@ -149,10 +149,10 @@ popupFavForm.addEventListener('submit', (e) => {
 //////////////////////////////////////////////
 
 document.addEventListener('keyup', function (e) {
-    var key = e.key;
+    const key = e.key;
     console.log("key = " + key);
 
-    var listChannels = document.getElementById('list-channels');
+    let listChannels = document.getElementById('list-channels');
 
     if (listSelected === 'tabs') {
         tab_btns = tabs;
@@ -166,7 +166,7 @@ document.addEventListener('keyup', function (e) {
         tab_btns = document.getElementsByClassName('checkbox-wishlist');
     }
 
-    var current_index;
+    let current_index;
     for (let i = 0; i < tab_btns.length; i++) {
         if (tab_btns[i].classList.contains('selected')) {
             current_index = i;
@@ -207,90 +207,87 @@ document.addEventListener('keyup', function (e) {
                 saveMoveWishlist()
                 moveWishlistAction = false
                 current_index = 0
-            } else {
-                if (listSelected === 'tabs') {
-                    if (tab_btns[current_index].getAttribute('data-list') === 'list-wishlist') {
-                        listSelected = 'wishlists';
-                        tab_btns[current_index].classList.remove('selected');
-                        tab_btns[current_index].classList.add('active');
-                        tab_btns = wishlist;
-                        document.getElementById('wishlist-buttons').style.display = 'flex';
-                        document.getElementById('buckets-buttons').style.display = 'none';
+            } else if (listSelected === 'tabs') {
+                if (tab_btns[current_index].getAttribute('data-list') === 'list-wishlist') {
+                    listSelected = 'wishlists';
+                    tab_btns[current_index].classList.remove('selected');
+                    tab_btns[current_index].classList.add('active');
+                    tab_btns = wishlist;
+                    document.getElementById('wishlist-buttons').style.display = 'flex';
+                    document.getElementById('buckets-buttons').style.display = 'none';
+                } else {
+                    listSelected = 'buckets';
+                    tab_btns[current_index].classList.remove('selected');
+                    tab_btns[current_index].classList.add('active');
+                    tab_btns = bouquets;
+                    document.getElementById('buckets-buttons').style.display = 'flex';
+                    document.getElementById('wishlist-buttons').style.display = 'none';
+                }
+                current_index = 0;
+                tab_btns[current_index].classList.add('selected');
+            } else if ((listSelected === 'buckets' || listSelected === 'wishlists') && popupAction === false) {
+                listChannels.setAttribute('data-attr-back-list', listSelected)
+                listChannels.setAttribute('data-attr-back-list-index', current_index)
+                listChannels.innerHTML = '';
+                groupName.setAttribute('list-selected', listSelected);
+                document.querySelector('#searchForm').classList.add('visible');
+                if (listSelected === 'buckets') {
+                    let bouquetId = tab_btns[current_index].getAttribute('data-id');
+                    let bouquetName = tab_btns[current_index].getAttribute('data-name');
+                    groupName.innerHTML = bouquetName;
+                    groupName.setAttribute('id', bouquetId);
+                    if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
+                        popupAction = true;
+                        popupCheckPin = true;
+                        popupPin.classList.add('active');
+                        popupPinInput.focus();
                     } else {
-                        listSelected = 'buckets';
-                        tab_btns[current_index].classList.remove('selected');
-                        tab_btns[current_index].classList.add('active');
-                        tab_btns = bouquets;
-                        document.getElementById('buckets-buttons').style.display = 'flex';
-                        document.getElementById('wishlist-buttons').style.display = 'none';
+                        read().then(data => {
+                            if (data) {
+                                let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
+                                parsedChannels = result[0].channels
+                                showChannels();
+                            }
+                        })
                     }
-                    current_index = 0;
-                    tab_btns[current_index].classList.add('selected');
-                } else if ((listSelected === 'buckets' || listSelected === 'wishlists') && popupAction === false) {
-                    listChannels.setAttribute('data-attr-back-list', listSelected)
-                    listChannels.setAttribute('data-attr-back-list-index', current_index)
-                    listChannels.innerHTML = '';
-                    groupName.setAttribute('list-selected', listSelected);
-                    document.querySelector('#searchForm').classList.add('visible');
-                    if (listSelected === 'buckets') {
-                        let bouquetId = tab_btns[current_index].getAttribute('data-id');
+                } else if (listSelected === 'wishlists') {
+                    if (document.querySelector('li.action-add-wishlist').classList.contains('selected') && popupAction === false) { // Add new wishlist
+                        popupAction = true;
+                        let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+                        popupWishlist.classList.add('active');
+                        let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
+                        popupPinInput.focus();
+                    } else {
+                        let wishlistId = tab_btns[current_index].getAttribute('data-id');
                         let bouquetName = tab_btns[current_index].getAttribute('data-name');
                         groupName.innerHTML = bouquetName;
-                        groupName.setAttribute('id', bouquetId);
-                        if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
-                            popupAction = true;
-                            popupCheckPin = true;
-                            popupPin.classList.add('active');
-                            popupPinInput.focus();
-                        } else {
-                            read().then(data => {
-                                if (data) {
-                                    let result = data.bouquets.filter(bouquet => bouquet.bouquet_id == bouquetId);
-                                    parsedChannels = result[0].channels
-                                    showChannels();
-                                }
-                            })
-                        }
-                    } else if (listSelected === 'wishlists') {
-                        if (document.querySelector('li.action-add-wishlist').classList.contains('selected') && popupAction === false) { // Add new wishlist
-                            popupAction = true;
-                            let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
-                            popupWishlist.classList.add('active');
-                            let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
-                            popupPinInput.focus();
-                        } else {
-                            let wishlistId = tab_btns[current_index].getAttribute('data-id');
-                            let bouquetName = tab_btns[current_index].getAttribute('data-name');
-                            groupName.innerHTML = bouquetName;
-                            groupName.setAttribute('id', wishlistId);
-                            read().then(data => {
-                                if (data) {
-                                    const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
-                                    console.log(result);
-                                    parsedChannels = result[0].channels;
-                                    if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
-                                        popupAction = true;
-                                        popupCheckPin = true;
-                                        popupPin.classList.add('active');
-                                        popupPinInput.focus();
-                                    } else {
+                        groupName.setAttribute('id', wishlistId);
+                        read().then(data => {
+                            if (data) {
+                                const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
+                                console.log(result);
+                                parsedChannels = result[0].channels;
+                                if (parseInt(tab_btns[current_index].getAttribute('data-pin'))) {
+                                    popupAction = true;
+                                    popupCheckPin = true;
+                                    popupPin.classList.add('active');
+                                    popupPinInput.focus();
+                                } else {
 
-                                        showChannels()
-                                    }
+                                    showChannels()
                                 }
-                            })
-                        }
+                            }
+                        })
                     }
                 }
             }
-            // console.log(tab_btns)
             break;
         case
         'Escape'
         :
             if (listSelected === 'tabs') {
                 return false;
-            } else if (generalMoveAction) { // cancel move
+            } else if (generalMoveAction || moveChannelAction || moveWishlistAction) { // cancel move
                 generalMoveAction = false;
                 if (listSelected === 'channels') {
                     moveChannelAction = false
@@ -298,57 +295,54 @@ document.addEventListener('keyup', function (e) {
                     channelSelected = null
                     manageChannelsAction(false)
                 } else if (listSelected === 'wishlists') {
+                    moveWishlistAction = false
                     cancelWishlistsMove()
                 }
             } else if (channelSelected) { // unselect channel
                 channelSelected = null
                 manageChannelsAction(false)
-            } else {
-                if (popupAction === true) {
-                    let popupActive = document.querySelector('.popup.active');
-                    popupActive.classList.remove('active');
-                    popupActive.classList.remove('error');
-                    popupAction = false;
-                    if (listSelected === 'checkboxes-channels') {
-                        listSelected = 'channels'
-                        document.querySelector('#list-channels .channel.selected').classList.remove('active');
+            } else if (popupAction === true) {
+                let popupActive = document.querySelector('.popup.active');
+                popupActive.classList.remove('active');
+                popupActive.classList.remove('error');
+                popupAction = false;
+                if (listSelected === 'checkboxes-channels') {
+                    listSelected = 'channels'
+                    document.querySelector('#list-channels .channel.selected').classList.remove('active');
+                }
+            } else if (listSelected === 'buckets' || listSelected === 'wishlists') {
+                if (listSelected === 'buckets') {
+                    document.getElementById('buckets-buttons').style.display = 'none';
+                    // remove class selected from bouquet list
+                    for (const element of bouquets) {
+                        element.classList.remove('selected')
                     }
                 } else {
-                    if (listSelected === 'buckets' || listSelected === 'wishlists') {
-                        if (listSelected === 'buckets') {
-                            document.getElementById('buckets-buttons').style.display = 'none';
-                            // remove class selected from bouquet list
-                            for (const element of bouquets) {
-                                element.classList.remove('selected')
-                            }
-                        } else {
-                            document.getElementById('wishlist-buttons').style.display = 'none';
-                            // remove class selected from wishlist list
-                            for (const element of wishlist) {
-                                element.classList.remove('selected')
-                            }
-                        }
-                        listSelected = 'tabs';
-                        tab_btns = tabs;
-                        for (let j = 0; j < tab_btns.length; j++) {
-                            if (tab_btns[j].classList.contains('active')) {
-                                current_index = j;
-                                tab_btns[j].classList.remove('active')
-                                tab_btns[j].classList.add('selected')
-                            }
-                        }
-                    } else if (listSelected === 'channels') {
-                        listSelected = listChannels.getAttribute('data-attr-back-list');
-                        if (listSelected === 'buckets') {
-                            tab_btns = bouquets;
-                        } else {
-                            tab_btns = wishlist;
-                        }
-                        document.getElementById('sidebar').style.display = "";
-                        document.getElementById('right-buttons').style.display = '';
-                        document.querySelector('#searchForm').classList.remove('visible');
+                    document.getElementById('wishlist-buttons').style.display = 'none';
+                    // remove class selected from wishlist list
+                    for (const element of wishlist) {
+                        element.classList.remove('selected')
                     }
                 }
+                listSelected = 'tabs';
+                tab_btns = tabs;
+                for (let j = 0; j < tab_btns.length; j++) {
+                    if (tab_btns[j].classList.contains('active')) {
+                        current_index = j;
+                        tab_btns[j].classList.remove('active')
+                        tab_btns[j].classList.add('selected')
+                    }
+                }
+            } else if (listSelected === 'channels') {
+                listSelected = listChannels.getAttribute('data-attr-back-list');
+                if (listSelected === 'buckets') {
+                    tab_btns = bouquets;
+                } else {
+                    tab_btns = wishlist;
+                }
+                document.getElementById('sidebar').style.display = "";
+                document.getElementById('right-buttons').style.display = '';
+                document.querySelector('#searchForm').classList.remove('visible');
             }
             break;
         case
@@ -427,23 +421,21 @@ document.addEventListener('keyup', function (e) {
                     }
                     if (listSelected === 'wishlists' && current_index == wishlist.length - 1) {
                         document.querySelector('li.action-add-wishlist').classList.add("selected")
+                    } else if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
+                        document.querySelector('li.action-add-wishlist').classList.remove('selected')
+                        tab_btns[0].classList.add('selected');
                     } else {
-                        if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
-                            document.querySelector('li.action-add-wishlist').classList.remove('selected')
-                            tab_btns[0].classList.add('selected');
-                        } else {
-                            current_index = mod(current_index + 1, tab_btns.length);
-                            tab_btns[current_index].classList.add('selected');
-                            if (generalMoveAction && listSelected === 'wishlists') {
-                                if (tab_btns[current_index].classList.contains('move')) {
-                                    changeLabel("Désélectionner")
-                                } else {
-                                    changeLabel("Sélectionner")
-                                }
+                        current_index = mod(current_index + 1, tab_btns.length);
+                        tab_btns[current_index].classList.add('selected');
+                        if (generalMoveAction && listSelected === 'wishlists') {
+                            if (tab_btns[current_index].classList.contains('move')) {
+                                changeLabel("Désélectionner")
+                            } else {
+                                changeLabel("Sélectionner")
                             }
                         }
                     }
-                } else if ((listSelected === 'channels' && !channelSelected) ||(channelSelected && generalMoveAction)
+                } else if ((listSelected === 'channels' && !channelSelected) || (channelSelected && generalMoveAction)
                     || listSelected === 'buckets' || listSelected === 'checkboxes-channels') {
                     tab_btns[current_index].classList.remove('selected');
                     current_index = mod(current_index + 1, tab_btns.length);
@@ -574,12 +566,12 @@ document.addEventListener('keyup', function (e) {
             } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
                 let normalArr = [];
                 let newArr = [];
-                var getAllChannels = document.querySelectorAll('#list-channels .channel');
+                let getAllChannels = document.querySelectorAll('#list-channels .channel');
                 listChannels0.innerHTML = '';
                 getAllChannels.forEach(el => {
-                    var channelID = el.getAttribute('data-attr-id');
-                    var channelName = el.getAttribute('data-attr-name');
-                    var channelOrder = el.getAttribute('data-attr-order');
+                    let channelID = el.getAttribute('data-attr-id');
+                    let channelName = el.getAttribute('data-attr-name');
+                    let channelOrder = el.getAttribute('data-attr-order');
                     newArr.push({
                         "channel_id": parseInt(channelID),
                         "channel_name": channelName,
@@ -663,9 +655,7 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
-        case
-        '6'
-        :
+        case '6':
             if (listSelected === 'channels' && channelSelected && popupAction === false) {
                 if (tab_btns[current_index].classList.contains('move')) {
                     moveChannelAction = true;
@@ -729,6 +719,5 @@ function mod(n, m) {
 }
 
 function getItem(selector, display) {
-    console.log(selector)
     document.querySelector('.' + selector.getAttribute('data-list')).style.display = display;
 }
