@@ -451,8 +451,10 @@ document.addEventListener('keyup', function (e) {
                     const icon = document.createElement('i');
                     icon.setAttribute('class', 'checked');
                     channelSelected.appendChild(icon)
+                    tab_btns[current_index].classList.add('checked')
                     manageChannelsAction(true)
                 } else {
+                    tab_btns[current_index].classList.remove('checked')
                     channelSelected = null
                     manageChannelsAction(false)
                 }
