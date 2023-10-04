@@ -272,10 +272,10 @@
         </div>
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript">
-            var listFav = document.getElementById('sidebar-wishlist__list');
-            var listBouquet = document.getElementById('sidebar-bouquet__list');
-            var listChannels0 = document.getElementById('list-channels');
-            var popupFavList = document.getElementById('popup-wishlist-list-fav');
+            const listFav = document.getElementById('sidebar-wishlist__list');
+            const listBouquet = document.getElementById('sidebar-bouquet__list');
+            const listChannels0 = document.getElementById('list-channels');
+            const popupFavList = document.getElementById('popup-wishlist-list-fav');
 
             read().then(data => {
                 if (data) {
@@ -328,6 +328,7 @@
         <script type="text/javascript" src="js/channel/select.js"></script>
         <script type="text/javascript" src="js/channel/move.js"></script>
         <script type="text/javascript" src="js/channel/remove-from-wishlist.js"></script>
+        <script type="text/javascript" src="js/channel/order.js"></script>
         <script type="text/javascript" src="js/channel/search.js"></script>
     </body>
 </html>

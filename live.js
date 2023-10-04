@@ -6,8 +6,7 @@ let channels = document.getElementsByClassName('channel');
 let groupName = document.querySelector('.group-name');
 let tab_btns = [];
 let sortAscDesc = 0;
-let sortBy = document.querySelector('.sortBy');
-
+const sortLabel = document.querySelector('.sortBy');
 let parsedChannels = [];
 
 let popupAction = false;
@@ -170,10 +169,11 @@ document.addEventListener('keyup', function (e) {
     for (let i = 0; i < tab_btns.length; i++) {
         if (tab_btns[i].classList.contains('selected')) {
             current_index = i;
+            break;
         }
     }
 
-    console.log('current index = ' + current_index)
+    //console.log('current index = ' + current_index)
 
     switch (key) {
         case ' ':
@@ -448,6 +448,17 @@ document.addEventListener('keyup', function (e) {
             if (listSelected === 'channels' && popupAction === false) { // selectChannel for actions
                 if (!channelSelected) {
                     channelSelected = tab_btns[current_index]
+                    // init order listing
+                    let getAllChannels = document.querySelectorAll('#list-channels .channel');
+                    listChannels0.innerHTML = '';
+                    let normalArr= getChannels(getAllChannels);
+                    normalArr.sort((a, b) => {
+                        return a.channel_order < b.channel_order ? -1 : 0;
+                    })
+                    fetchChannelsOrdered(normalArr, sortLabel, 'Normal', channelSelected)
+                    sortAscDesc = 0;
+                    // end init order listing
+
                     const icon = document.createElement('i');
                     icon.setAttribute('class', 'checked');
                     channelSelected.appendChild(icon)
@@ -566,25 +577,11 @@ document.addEventListener('keyup', function (e) {
                 popupCheckPinBucket.classList.add('active');
                 popupPinInput.focus();
             } else if (listSelected === 'channels' && popupAction === false) { // Sort channels by ASC or DESC
-                let normalArr = [];
-                let newArr = [];
+                let current = tab_btns[current_index]
                 let getAllChannels = document.querySelectorAll('#list-channels .channel');
                 listChannels0.innerHTML = '';
-                getAllChannels.forEach(el => {
-                    let channelID = el.getAttribute('data-attr-id');
-                    let channelName = el.getAttribute('data-attr-name');
-                    let channelOrder = el.getAttribute('data-attr-order');
-                    newArr.push({
-                        "channel_id": parseInt(channelID),
-                        "channel_name": channelName,
-                        "channel_order": parseInt(channelOrder)
-                    });
-                    normalArr.push({
-                        "channel_id": parseInt(channelID),
-                        "channel_name": channelName,
-                        "channel_order": parseInt(channelOrder)
-                    });
-                });
+                let newArr = getChannels(getAllChannels);
+                let normalArr= getChannels(getAllChannels);
 
                 newArr.sort((a, b) => {
                     if (a.channel_name < b.channel_name) {
@@ -595,64 +592,19 @@ document.addEventListener('keyup', function (e) {
                     }
                     return 0;
                 });
-                normalArr.sort((a, b) => {
-                    if (a.channel_order < b.channel_order) {
-                        return -1;
-                    }
-                    if (a.channel_order > b.channel_order) {
-                        return 1;
-                    }
-                    return 0;
-                });
 
                 if (sortAscDesc === 0) {
-                    newArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(A-Z)';
+                    fetchChannelsOrdered(newArr, sortLabel, 'A-Z', current)
                     sortAscDesc = 1;
                 } else if (sortAscDesc === 1) {
                     newArr.reverse();
-                    newArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(Z-A)';
+                    fetchChannelsOrdered(newArr, sortLabel, 'Z-A', current)
                     sortAscDesc = 2;
                 } else if (sortAscDesc === 2) {
-                    normalArr.forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('data-attr-id', element.channel_id);
-                        li.setAttribute('data-attr-name', element.channel_name);
-                        li.setAttribute('data-attr-order', element.channel_order);
-                        if (index == 0) {
-                            li.setAttribute('class', 'channel selected');
-                        } else {
-                            li.setAttribute('class', 'channel');
-                        }
-                        li.innerHTML = element.channel_name;
-                        listChannels0.appendChild(li);
-                    });
-                    sortBy.textContent = '(Normal)';
+                    normalArr.sort((a, b) => {
+                        return a.channel_order < b.channel_order ? -1 : 0;
+                    })
+                    fetchChannelsOrdered(normalArr, sortLabel, 'Normal', current)
                     sortAscDesc = 0;
                 }
             }
