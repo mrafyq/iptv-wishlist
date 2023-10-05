@@ -152,29 +152,9 @@ document.addEventListener('keyup', function (e) {
     const key = e.key;
     console.log("key = " + key);
 
-    let listChannels = document.getElementById('list-channels');
+    updateCurrentList()
 
-    if (list_selected === 'tabs') {
-        currentList = tabs;
-    } else if (list_selected === 'buckets') {
-        currentList = buckets;
-    } else if (list_selected === 'wishlists') {
-        currentList = wishlist;
-    } else if (list_selected === 'channels') {
-        currentList = channels;
-    } else if (list_selected === 'checkboxes-channels') {
-        currentList = document.getElementsByClassName('checkbox-wishlist');
-    }
-
-    let current_index;
-    for (let i = 0; i < currentList.length; i++) {
-        if (currentList[i].classList.contains('selected')) {
-            current_index = i;
-            break;
-        }
-    }
-
-    //console.log('current index = ' + current_index)
+    let current_index = getCurrentIndex();
 
     switch (key) {
         case ' ':
@@ -211,33 +191,18 @@ document.addEventListener('keyup', function (e) {
                 moveWishlistAction = false
                 current_index = 0
             } else if (list_selected === 'tabs') {
-                if (currentList[current_index].getAttribute('data-list') === 'list-wishlist') {
-                    list_selected = 'wishlists';
-                    currentList[current_index].classList.remove('selected');
-                    currentList[current_index].classList.add('active');
-                    currentList = wishlist;
-                    document.getElementById('wishlist-buttons').style.display = 'flex';
-                    document.getElementById('buckets-buttons').style.display = 'none';
-                } else {
-                    list_selected = 'buckets';
-                    currentList[current_index].classList.remove('selected');
-                    currentList[current_index].classList.add('active');
-                    currentList = buckets;
-                    document.getElementById('buckets-buttons').style.display = 'flex';
-                    document.getElementById('wishlist-buttons').style.display = 'none';
-                }
+                switchBucketsWishlist(current_index)
                 current_index = 0;
                 currentList[current_index].classList.add('selected');
             } else if ((list_selected === 'buckets' || list_selected === 'wishlists') && popupAction === false) {
-                listChannels.setAttribute('data-attr-back-list', list_selected)
-                listChannels.setAttribute('data-attr-back-list-index', current_index)
-                listChannels.innerHTML = '';
+                listChannels0.setAttribute('data-attr-back-list', list_selected)
+                listChannels0.setAttribute('data-attr-back-list-index', current_index.toString())
+                listChannels0.innerHTML = '';
                 groupName.setAttribute('list-selected', list_selected);
                 document.querySelector('#searchForm').classList.add('visible');
                 if (list_selected === 'buckets') {
                     let bucketId = currentList[current_index].getAttribute('data-id');
-                    let bucketName = currentList[current_index].getAttribute('data-name');
-                    groupName.innerHTML = bucketName;
+                    groupName.innerHTML = currentList[current_index].getAttribute('data-name');
                     groupName.setAttribute('id', bucketId);
                     if (parseInt(currentList[current_index].getAttribute('data-pin'))) {
                         popupAction = true;
@@ -262,8 +227,7 @@ document.addEventListener('keyup', function (e) {
                         popupPinInput.focus();
                     } else {
                         let wishlistId = currentList[current_index].getAttribute('data-id');
-                        let bucketName = currentList[current_index].getAttribute('data-name');
-                        groupName.innerHTML = bucketName;
+                        groupName.innerHTML = currentList[current_index].getAttribute('data-name');
                         groupName.setAttribute('id', wishlistId);
                         read().then(data => {
                             if (data) {
@@ -285,9 +249,7 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
-        case
-        'Escape'
-        :
+        case 'Escape':
             if (list_selected === 'tabs') {
                 return false;
             } else if (generalMoveAction || moveChannelAction || moveWishlistAction) { // cancel move
@@ -301,10 +263,8 @@ document.addEventListener('keyup', function (e) {
                     moveWishlistAction = false
                     cancelWishlistsMove()
                 }
-            } else if (channelSelected) { // unselect channel
-                channelSelected = null
-                manageChannelsAction(false)
             } else if (popupAction === true) {
+                console.log("heeere")
                 let popupActive = document.querySelector('.popup.active');
                 popupActive.classList.remove('active');
                 popupActive.classList.remove('error');
@@ -313,44 +273,18 @@ document.addEventListener('keyup', function (e) {
                     list_selected = 'channels'
                     document.querySelector('#list-channels .channel.selected').classList.remove('active');
                 }
+            } else if (channelSelected) { // unselect channel
+                currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name');
+                currentList[current_index].classList.remove('checked')
+                channelSelected = null
+                manageChannelsAction(false)
             } else if (list_selected === 'buckets' || list_selected === 'wishlists') {
-                if (list_selected === 'buckets') {
-                    document.getElementById('buckets-buttons').style.display = 'none';
-                    // remove class selected from bucket list
-                    for (const element of buckets) {
-                        element.classList.remove('selected')
-                    }
-                } else {
-                    document.getElementById('wishlist-buttons').style.display = 'none';
-                    // remove class selected from wishlist list
-                    for (const element of wishlist) {
-                        element.classList.remove('selected')
-                    }
-                }
-                list_selected = 'tabs';
-                currentList = tabs;
-                for (let j = 0; j < currentList.length; j++) {
-                    if (currentList[j].classList.contains('active')) {
-                        current_index = j;
-                        currentList[j].classList.remove('active')
-                        currentList[j].classList.add('selected')
-                    }
-                }
+                escapeBucketsOrWishlists()
             } else if (list_selected === 'channels') {
-                list_selected = listChannels.getAttribute('data-attr-back-list');
-                if (list_selected === 'buckets') {
-                    currentList = buckets;
-                } else {
-                    currentList = wishlist;
-                }
-                document.getElementById('sidebar').style.display = "";
-                document.getElementById('right-buttons').style.display = '';
-                document.querySelector('#searchForm').classList.remove('visible');
+                escapeChannels()
             }
             break;
-        case
-        "ArrowRight"
-        :
+        case 'ArrowRight':
             if (list_selected === 'tabs' && popupAction === false) {
                 currentList[current_index].classList.remove('selected');
                 getItem(currentList[current_index], 'none');
@@ -362,9 +296,7 @@ document.addEventListener('keyup', function (e) {
                 switchPopupActiveYesNo()
             }
             break;
-        case
-        "ArrowLeft"
-        :
+        case 'ArrowLeft':
             if (list_selected === 'tabs' && popupAction === false) {
                 currentList[current_index].classList.remove('selected');
                 getItem(currentList[current_index], 'none');
@@ -376,9 +308,7 @@ document.addEventListener('keyup', function (e) {
                 switchPopupActiveYesNo()
             }
             break;
-        case
-        "ArrowUp"
-        :
+        case 'ArrowUp':
             if ((list_selected !== 'tabs' && popupAction === false) || list_selected === 'checkboxes-channels') {
                 if (moveChannelAction) {
                     moveChannels('up')
@@ -485,9 +415,7 @@ document.addEventListener('keyup', function (e) {
                 }
             }
             break;
-        case
-        '3'
-        :
+        case '3':
             if (generalMoveAction === true) {
                 return;
             } else if (list_selected === 'buckets' && popupAction === false) {
@@ -527,41 +455,17 @@ document.addEventListener('keyup', function (e) {
                 })
             }
             break;
-        case
-        '4'
-        :
+        case '4':
             if (generalMoveAction === true) {
                 return;
             } else if (list_selected === 'wishlists' && popupAction === false) { // Rename wishlist
                 popupAction = true;
-                let popupFavRename = document.querySelector('.popup-rename');
-                popupFavRename.classList.add('active');
-                let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
-                let popupTitles = document.querySelector('.popup-rename .popup-title strong');
-                let inputRename = document.querySelector('.popup-rename #rename');
-                popupTitles.innerText = favSelectedName.textContent;
-                inputRename.value = favSelectedName.textContent
-                inputRename.focus();
+                callPopupRenameWishlist()
             } else if (list_selected === 'channels' && channelSelected && popupAction === false) { // Remove channel from wishlist
-                let groupNameSelected = document.querySelector('.group-name');
-                if (groupNameSelected.getAttribute('list-selected') === 'wishlists') {
-                    popupAction = true;
-                    let wishlist_selected = document.querySelector('.group-name');
-                    let wishlistChannelSelected = document.querySelector('.list-channels .channel.selected');
-                    let popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
-                    let popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
-                    // Popup title => Wishlist
-                    popupRemoveFromWishlistTitle.innerHTML = 'Etes vous sur de vouloir supprimer <strong>' +
-                        wishlistChannelSelected.getAttribute('data-attr-name') +
-                        '</strong> depuis <strong>' + wishlist_selected.textContent + '</strong> ?'
-                    // Show popup remove channel item from wishlist
-                    popupRemoveFromWishlist.classList.add('active');
-                }
+                popupAction = callPopupRemoveChannel()
             }
             break;
-        case
-        '5'
-        :
+        case '5':
             if (generalMoveAction === true) {
                 return;
             } else if (list_selected === 'wishlists' && popupAction === false) {
@@ -626,7 +530,6 @@ document.addEventListener('keyup', function (e) {
     }
 
 })
-;
 
 ////////////////////////////////////////////////////
 /// SHOW CHANNELS AFTER CHECK PIN /// START
@@ -670,6 +573,85 @@ function switchPopupActiveYesNo() {
             button.classList.add('active')
         }
     })
+}
+
+function updateCurrentList() {
+    if (list_selected === 'tabs') {
+        currentList = tabs;
+    } else if (list_selected === 'buckets') {
+        currentList = buckets;
+    } else if (list_selected === 'wishlists') {
+        currentList = wishlist;
+    } else if (list_selected === 'channels') {
+        currentList = channels;
+    } else if (list_selected === 'checkboxes-channels') {
+        currentList = document.getElementsByClassName('checkbox-wishlist');
+    }
+}
+
+function getCurrentIndex() {
+    for (let i = 0; i < currentList.length; i++) {
+        if (currentList[i].classList.contains('selected')) {
+            return i;
+        }
+    }
+}
+
+function switchBucketsWishlist(current_index) {
+    if (currentList[current_index].getAttribute('data-list') === 'list-wishlist') {
+        list_selected = 'wishlists';
+        currentList[current_index].classList.remove('selected');
+        currentList[current_index].classList.add('active');
+        currentList = wishlist;
+        document.getElementById('wishlist-buttons').style.display = 'flex';
+        document.getElementById('buckets-buttons').style.display = 'none';
+    } else {
+        list_selected = 'buckets';
+        currentList[current_index].classList.remove('selected');
+        currentList[current_index].classList.add('active');
+        currentList = buckets;
+        document.getElementById('buckets-buttons').style.display = 'flex';
+        document.getElementById('wishlist-buttons').style.display = 'none';
+    }
+}
+
+function escapeBucketsOrWishlists() {
+    let current_index
+    if (list_selected === 'buckets') {
+        document.getElementById('buckets-buttons').style.display = 'none';
+        // remove class selected from bucket list
+        for (const element of buckets) {
+            element.classList.remove('selected')
+        }
+    } else {
+        document.getElementById('wishlist-buttons').style.display = 'none';
+        // remove class selected from wishlist list
+        for (const element of wishlist) {
+            element.classList.remove('selected')
+        }
+    }
+    list_selected = 'tabs';
+    currentList = tabs;
+    for (let j = 0; j < currentList.length; j++) {
+        if (currentList[j].classList.contains('active')) {
+            current_index = j;
+            currentList[j].classList.remove('active')
+            currentList[j].classList.add('selected')
+        }
+    }
+    return current_index
+}
+
+function escapeChannels() {
+    list_selected = listChannels0.getAttribute('data-attr-back-list');
+    if (list_selected === 'buckets') {
+        currentList = buckets;
+    } else {
+        currentList = wishlist;
+    }
+    document.getElementById('sidebar').style.display = "";
+    document.getElementById('right-buttons').style.display = '';
+    document.querySelector('#searchForm').classList.remove('visible');
 }
 
 function mod(n, m) {

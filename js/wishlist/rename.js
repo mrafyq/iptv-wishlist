@@ -27,3 +27,14 @@ popupRenameForm.addEventListener('submit', (e) => {
         }
     })
 })
+
+function callPopupRenameWishlist() {
+    let popupFavRename = document.querySelector('.popup-rename');
+    popupFavRename.classList.add('active');
+    let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
+    let popupTitles = document.querySelector('.popup-rename .popup-title strong');
+    let inputRename = document.querySelector('.popup-rename #rename');
+    popupTitles.innerText = favSelectedName.textContent;
+    inputRename.value = favSelectedName.textContent
+    inputRename.focus();
+}
