@@ -30,6 +30,7 @@ popupWishlistForm.addEventListener('submit', (e) => {
                 fetchWishlists(data.wishlists)
                 save(data);
                 adaptPopup(popupAddWishlist)
+                wishlistActions.style.display = 'flex'
             }
         }
     })

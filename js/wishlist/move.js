@@ -104,7 +104,7 @@ function saveMoveWishlist() {
             data.wishlists.sort((a, b) => (a.order > b.order) ? 1 : -1)
             fetchWishlists(data.wishlists)
             save(data)
-            changeLabel('Déplacer')
+            changeWishlistMoveLabel('Déplacer')
             manageActionsButtons('block', true)
         }
     })
@@ -119,7 +119,7 @@ function manageActionsButtons(display = 'none', applyDisplayForMoveBtn = false) 
     }
 }
 
-function changeLabel(label = 'Déplacer') {
+function changeWishlistMoveLabel(label = 'Déplacer') {
     document.querySelector('.action-move').innerHTML = '<div class="dot blue"> </div> ' + label + '</div>'
 }
 
@@ -136,5 +136,5 @@ function cancelWishlistsMove() {
         }
     })
     manageActionsButtons('block')
-    changeLabel()
+    changeWishlistMoveLabel()
 }

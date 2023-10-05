@@ -9,10 +9,8 @@ popupPinForm.addEventListener('submit', function (e) {
             if (popupPinInput.value === data.pin) {
                 if (list_selected === 'buckets') {
                     let bucketId = document.querySelector('.bucket.selected').getAttribute('data-id')
-                    console.log(bucketId)
                     let result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                     parsedChannels = result[0].channels
-
                 } else if (list_selected === 'wishlists') {
                     let wishlistId = document.querySelector('.wishlist.selected').getAttribute('data-id')
                     let result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);

@@ -1,6 +1,7 @@
 const tabs = document.getElementsByClassName('tab');
 const buckets = document.getElementsByClassName('bucket');
 const wishlist = document.getElementsByClassName('wishlist');
+const wishlistActions = document.getElementById('wishlist-buttons')
 const sortLabel = document.querySelector('.sortBy');
 
 let list_selected = 'tabs';
@@ -25,6 +26,20 @@ const popupAddToWishlist = document.querySelector('.popup.popup-wishlist');
 const popupPin = document.querySelector('.popup-check-pin-access');
 const popupPinForm = document.querySelector('.popup-check-pin-access form');
 const popupPinInput = document.querySelector('.popup-check-pin-access #pin-field');
+
+function changePinActionLabel(element, selector = null) {
+    if (!selector) {
+        selector = '.pin-bucket'
+        if (element.classList.contains('wishlist')) {
+            selector = '.pin-wishlist'
+        }
+    }
+    let label = ' Verouiller'
+    if (parseInt(element.getAttribute('data-pin'))) {
+        label = ' Deverouiller'
+    }
+    document.querySelector(selector).innerHTML = label
+}
 
 document.addEventListener('keyup', function (e) {
     const key = e.key;
@@ -72,9 +87,10 @@ document.addEventListener('keyup', function (e) {
                 switchBucketsWishlist(current_index)
                 current_index = 0;
                 currentList[current_index].classList.add('selected');
+                changePinActionLabel(currentList[current_index])
             } else if ((list_selected === 'buckets' || list_selected === 'wishlists') && popupAction === false) {
                 listChannels0.setAttribute('data-attr-back-list', list_selected)
-                listChannels0.setAttribute('data-attr-back-list-index', current_index.toString())
+                listChannels0.setAttribute('data-attr-back-list-index', current_index)
                 listChannels0.innerHTML = '';
                 groupName.setAttribute('list-selected', list_selected);
                 document.querySelector('#searchForm').classList.add('visible');
@@ -107,22 +123,21 @@ document.addEventListener('keyup', function (e) {
                         let wishlistId = currentList[current_index].getAttribute('data-id');
                         groupName.innerHTML = currentList[current_index].getAttribute('data-name');
                         groupName.setAttribute('id', wishlistId);
-                        read().then(data => {
-                            if (data) {
-                                const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
-                                console.log(result);
-                                parsedChannels = result[0].channels;
-                                if (parseInt(currentList[current_index].getAttribute('data-pin'))) {
-                                    popupAction = true;
-                                    popupCheckPin = true;
-                                    popupPin.classList.add('active');
-                                    popupPinInput.focus();
-                                } else {
-
+                        if (parseInt(currentList[current_index].getAttribute('data-pin'))) {
+                            popupAction = true;
+                            popupCheckPin = true;
+                            popupPin.classList.add('active');
+                            popupPinInput.focus();
+                        } else {
+                            read().then(data => {
+                                if (data) {
+                                    const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
+                                    console.log(result);
+                                    parsedChannels = result[0].channels;
                                     showChannels()
                                 }
-                            }
-                        })
+                            })
+                        }
                     }
                 }
             }
@@ -196,18 +211,22 @@ document.addEventListener('keyup', function (e) {
                     if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
                         document.querySelector('li.action-add-wishlist').classList.remove('selected')
                         currentList[currentList.length - 1].classList.add('selected');
+                        wishlistActions.style.display = 'flex';
                     } else {
                         currentList[current_index].classList.remove('selected');
                         if (current_index === 0) {
                             document.querySelector('li.action-add-wishlist').classList.add("selected")
+                            wishlistActions.style.display = 'none';
                         } else {
                             current_index = mod(current_index - 1, currentList.length);
                             currentList[current_index].classList.add('selected');
+                            wishlistActions.style.display = 'flex';
+                            changePinActionLabel(currentList[current_index],'.pin-wishlist')
                             if (generalMoveAction && list_selected === 'wishlists') {
                                 if (currentList[current_index].classList.contains('move')) {
-                                    changeLabel("Désélectionner")
+                                    changeWishlistMoveLabel("Désélectionner")
                                 } else {
-                                    changeLabel("Sélectionner")
+                                    changeWishlistMoveLabel("Sélectionner")
                                 }
                             }
                         }
@@ -217,6 +236,7 @@ document.addEventListener('keyup', function (e) {
                     currentList[current_index].classList.remove('selected');
                     current_index = mod(current_index - 1, currentList.length);
                     currentList[current_index].classList.add('selected');
+                    changePinActionLabel(currentList[current_index],'.pin-bucket')
                 }
             }
             break;
@@ -232,17 +252,21 @@ document.addEventListener('keyup', function (e) {
                     }
                     if (list_selected === 'wishlists' && current_index == wishlist.length - 1) {
                         document.querySelector('li.action-add-wishlist').classList.add("selected")
+                        wishlistActions.style.display = 'none';
                     } else if (document.querySelector('li.action-add-wishlist').classList.contains('selected')) {
                         document.querySelector('li.action-add-wishlist').classList.remove('selected')
                         currentList[0].classList.add('selected');
+                        wishlistActions.style.display = 'flex';
                     } else {
                         current_index = mod(current_index + 1, currentList.length);
                         currentList[current_index].classList.add('selected');
+                        wishlistActions.style.display = 'flex';
+                        changePinActionLabel(currentList[current_index],'.pin-wishlist')
                         if (generalMoveAction && list_selected === 'wishlists') {
                             if (currentList[current_index].classList.contains('move')) {
-                                changeLabel("Désélectionner")
+                                changeWishlistMoveLabel("Désélectionner")
                             } else {
-                                changeLabel("Sélectionner")
+                                changeWishlistMoveLabel("Sélectionner")
                             }
                         }
                     }
@@ -251,6 +275,7 @@ document.addEventListener('keyup', function (e) {
                     currentList[current_index].classList.remove('selected');
                     current_index = mod(current_index + 1, currentList.length);
                     currentList[current_index].classList.add('selected');
+                    changePinActionLabel(currentList[current_index],'.pin-bucket')
                 }
             }
             break;
@@ -282,11 +307,11 @@ document.addEventListener('keyup', function (e) {
                     generalMoveAction = true;
                     manageActionsButtons('none')
                     addElementToMove(currentList[current_index]);
-                    changeLabel("Désélectionner")
+                    changeWishlistMoveLabel("Désélectionner")
                 } else {
                     currentList[current_index].classList.remove('move')
                     currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-name')
-                    changeLabel("Sélectionner")
+                    changeWishlistMoveLabel("Sélectionner")
                 }
             }
             break;
@@ -342,25 +367,26 @@ document.addEventListener('keyup', function (e) {
                 let current = currentList[current_index]
                 let getAllChannels = document.querySelectorAll('#list-channels .channel');
                 listChannels0.innerHTML = '';
-                let newArr = getChannels(getAllChannels);
 
-                newArr.sort((a, b) => {
-                    if (a.channel_name < b.channel_name) {
-                        return -1;
+                if (sortAscDesc === 0 || sortAscDesc === 1) {
+                    let newArr = getChannels(getAllChannels);
+                    newArr.sort((a, b) => {
+                        if (a.channel_name < b.channel_name) {
+                            return -1;
+                        }
+                        if (a.channel_name > b.channel_name) {
+                            return 1;
+                        }
+                        return 0;
+                    });
+                    if (sortAscDesc === 0) {
+                        fetchChannelsOrdered(newArr, sortLabel, 'A-Z', current)
+                        sortAscDesc = 1;
+                    } else if (sortAscDesc === 1) {
+                        newArr.reverse();
+                        fetchChannelsOrdered(newArr, sortLabel, 'Z-A', current)
+                        sortAscDesc = 2;
                     }
-                    if (a.channel_name > b.channel_name) {
-                        return 1;
-                    }
-                    return 0;
-                });
-
-                if (sortAscDesc === 0) {
-                    fetchChannelsOrdered(newArr, sortLabel, 'A-Z', current)
-                    sortAscDesc = 1;
-                } else if (sortAscDesc === 1) {
-                    newArr.reverse();
-                    fetchChannelsOrdered(newArr, sortLabel, 'Z-A', current)
-                    sortAscDesc = 2;
                 } else if (sortAscDesc === 2) {
                     let normalArr= getChannels(getAllChannels);
                     normalArr.sort((a, b) => {
@@ -420,7 +446,7 @@ function escapeBucketsOrWishlists() {
             element.classList.remove('selected')
         }
     } else {
-        document.getElementById('wishlist-buttons').style.display = 'none';
+        wishlistActions.style.display = 'none';
         // remove class selected from wishlist list
         for (const element of wishlist) {
             element.classList.remove('selected')

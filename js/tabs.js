@@ -4,7 +4,7 @@ function switchBucketsWishlist(current_index) {
         currentList[current_index].classList.remove('selected');
         currentList[current_index].classList.add('active');
         currentList = wishlist;
-        document.getElementById('wishlist-buttons').style.display = 'flex';
+        wishlistActions.style.display = 'flex';
         document.getElementById('buckets-buttons').style.display = 'none';
     } else {
         list_selected = 'buckets';
@@ -12,6 +12,6 @@ function switchBucketsWishlist(current_index) {
         currentList[current_index].classList.add('active');
         currentList = buckets;
         document.getElementById('buckets-buttons').style.display = 'flex';
-        document.getElementById('wishlist-buttons').style.display = 'none';
+        wishlistActions.style.display = 'none';
     }
 }
