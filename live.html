@@ -275,7 +275,6 @@
             const listFav = document.getElementById('sidebar-wishlist__list');
             const listBucket = document.getElementById('sidebar-bucket__list');
             const listChannels0 = document.getElementById('list-channels');
-            const popupFavList = document.getElementById('popup-wishlist-list-fav');
 
             read().then(data => {
                 if (data) {
@@ -318,6 +317,9 @@
             });
         </script>
         <script type="text/javascript" src="live.js"></script>
+        <script type="text/javascript" src="js/popups.js"></script>
+        <script type="text/javascript" src="js/tabs.js"></script>
+        <script type="text/javascript" src="js/check-pin.js"></script>
         <script type="text/javascript" src="js/wishlist/add.js"></script>
         <script type="text/javascript" src="js/wishlist/move.js"></script>
         <script type="text/javascript" src="js/wishlist/rename.js"></script>
@@ -325,6 +327,7 @@
         <script type="text/javascript" src="js/wishlist/pin.js"></script>
         <script type="text/javascript" src="js/bucket/pin.js"></script>
         <script type="text/javascript" src="js/bucket/hide.js"></script>
+        <script type="text/javascript" src="js/channel/add-to-wishlist.js"></script>
         <script type="text/javascript" src="js/channel/select.js"></script>
         <script type="text/javascript" src="js/channel/move.js"></script>
         <script type="text/javascript" src="js/channel/remove-from-wishlist.js"></script>

@@ -28,8 +28,7 @@ popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
     read().then(data => {
         if (data) {
             let wishlist = data.wishlists.filter(item => item.wishlist_id == wishlistSelected.id);
-            let wishlistChannels = wishlist[0].channels.filter(item => item.channel_id != wishlistChannelSelected.getAttribute('data-attr-id'));
-            wishlist[0].channels = wishlistChannels;
+            wishlist[0].channels = wishlist[0].channels.filter(item => item.channel_id != wishlistChannelSelected.getAttribute('data-attr-id'));
             save(data);
             wishlistChannelSelected.remove()
             selectChannelAfterRemove()
