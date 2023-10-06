@@ -145,3 +145,6 @@ function cancelChannelsMove() {
     })
 }
 
+function changeChannelMoveLabel(label = 'Déplacer (6)') {
+    document.querySelector('.move-channel-action').innerHTML = '<div class="dot blue"> </div> ' + label + '</div>'
+}

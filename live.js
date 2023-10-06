@@ -66,6 +66,8 @@ document.addEventListener('keyup', function (e) {
                         manageActionsButtons('none', true)
                     } else if (list_selected === 'channels') {
                         moveChannelAction = true;
+                        hideChannelsActionForMove(true)
+                        changeChannelMoveLabel()
                     }
                     generalMoveAction = false
                 }
@@ -237,6 +239,13 @@ document.addEventListener('keyup', function (e) {
                     current_index = mod(current_index - 1, currentList.length);
                     currentList[current_index].classList.add('selected');
                     changePinActionLabel(currentList[current_index],'.pin-bucket')
+                    if (generalMoveAction && list_selected === 'channels') {
+                        if (currentList[current_index].classList.contains('move')) {
+                            changeChannelMoveLabel("Désélectionner")
+                        } else {
+                            changeChannelMoveLabel("Sélectionner")
+                        }
+                    }
                 }
             }
             break;
@@ -276,6 +285,13 @@ document.addEventListener('keyup', function (e) {
                     current_index = mod(current_index + 1, currentList.length);
                     currentList[current_index].classList.add('selected');
                     changePinActionLabel(currentList[current_index],'.pin-bucket')
+                    if (generalMoveAction && list_selected === 'channels') {
+                        if (currentList[current_index].classList.contains('move')) {
+                            changeChannelMoveLabel("Désélectionner")
+                        } else {
+                            changeChannelMoveLabel("Sélectionner")
+                        }
+                    }
                 }
             }
             break;
@@ -404,10 +420,12 @@ document.addEventListener('keyup', function (e) {
                     currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name')
                 }
                 if (currentList[current_index].classList.contains('move')) {
-                    moveChannelAction = true;
+                    // moveChannelAction = true;
                 } else {
                     generalMoveAction = true;
                     addChannelToMove(currentList[current_index]);
+                    hideChannelsActionForMove()
+                    changeChannelMoveLabel('Désélectionner')
                 }
             }
             break;
