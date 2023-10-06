@@ -89,9 +89,9 @@ document.addEventListener('keyup', function (e) {
                 currentList[current_index].classList.add('selected');
                 changePinActionLabel(currentList[current_index])
             } else if ((list_selected === 'buckets' || list_selected === 'wishlists') && popupAction === false) {
-                listChannels0.setAttribute('data-attr-back-list', list_selected)
-                listChannels0.setAttribute('data-attr-back-list-index', current_index)
-                listChannels0.innerHTML = '';
+                listChannels.setAttribute('data-attr-back-list', list_selected)
+                listChannels.setAttribute('data-attr-back-list-index', current_index)
+                listChannels.innerHTML = '';
                 groupName.setAttribute('list-selected', list_selected);
                 document.querySelector('#searchForm').classList.add('visible');
                 if (list_selected === 'buckets') {
@@ -285,7 +285,7 @@ document.addEventListener('keyup', function (e) {
                     channelSelected = currentList[current_index]
                     // init order listing
                     let getAllChannels = document.querySelectorAll('#list-channels .channel');
-                    listChannels0.innerHTML = '';
+                    listChannels.innerHTML = '';
                     let normalArr= getChannels(getAllChannels);
                     normalArr.sort((a, b) => {
                         return a.channel_order < b.channel_order ? -1 : 0;
@@ -366,7 +366,7 @@ document.addEventListener('keyup', function (e) {
             } else if (list_selected === 'channels'  && popupAction === false) { // Sort channels by ASC or DESC
                 let current = currentList[current_index]
                 let getAllChannels = document.querySelectorAll('#list-channels .channel');
-                listChannels0.innerHTML = '';
+                listChannels.innerHTML = '';
 
                 if (sortAscDesc === 0 || sortAscDesc === 1) {
                     let newArr = getChannels(getAllChannels);
@@ -465,7 +465,7 @@ function escapeBucketsOrWishlists() {
 }
 
 function escapeChannels() {
-    list_selected = listChannels0.getAttribute('data-attr-back-list');
+    list_selected = listChannels.getAttribute('data-attr-back-list');
     if (list_selected === 'buckets') {
         currentList = buckets;
     } else {

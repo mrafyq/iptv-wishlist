@@ -10,7 +10,7 @@ function getChannels(getAllChannels) {
             "channel_order": parseInt(channelOrder)
         });
     });
-    listChannels0.innerHTML = ''
+    listChannels.innerHTML = ''
     return channels;
 }
 
@@ -38,7 +38,7 @@ function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null, t
         } else {
             li.setAttribute('class', 'channel');
         }
-        listChannels0.appendChild(li);
+        listChannels.appendChild(li);
     });
     sortLabel.textContent = '(' + sortValue + ')';
 }

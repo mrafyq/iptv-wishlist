@@ -61,7 +61,7 @@ function showChannels() {
             li.setAttribute('class', 'channel');
         }
         li.innerHTML = element.channel_name;
-        listChannels0.appendChild(li);
+        listChannels.appendChild(li);
     });
     hideSidebar()
 }

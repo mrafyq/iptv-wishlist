@@ -1,3 +1,14 @@
+const wishlistList = document.getElementById('sidebar-wishlist__list');
+const listBucket = document.getElementById('sidebar-bucket__list');
+const listChannels = document.getElementById('list-channels');
+
+read().then(data => {
+    if (data) {
+        fetchBuckets(data.buckets);
+        fetchWishlists(data.wishlists);
+    }
+});
+
 function save(data) {
     // WEB
     console.log("save data")
@@ -16,29 +27,48 @@ async function read() {
     // return JSON.parse(str);
 }
 
+function fetchBuckets(buckets) {
+    (buckets).forEach((bucket) => {
+        if (!bucket.hidden) {
+            const li = document.createElement('li');
+            li.setAttribute('id', 'bucket-' + bucket.bucket_id);
+            li.setAttribute('data-id', bucket.bucket_id);
+            li.setAttribute('data-name', bucket.bucket_name);
+            li.setAttribute('data-pin', bucket.pin);
+            li.setAttribute('class', 'bucket');
+            li.innerHTML = bucket.bucket_name;
+            if (bucket.pin) {
+                const iconLock = document.createElement('i');
+                iconLock.setAttribute('class', 'icon-lock');
+                li.appendChild(iconLock);
+            }
+            listBucket.appendChild(li);
+        }
+    });
+}
+
 function fetchWishlists(wishlists) {
-    listFav.innerHTML = '';
-    (wishlists).forEach((element, index) => {
+    wishlistList.innerHTML = '';
+    (wishlists).forEach((wishlist, index) => {
         const li = document.createElement('li');
-        li.setAttribute('id', 'wishlits-' + element.wishlist_id);
-        li.setAttribute('data-id', element.wishlist_id);
-        li.setAttribute('data-name', element.wishlist_name);
-        li.setAttribute('data-pin', element.pin);
-        li.setAttribute('data-order', element.order);
+        li.setAttribute('id', 'wishlist-' + wishlist.wishlist_id);
+        li.setAttribute('data-id', wishlist.wishlist_id);
+        li.setAttribute('data-name', wishlist.wishlist_name);
+        li.setAttribute('data-pin', wishlist.pin);
+        li.setAttribute('data-order', wishlist.order);
         if (index == 0) {
             li.setAttribute('class', 'wishlist selected');
         } else {
             li.setAttribute('class', 'wishlist');
         }
-        li.style.order = element.order;
-        li.innerHTML = element.wishlist_name;
-        if (element.pin) {
+        li.style.order = wishlist.order;
+        li.innerHTML = wishlist.wishlist_name;
+        if (wishlist.pin) {
             const iconLock = document.createElement('i');
             iconLock.setAttribute('class', 'icon-lock');
             li.appendChild(iconLock);
         }
-        console.log(li)
-        listFav.appendChild(li);
+        wishlistList.appendChild(li);
     });
     addActionAddWishlist(wishlists.length)
 }
@@ -48,23 +78,23 @@ function addActionAddWishlist(count) {
     li.setAttribute('class', 'action-add-wishlist');
     li.innerHTML = '<i class="icon-add"></i> Ajouter';
     li.style.order = count + 1;
-    listFav.appendChild(li);
+    wishlistList.appendChild(li);
 }
 
 function fetchChannels(channels) {
-    listChannels0.innerHTML = '';
-    (channels).forEach((element, index) => {
+    listChannels.innerHTML = '';
+    (channels).forEach((channel, index) => {
         const li = document.createElement('li');
-        li.setAttribute('data-attr-id', element.channel_id);
-        li.setAttribute('data-attr-name', element.channel_name);
-        li.setAttribute('data-attr-order', element.channel_order);
-        li.style.order = element.channel_order
+        li.setAttribute('data-attr-id', channel.channel_id);
+        li.setAttribute('data-attr-name', channel.channel_name);
+        li.setAttribute('data-attr-order', channel.channel_order);
+        li.style.order = channel.channel_order
         if (index == 0) {
             li.setAttribute('class', 'channel selected');
         } else {
             li.setAttribute('class', 'channel');
         }
-        li.innerHTML = element.channel_name;
-        listChannels0.appendChild(li);
+        li.innerHTML = channel.channel_name;
+        listChannels.appendChild(li);
     });
 }

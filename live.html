@@ -271,51 +271,6 @@
             </div>
         </div>
         <script type="text/javascript" src="js/data.js"></script>
-        <script type="text/javascript">
-            const listFav = document.getElementById('sidebar-wishlist__list');
-            const listBucket = document.getElementById('sidebar-bucket__list');
-            const listChannels0 = document.getElementById('list-channels');
-
-            read().then(data => {
-                if (data) {
-                    (data.wishlists).forEach((element, index) => {
-                        const li = document.createElement('li');
-                        li.setAttribute('id', 'wishlist-' + element.wishlist_id);
-                        li.setAttribute('data-id', element.wishlist_id);
-                        li.setAttribute('data-name', element.wishlist_name);
-                        li.setAttribute('data-pin', element.pin);
-                        li.setAttribute('data-order', element.order);
-                        li.setAttribute('class', 'wishlist');
-                        li.style.order = element.order;
-                        li.innerHTML = element.wishlist_name;
-                        if (element.pin) {
-                            const iconLock = document.createElement('i');
-                            iconLock.setAttribute('class', 'icon-lock');
-                            li.appendChild(iconLock);
-                        }
-                        listFav.appendChild(li);
-                    });
-                    addActionAddWishlist(data.wishlists.length);
-                    (data.buckets).forEach((element, index) => {
-                        if (!element.hidden) {
-                            const li = document.createElement('li');
-                            li.setAttribute('id', 'bucket-' + element.bucket_id);
-                            li.setAttribute('data-id', element.bucket_id);
-                            li.setAttribute('data-name', element.bucket_name);
-                            li.setAttribute('data-pin', element.pin);
-                            li.setAttribute('class', 'bucket');
-                            li.innerHTML = element.bucket_name;
-                            if (element.pin) {
-                                const iconLock = document.createElement('i');
-                                iconLock.setAttribute('class', 'icon-lock');
-                                li.appendChild(iconLock);
-                            }
-                            listBucket.appendChild(li);
-                        }
-                    });
-                }
-            });
-        </script>
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/popups.js"></script>
         <script type="text/javascript" src="js/tabs.js"></script>
