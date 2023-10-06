@@ -3,15 +3,19 @@ var popupDelete = document.querySelector('.popup-delete');
 
 popupDeleteForm.addEventListener('submit', (e) => {
     e.preventDefault();
-    let favList = document.querySelectorAll('.list-wishlist .wishlist');
-    let favDeleteSelected = document.querySelector('.list-wishlist .wishlist.selected');
-    let favDeleteID = favDeleteSelected.getAttribute('data-id');
+    let wishlistToDelete = document.querySelector('.list-wishlist .wishlist.selected');
+    let wishlistToDeleteId = wishlistToDelete.getAttribute('data-id');
     read().then(data => {
         if (data) {
-            let wishlist = data.wishlists.filter(item => item.wishlist_id != favDeleteID);
-            data.wishlists = wishlist;
-            favList[0].classList.add('selected');
-            favDeleteSelected.remove();
+            data.wishlists = data.wishlists.filter(item => item.wishlist_id != wishlistToDeleteId);
+            wishlistToDelete.remove();
+            let order = 1
+            data.wishlists.forEach(wishlist => {
+                wishlist.order = order
+                order++
+            })
+            fetchWishlists(data.wishlists)
+            wishlist[0].classList.add('selected');
             save(data)
             adaptPopup(popupDelete);
         }

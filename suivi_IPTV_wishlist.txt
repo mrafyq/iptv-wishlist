@@ -100,5 +100,5 @@ point 23/09/2023
     3 - le menu des actions sur les channels .............................................. DONE
 
     Bugs:
-        1 - apres la suppression d'une wishlist y'a un bug si on déplaçons les wishlist
-        2 - apres l'ajout d'une nv wishlist y'a un bug si on déplaçons les wishlist
+        1 - apres la suppression d'une wishlist y'a un bug si on déplaçons les wishlist ... DONE
+        2 - apres l'ajout d'une nv wishlist y'a un bug si on déplaçons les wishlist ....... DONE

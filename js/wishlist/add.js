@@ -12,7 +12,7 @@ popupWishlistForm.addEventListener('submit', (e) => {
             data.wishlists.push({
                 "wishlist_id": nextId,
                 "wishlist_name": inputAdd.value,
-                "order": data.wishlists.length,
+                "order": data.wishlists.length + 1,
                 "pin": 0,
                 "channels": []
             })
@@ -23,7 +23,7 @@ popupWishlistForm.addEventListener('submit', (e) => {
                 li.setAttribute('data-id', nextId);
                 li.setAttribute('data-name', inputAdd.value);
                 li.setAttribute('data-pin', 0);
-                li.setAttribute('data-order', data.wishlists.length);
+                li.setAttribute('data-order', data.wishlists.length + 1);
                 li.setAttribute('class', 'wishlists');
                 li.style.order = data.wishlists.length;
                 li.innerHTML = inputAdd.value;

@@ -22,6 +22,11 @@ function moveWishlists(direction) {
         default:
             console.log('no other direction managed')
     }
+    // console.log(wishlist)
+    for (let wish of wishlist) {
+        console.log(wish.getAttribute('data-name'))
+        console.log(wish.getAttribute('data-order'))
+    }
 }
 
 function getElementNotSelectedForMove(minOrder, maxOrder, direction) {

@@ -38,7 +38,6 @@ popupRemoveFromWishlistForm.addEventListener('submit', (e) => {
 })
 
 function selectChannelAfterRemove() {
-    console.log(channels)
     channels[0].classList.add('selected');
     channelSelected = null
     manageChannelsAction(false)
