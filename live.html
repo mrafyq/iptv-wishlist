@@ -6,6 +6,7 @@
         <title>IPTV Favoris</title>
         <link rel="stylesheet" href="./css/fonts.css">
         <link rel="stylesheet" href="./css/live.css">
+        <link rel="stylesheet" href="./css/popup.css">
     </head>
     <body>
         <div class="sidebar" id="sidebar">
@@ -83,193 +84,295 @@
                 </div>
             </div>
         </div>
+
         <!-- Popup -->
+        <!-- -->
         <div class="popup popup-rename">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Renommer le favoris: <strong></strong></div>
-                        <br>
-                        <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... "
-                               onkeypress="if (event.which == 13) {event.preventDefault();}">
-                        <br>
-                        <br>
-                        <div>
-                            <button type="submit" class="action-rename-save active">Enregistrer</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-rename">Annuler</button>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Renommer le favoris: <strong></strong></div>
+                        <form>
+                            <div class="popup__body">
+                                <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... "
+                                       onkeypress="if (event.which == 13) {event.preventDefault();}">
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-rename">Disagree</button>
+                                <button type="submit" class="active">Agree</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- -->
         <div class="popup popup-delete">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Supprimer le favoris: <strong></strong></div>
-                        <br>
-                        <div>
-                            <button type="submit" class="btn action-delete-confirm">Oui</button>
-                            <button type="button" class="btn btn-cancel active" data-popup="popup-delete">Non</button>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Supprimer le favoris: <strong></strong></div>
+                        <form>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel active" data-popup="popup-delete">Non</button>
+                                <button type="submit">Oui</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
             </div>
         </div>
+        
+        <!-- -->
         <div class="popup popup-wishlist">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Ajouter au favoris : <strong></strong></div>
-                        <div class="popup-wishlist-name"></div>
-                        <ul class="popup-wishlist-list-fav" id="popup-wishlist-list-fav"></ul>
-                        <button type="submit" class="active">Enregistrer</button>
-                        <button type="button" class="btn-cancel" data-popup="popup-wishlist">Annuler</button>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Ajouter au favoris : <strong></strong></div>
+                        <form>
+                            <div class="popup__body">
+                                <div class="popup-wishlist-name"></div>
+                                <ul class="popup-wishlist-list-fav" id="popup-wishlist-list-fav"></ul>
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-wishlist">Annuler</button>
+                                <button type="submit" class="active">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
+                        </div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-add-wishlist">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <div class="popup-title">Ajouter un nouveau favoris</div>
-                    <form id="add-wishlist-form" name="add-wishlist-form">
-                        <input type="text" id="add" name="wishlist_name" minlength="3" required
-                               title="Définir le nom de favoris" placeholder="Définir le nom de favoris" onkeypress="if (event.which == 13) {event.preventDefault();}">
-                        <button type="submit" class="active">Enregistrer</button>
-                        <button type="button" class="btn-cancel" data-popup="popup-add-wishlist">Annuler</button>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Ajouter un nouveau favoris</div>
+                        <form id="add-wishlist-form" name="add-wishlist-form">
+                            <div class="popup__body">
+                                <input type="text" id="add" name="wishlist_name" minlength="3" required
+                                       title="Définir le nom de favoris" placeholder="Définir le nom de favoris" 
+                                       onkeypress="if (event.which == 13) {event.preventDefault();}">
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-add-wishlist">Annuler</button>
+                                <button type="submit" class="active">Enregistrer</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
+                        </div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-remove-from-wishlist">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form id="remove-from-wishlist-form" name="remove-from-wishlist-form">
-                        <div class="popup-title"></div>
-                        <br>
-                        <button type="submit" class="btn">Oui</button>
-                        <button type="button" class="btn btn-cancel active" data-popup="popup-remove-from-wishlist">Non</button>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Ajouter un nouveau favoris</div>
+                        <form id="remove-from-wishlist-form" name="remove-from-wishlist-form">
+                            <div class="popup__footer">
+                                <button type="button" class="btn btn-cancel active" data-popup="popup-remove-from-wishlist">Non</button>
+                                <button type="submit">Oui</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
+                        </div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-check-pin-wishlist">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Pin/Unpin - Entrer votre PIN</div>
-                        <br>
-                        <input id="pin-field-wishlist" type="password" class="field" placeholder="0000" maxlength="4"
-                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
-                        <div>
-                            <button type="submit" class="active">OK</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-check-pin-wishlist">Annuler</button>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Pin/Unpin - Entrer votre PIN</div>
+                        <form>
+                            <div class="popup__body">
+                                <input id="pin-field-wishlist" type="password" class="field" placeholder="0000" maxlength="4"
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                <div class="error-msg">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                    </svg>
+                                    Le code pin est incorrect.
+                                </div>
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-check-pin-wishlist">Annuler</button>
+                                <button type="submit" class="active">OK</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
-                <div class="error-msg">Le code pin est incorrect.</div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-check-pin-buckets">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Pin/Unpin - Entrer votre PIN</div>
-                        <br>
-                        <input id="pin-field-bucket" type="password" class="field" placeholder="0000" maxlength="4"
-                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
-                        <div>
-                            <button type="submit" class="active">OK</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-check-pin-buckets">Annuler</button>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Pin/Unpin - Entrer votre PIN</div>
+                        <form>
+                            <div class="popup__body">
+                                <input id="pin-field-bucket" type="password" class="field" placeholder="0000" maxlength="4"
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                <div class="error-msg">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                    </svg>
+                                    Le code pin est incorrect.
+                                </div>
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-check-pin-buckets">Annuler</button>
+                                <button type="submit" class="active">OK</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
-                <div class="error-msg">Le code pin est incorrect.</div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-check-pin-hide-buckets">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Masquer - Entrer votre PIN</div>
-                        <br>
-                        <input id="pin-hide-field-bucket" type="password" class="field" placeholder="1234" maxlength="4"
-                               title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
-                        <div>
-                            <button type="submit" class="active">OK</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-check-pin-hide-buckets">Annuler</button>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Masquer - Entrer votre PIN</div>
+                        <form>
+                            <div class="popup__body">
+                                <input id="pin-hide-field-bucket" type="password" class="field" placeholder="1234" maxlength="4"
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                <div class="error-msg">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                    </svg>
+                                    Le code pin est incorrect.
+                                </div>
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-check-pin-hide-buckets">Annuler</button>
+                                <button type="submit" class="active">OK</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
                         </div>
-                    </form>
-                </div>
-                <div class="popup-success">
-                    <div class="popup-success-inner">
-                        <i class="icon-check-success"></i>
-                        <div>Success !</div>
+                        <div class="popup__success--text">Good job!</div>
                     </div>
                 </div>
-                <div class="error-msg">Le code pin est incorrect.</div>
             </div>
         </div>
+
+        <!-- -->
         <div class="popup popup-check-pin-access">
-            <div class="popup-inner">
-                <div class="popup-content">
-                    <form>
-                        <div class="popup-title">Entrer votre PIN</div>
-                        <br>
-                        <input id="pin-field" type="password" class="field" placeholder="0000" title="Entrer votre PIN"
-                               maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
-                        <div>
-                            <button type="submit" class="active">OK</button>
-                            <button type="button" class="btn-cancel" data-popup="popup-check-pin-access">Annuler</button>
-                        </div>
-                    </form>
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">Entrer votre PIN</div>
+                        <form>
+                            <div class="popup__body">
+                                <input id="pin-field" type="password" class="field" placeholder="0000" title="Entrer votre PIN"
+                                       maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                <div class="error-msg">
+                                    <svg viewBox="0 0 24 24">
+                                        <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
+                                    </svg>
+                                    Le code pin est incorrect.
+                                </div>
+                            </div>
+                            <div class="popup__footer">
+                                <button type="button" class="btn-cancel" data-popup="popup-check-pin-access">Annuler</button>
+                                <button type="submit" class="active">OK</button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div class="error-msg">Le code pin est incorrect.</div>
             </div>
         </div>
+
         <script type="text/javascript" src="js/data.js"></script>
         <script type="text/javascript" src="live.js"></script>
         <script type="text/javascript" src="js/popups.js"></script>

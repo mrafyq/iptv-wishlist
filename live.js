@@ -345,7 +345,7 @@ document.addEventListener('keyup', function (e) {
                 let popupFavDelete = document.querySelector('.popup-delete');
                 popupFavDelete.classList.add('active');
                 let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
-                let popupTitles = document.querySelector('.popup-delete .popup-title strong');
+                let popupTitles = document.querySelector('.popup-delete .popup__title strong');
                 popupTitles.innerText = favSelectedName.textContent;
             } else if (list_selected === 'channels' && channelSelected && popupAction === false) { // Add channel to wishlist
                 popupAction = true;

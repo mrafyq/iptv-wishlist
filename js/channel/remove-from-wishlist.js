@@ -5,7 +5,7 @@ function callPopupRemoveChannel() {
         let wishlist_selected = document.querySelector('.group-name');
         let wishlistChannelSelected = document.querySelector('.list-channels .channel.selected');
         let popupRemoveFromWishlist = document.querySelector('.popup-remove-from-wishlist');
-        let popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup-title');
+        let popupRemoveFromWishlistTitle = document.querySelector('.popup-remove-from-wishlist .popup__title');
         // Popup title => Wishlist
         popupRemoveFromWishlistTitle.innerHTML = 'Etes vous sur de vouloir supprimer <strong>' +
             wishlistChannelSelected.getAttribute('data-attr-name') +

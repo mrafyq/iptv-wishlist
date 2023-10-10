@@ -51,8 +51,18 @@ function fillPopupAddToWishlist() {
                 const li = document.createElement('li');
                 li.setAttribute('id', element.wishlist_id);
                 li.setAttribute('class', 'checkbox-wishlist');
-                li.innerHTML = `<input type="checkbox" id="checkbox-${element.wishlist_id}" 
-                    name="${element.wishlist_name}" value="${element.wishlist_id}" /> ${element.wishlist_name}`;
+                li.innerHTML = `<label for="checkbox-${element.wishlist_id}">
+                    <span class="checkbox-icon">
+                        <input type="checkbox" id="checkbox-${element.wishlist_id}" name="${element.wishlist_name}" value="${element.wishlist_id}"/>
+                        <svg class="checkbox-checked" viewBox="0 0 24 24">
+                            <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                        </svg>
+                        <svg class="checkbox-checkedNot" viewBox="0 0 24 24">
+                            <path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
+                        </svg>
+                    </span>
+                    <span class="checkbox-text">${element.wishlist_name}</span>
+                </label>`;
                 if (index === 0) {
                     li.classList.add('selected')
                 }
