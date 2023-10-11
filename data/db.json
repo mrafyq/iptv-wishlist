@@ -79,6 +79,18 @@
           "channel_name": "Assadissa",
           "channel_link": "snrt.ma",
           "channel_order": 6
+        },
+        {
+          "channel_id": 7,
+          "channel_name": "Assabiaa",
+          "channel_link": "snrt.ma",
+          "channel_order": 7
+        },
+        {
+          "channel_id": 8,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 8
         }
       ]
     },
