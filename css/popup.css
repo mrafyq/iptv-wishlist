@@ -75,7 +75,7 @@
 }
 .popup__title {
     font-weight: 400;
-    font-size: 1.5rem;
+    font-size: 2rem;
     line-height: 1.6;
     letter-spacing: 0.0075em;
     flex: 0 0 auto;
@@ -99,6 +99,7 @@
 }
 .popup__body input {
     font: inherit;
+    font-size: 1.6rem;
     letter-spacing: inherit;
     color: currentcolor;
     padding: 4px 0 5px;
@@ -184,7 +185,7 @@
     appearance: none;
     text-decoration: none;
     font-weight: 500;
-    font-size: 0.875rem;
+    font-size: 1rem;
     line-height: 1.75;
     letter-spacing: 0.02857em;
     text-transform: uppercase;
@@ -427,10 +428,15 @@
     display: none;
     fill: rgb(144, 202, 249);
 }
-.checkbox-wishlist.selected .checkbox-checked {
+.checkbox-wishlist input:checked ~ .checkbox-checked {
     display: block;
 }
-.checkbox-wishlist.selected .checkbox-checkedNot {
+.checkbox-wishlist input:checked ~ .checkbox-checkedNot {
     display: none;
 }
 
+input.field__pin {
+    height: 40px;
+    font-size: 76px;
+    text-align: center;
+}
