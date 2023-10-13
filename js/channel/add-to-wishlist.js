@@ -11,36 +11,41 @@ popupAddToWishlistForm.addEventListener('submit', (e) => {
     const listChanSelectedName = listChanSelected.getAttribute('data-attr-name');
     const checkedFav = document.querySelectorAll('.popup-wishlist-list-fav li input:checked');
 
-    const wishlistArr = [];
-    checkedFav.forEach(el => {
-        wishlistArr.push(parseInt(el.value));
-    })
+    if (checkedFav.length) {
+        const wishlistArr = [];
+        checkedFav.forEach(el => {
+            wishlistArr.push(parseInt(el.value));
+        })
 
-    read().then(data => {
-        if (data) {
-            (data.wishlists).forEach((element, index) => {
-                if (wishlistArr.indexOf(element.wishlist_id) !== -1) {
-                    console.log(element);
-                    element.channels.push({
-                        "channel_id": parseInt(listChanSelectedID),
-                        "channel_name": listChanSelectedName,
-                        "channel_order": element.channels.length + 1
-                    });
-                }
-            });
-            save(data);
-            popupAddToWishlist.classList.remove('error');
-            popupAddToWishlist.classList.add('confirmed');
-            setTimeout(() => {
-                popupAddToWishlist.classList.remove('confirmed');
-                popupAddToWishlist.classList.remove('active');
-            }, 2000);
-            popupAction = false;
 
-            list_selected = 'channels';
-            document.querySelector('#list-channels .channel.selected').classList.remove('active');
-        }
-    })
+        read().then(data => {
+            if (data) {
+                (data.wishlists).forEach((element, index) => {
+                    if (wishlistArr.indexOf(element.wishlist_id) !== -1) {
+                        console.log(element);
+                        element.channels.push({
+                            "channel_id": parseInt(listChanSelectedID),
+                            "channel_name": listChanSelectedName,
+                            "channel_order": element.channels.length + 1
+                        });
+                    }
+                });
+                save(data);
+                popupAddToWishlist.classList.remove('error');
+                popupAddToWishlist.classList.add('confirmed');
+                setTimeout(() => {
+                    popupAddToWishlist.classList.remove('confirmed');
+                    popupAddToWishlist.classList.remove('active');
+                }, 2000);
+                popupAction = false;
+
+                list_selected = 'channels';
+                document.querySelector('#list-channels .channel.selected').classList.remove('active');
+            }
+        })
+    } else {
+        popupAddToWishlist.classList.remove('active');
+    }
 })
 
 function fillPopupAddToWishlist() {

@@ -96,11 +96,11 @@
                         <form>
                             <div class="popup__body">
                                 <input type="text" id="rename" name="rename" placeholder="Nom de favoris souhaité ... "
-                                       onkeypress="if (event.which == 13) {event.preventDefault();}">
+                                       onkeypress="if (event.which == 13) {event.preventDefault();}" minlength="3" required>
                             </div>
                             <div class="popup__footer">
-                                <button type="button" class="btn-cancel" data-popup="popup-rename">Disagree</button>
-                                <button type="submit" class="active">Agree</button>
+                                <button type="button" class="btn-cancel" data-popup="popup-rename">Annuler</button>
+                                <button type="submit" class="active">Enregistrer</button>
                             </div>
                         </form>
                     </div>
@@ -244,7 +244,8 @@
                         <form>
                             <div class="popup__body">
                                 <input id="pin-field-wishlist" type="password" class="field field__pin" maxlength="4"
-                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"
+                                       required minlength="4"/>
                                 <div class="error-msg">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
@@ -281,7 +282,8 @@
                         <form>
                             <div class="popup__body">
                                 <input id="pin-field-bucket" type="password" class="field field__pin" maxlength="4"
-                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"
+                                       required minlength="4"/>
                                 <div class="error-msg">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
@@ -318,7 +320,8 @@
                         <form>
                             <div class="popup__body">
                                 <input id="pin-hide-field-bucket" type="password" class="field field__pin" maxlength="4"
-                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                       title="Entrer votre PIN" onkeypress="if (event.which == 13) {event.preventDefault();}"
+                                       required minlength="4"/>
                                 <div class="error-msg">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>
@@ -355,7 +358,8 @@
                         <form>
                             <div class="popup__body">
                                 <input id="pin-field" type="password" class="field field__pin" title="Entrer votre PIN"
-                                       maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"/>
+                                       maxlength="4" onkeypress="if (event.which == 13) {event.preventDefault();}"
+                                       required minlength="4"/>
                                 <div class="error-msg">
                                     <svg viewBox="0 0 24 24">
                                         <path d="M11 15h2v2h-2zm0-8h2v6h-2zm.99-5C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"></path>

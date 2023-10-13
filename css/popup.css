@@ -127,17 +127,19 @@
     caret-shape: underscore;
 }
 .popup__footer {
-    display: none;
+    display: flex;
     align-items: center;
     justify-content: space-around;
     flex: 0 0 auto;
     padding: 0;
     border-top: 1px solid rgba(255, 255, 255, 0.12);
 }
-.popup-remove-from-wishlist .popup__footer,
-.popup-delete .popup__footer {
-    display: flex;
+.popup-wishlist .popup__footer,
+.popup-add-wishlist .popup__footer {
+    display: none;
 }
+
+
 .popup__footer button {
     display: inline-flex;
     align-items: center;
