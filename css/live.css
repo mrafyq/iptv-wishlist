@@ -192,6 +192,7 @@ input[type="password"] {
     visibility: visible;
     pointer-events: auto;
 }
+.checked i.arrow,
 .move i.arrow {
     display: flex;
     flex-flow: column;
@@ -203,6 +204,8 @@ input[type="password"] {
     margin-right: 20px;
     position: relative;
 }
+.checked i.arrow:before,
+.checked i.arrow:after,
 .move i.arrow:before,
 .move i.arrow:after {
     content: '';
@@ -211,10 +214,12 @@ input[type="password"] {
     height: 12px;
     transform: rotate(45deg);
 }
+.checked i.arrow:before,
 .move i.arrow:before {
     border-top: 2px solid;
     border-left: 2px solid;
 }
+.checked i.arrow:after,
 .move i.arrow:after {
     border-right: 2px solid;
     border-bottom: 2px solid;
@@ -235,6 +240,7 @@ li.channel {
     background-color: gold;
 }
 
+.bucket.checked i,
 .channel.checked i {
     display: block;
     margin-left: auto;
