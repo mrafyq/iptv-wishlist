@@ -22,7 +22,7 @@ function fetchBuckets(buckets) {
             li.setAttribute('data-pin', bucket.pin);
             if (index === 0) {
                 li.setAttribute('class', 'bucket selected');
-
+                changeLabelAction(li)
             } else {
                 li.setAttribute('class', 'bucket');
             }
