@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="./css/popup.css">
     </head>
     <body>
-        <div class="sidebar" id="sidebar">
+        <div class="sidebar-hidden-buckets" id="sidebar-hidden-buckets">
             <ul class="list-tabs">
                 <li class="tab tab-bucket" data-list="list-bucket">Les bouquets masqués</li>
             </ul>
@@ -18,12 +18,35 @@
                 <div class="bucket-action-select"><div class="dot blue"> </div> Sélectionner (1)</div>
             </div>
         </div>
-        <div class="screen">
-            <div class="left"></div>
-            <div class="right"></div>
+        <!-- Popup confirmation -->
+        <div class="popup popup-enable-buckets">
+            <div class="popup__backdrop"></div>
+            <div class="popup__container">
+                <div class="popup__content">
+                    <div class="popup__inner">
+                        <div class="popup__title">
+                            Etes vous sur de vouloir activer l'affichage de ces bouquets avec les bouquets normaux
+                        </div>
+                        <form name="enable-buckets">
+                            <div class="popup__footer">
+                                <button type="submit">Oui</button>
+                                <button type="button" class="btn-cancel active" data-popup="popup-delete">Non</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="popup__success">
+                        <div class="popup__success--icon">
+                            <div class="popup__success--line tip"></div>
+                            <div class="popup__success--line long"></div>
+                            <div class="popup__success--placeholder"></div>
+                            <div class="popup__success--fix"></div>
+                        </div>
+                        <div class="popup__success--text">Good job!</div>
+                    </div>
+                </div>
+            </div>
         </div>
-
         <script type="text/javascript" src="js/data.js"></script>
-        <script type="text/javascript" src="js/hidden.js"></script>
+        <script type="text/javascript" src="js/bucket/hidden.js"></script>
     </body>
 </html>

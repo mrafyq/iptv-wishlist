@@ -1,4 +1,7 @@
 const listBucket = document.getElementById('sidebar-bucket__list');
+const popup = document.querySelector('.popup-enable-buckets');
+let popupAction = false;
+const form = document.querySelector('form[name="enable-buckets"]')
 
 read().then(data => {
     if (data) {
@@ -6,25 +9,9 @@ read().then(data => {
     }
 });
 
-function save(data) {
-    // WEB
-    console.log("save data")
-    console.log(data)
-    // ANDROID
-    // App.writeToFile("db.json", JSON.stringify(data));
-}
-
-
-async function read() {
-    // WEB
-    let response = await fetch('data/db.json')
-    return await response.json();
-    // ANDROID
-    // let str = App.readFromFile("db.json");
-    // return JSON.parse(str);
-}
-
 function fetchBuckets(buckets) {
+    listBucket.innerHTML = '';
+
     let index = 0;
     (buckets).forEach((bucket) => {
         if (bucket.hidden) {
@@ -76,8 +63,13 @@ document.addEventListener('keyup', function (e) {
     switch (key) {
 
         case 'Enter':
-            if (currentList[current_index].classList.contains('checked')) {
-                console.log("Show popup")
+            if (popupAction === true) {
+                let popupBtnActive = document.querySelector('.popup.active form button[class~="active"]');
+                popupBtnActive.click();
+            } else if (currentList[current_index].classList.contains('checked')) {
+                popup.classList.add('active');
+                popup.style.display = 'flex'
+                popupAction = true
             }
             break;
         case 'Escape':
@@ -93,6 +85,16 @@ document.addEventListener('keyup', function (e) {
             current_index = mod(current_index + 1, currentList.length);
             currentList[current_index].classList.add('selected');
             changeLabelAction(currentList[current_index])
+            break;
+        case 'ArrowLeft':
+            if (popupAction) {
+                switchPopupActiveYesNo()
+            }
+            break;
+        case 'ArrowRight':
+            if (popupAction) {
+                switchPopupActiveYesNo()
+            }
             break;
         case '1':
             if (!currentList[current_index].classList.contains('checked')) {
@@ -124,3 +126,45 @@ function changeLabelAction(element) {
         label + ' (1)' +
         '</div>'
 }
+
+function switchPopupActiveYesNo() {
+    let popupButtons = document.querySelectorAll('.popup.active form button');
+    let popupBtnActive = document.querySelector('.popup.active form button[class~="active"]');
+    popupButtons.forEach(button => {
+        if (button === popupBtnActive) {
+            button.classList.remove('active')
+        } else {
+            button.classList.add('active')
+        }
+    })
+}
+
+let popupCloseBtn = document.querySelector('.popup .btn-cancel');
+popupCloseBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    popup.classList.remove('active');
+    popup.style.display = 'none'
+    popupAction = false;
+});
+
+form.addEventListener('submit', event => {
+    event.preventDefault()
+    let elementsToEnable = document.querySelectorAll('li.bucket.checked')
+    if (elementsToEnable.length) {
+        read().then(data => {
+            if (data) {
+                for (let element of elementsToEnable) {
+                    const result = data.buckets.filter(bucket => bucket.bucket_id == parseInt(element.getAttribute('data-id')));
+                    if (result.length) {
+                        result[0].hidden = 0;
+                    }
+                }
+                save(data)
+                popup.classList.remove('active')
+                popup.style.display = 'none'
+                popupAction = false
+                fetchBuckets(data.buckets)
+            }
+        })
+    }
+})

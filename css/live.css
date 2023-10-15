@@ -29,12 +29,14 @@ div.left > ul > li{
   font-size: 2em;
   list-style: none; 
 }
+div.sidebar-hidden-buckets > ul > li,
 div.sidebar > ul > li{
     font-size: 2em;
     list-style: none; 
     display: flex;
     align-items: center;
 }
+div.sidebar-hidden-buckets > ul > li i,
 div.sidebar > ul > li i{
     font-size: 0.8em;
     margin-left: auto;
@@ -246,4 +248,14 @@ li.channel {
     margin-left: auto;
     margin-right: 10px;
     font-size: 0.8em;
+}
+
+.sidebar-hidden-buckets {
+    position: absolute;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background-color: #0c1114;
+    overflow: auto;
 }
