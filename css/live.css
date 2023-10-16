@@ -244,10 +244,17 @@ li.channel {
 
 .bucket.checked i,
 .channel.checked i {
-    display: block;
+    display: flex;
     margin-left: auto;
     margin-right: 10px;
     font-size: 0.8em;
+}
+
+.bucket.checked svg,
+.channel.checked svg {
+    width: 24px;
+    height: 24px;
+    fill: rgb(144, 202, 249);
 }
 
 .sidebar-hidden-buckets {

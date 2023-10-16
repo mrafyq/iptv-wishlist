@@ -28,7 +28,12 @@ function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null, t
             if (toSelect) {
                 li.setAttribute('class', 'channel checked selected');
                 const icon = document.createElement('i');
-                icon.setAttribute('class', 'icon-check');
+                const svgCheckIcon = `
+                    <svg class="checkbox-checked" viewBox="0 0 24 24">
+                        <path d="M19 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.11 0 2-.9 2-2V5c0-1.1-.89-2-2-2zm-9 14l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"></path>
+                    </svg>
+                `;
+                icon.innerHTML = svgCheckIcon;
                 li.appendChild(icon);
             } else {
                 li.setAttribute('class', 'channel selected');
