@@ -252,8 +252,8 @@ li.channel {
 
 .bucket.checked svg,
 .channel.checked svg {
-    width: 24px;
-    height: 24px;
+    width: 30px;
+    height: 30px;
     fill: rgb(144, 202, 249);
 }
 
