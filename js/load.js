@@ -61,6 +61,7 @@ function addActionAddWishlist(count) {
     li.innerHTML = '<i class="icon-add"></i> Ajouter';
     li.style.order = count + 1;
     wishlistList.appendChild(li);
+    createWishlistAddEvent(li)
 }
 
 function fetchChannels(channels) {

@@ -1,3 +1,12 @@
+const wishlistMoveButton = document.querySelector('.action-move')
+
+wishlistMoveButton.addEventListener('click', function () {
+    generalMoveAction = true;
+    manageActionsButtons('none')
+    addElementToMove(currentList[getCurrentIndex()]);
+    changeWishlistMoveLabel("Désélectionner")
+})
+
 function addElementToMove(elementToMove) {
     elementToMove.classList.add("move")
     const iconMove = document.createElement('i');

@@ -2,6 +2,17 @@ let popupAddWishlist = document.querySelector('.popup-add-wishlist');
 let popupWishlistForm = document.querySelector('.popup-add-wishlist form');
 let inputAdd = document.querySelector('.popup.popup-add-wishlist #add');
 
+function createWishlistAddEvent(element) {
+    element.addEventListener('click', function () {
+        popupAction = true;
+        let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+        popupWishlist.classList.add('active');
+        let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
+        popupPinInput.focus();
+    })
+}
+
+
 popupWishlistForm.addEventListener('submit', (e) => {
     e.preventDefault()
     read().then(data => {
