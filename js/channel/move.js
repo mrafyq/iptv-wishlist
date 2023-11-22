@@ -1,3 +1,17 @@
+const moveChannelActionButton = document.querySelector('.move-channel-action')
+
+moveChannelActionButton.addEventListener('click', (e) => {
+    if (list_selected === 'channels' && channelSelected && popupAction === false) {
+        if (currentList[getCurrentIndex()].classList.contains('move')) {
+        } else {
+            generalMoveAction = true;
+            addChannelToMove(currentList[getCurrentIndex()]);
+            hideChannelsActionForMove()
+            changeChannelMoveLabel('Désélectionner')
+        }
+    }
+})
+
 function addChannelToMove(elementToMove) {
     elementToMove.classList.add("move")
     const iconMove = document.createElement('i');

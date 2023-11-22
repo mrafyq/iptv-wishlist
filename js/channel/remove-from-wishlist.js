@@ -1,3 +1,8 @@
+const removeFromWishlistAction = document.querySelector('.remove-from-wishlist')
+
+removeFromWishlistAction.addEventListener('click', (e) => {
+    popupAction = callPopupRemoveChannel()
+})
 
 function callPopupRemoveChannel() {
     let groupNameSelected = document.querySelector('.group-name');

@@ -19,7 +19,7 @@ let generalMoveAction = false;
 let moveWishlistAction = false;
 let moveChannelAction = false;
 
-let channelSelected = null
+var channelSelected = null
 
 const popupAddToWishlist = document.querySelector('.popup.popup-wishlist');
 
