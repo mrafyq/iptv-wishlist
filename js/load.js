@@ -10,7 +10,7 @@ read().then(data => {
 });
 
 function fetchBuckets(buckets) {
-    (buckets).forEach((bucket) => {
+    (buckets).forEach((bucket, index) => {
         if (!bucket.hidden) {
             const li = document.createElement('li');
             li.setAttribute('id', 'bucket-' + bucket.bucket_id);
@@ -25,6 +25,18 @@ function fetchBuckets(buckets) {
                 li.appendChild(iconLock);
             }
             listBucket.appendChild(li);
+            li.addEventListener('click', function handleClick(event) {
+                console.log(list_selected)
+                currentList = document.getElementsByClassName('bucket');
+                if (list_selected === 'tabs') {
+                    list_selected = 'buckets';
+                    document.getElementById('buckets-buttons').style.display = 'flex';
+                    wishlistActions.style.display = 'none';
+                } else if (list_selected === 'buckets') {
+                    currentList[getCurrentIndex()].classList.remove('selected');
+                }
+                li.classList.add('selected');
+            });
         }
     });
 }
