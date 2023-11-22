@@ -4,11 +4,13 @@ let inputAdd = document.querySelector('.popup.popup-add-wishlist #add');
 
 function createWishlistAddEvent(element) {
     element.addEventListener('click', function () {
-        popupAction = true;
-        let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
-        popupWishlist.classList.add('active');
-        let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
-        popupPinInput.focus();
+        if (list_selected === 'wishlists') {
+            popupAction = true;
+            let popupWishlist = document.querySelector('.popup.popup-add-wishlist');
+            popupWishlist.classList.add('active');
+            let popupPinInput = document.querySelector('.popup.popup-add-wishlist #add');
+            popupPinInput.focus();
+        }
     })
 }
 

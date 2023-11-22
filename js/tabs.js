@@ -5,13 +5,13 @@ function switchBucketsWishlist(current_index) {
         currentList[current_index].classList.add('active');
         currentList = wishlist;
         wishlistActions.style.display = 'flex';
-        document.getElementById('buckets-buttons').style.display = 'none';
+        bucketsButtons.style.display = 'none';
     } else {
         list_selected = 'buckets';
         currentList[current_index].classList.remove('selected');
         currentList[current_index].classList.add('active');
         currentList = buckets;
-        document.getElementById('buckets-buttons').style.display = 'flex';
+        bucketsButtons.style.display = 'flex';
         wishlistActions.style.display = 'none';
     }
 }

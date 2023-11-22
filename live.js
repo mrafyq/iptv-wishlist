@@ -323,10 +323,8 @@ document.addEventListener('keyup', function (e) {
                     generalMoveAction = true;
                     manageActionsButtons('none')
                     addElementToMove(currentList[current_index]);
-                    changeWishlistMoveLabel("Désélectionner")
                 } else {
-                    currentList[current_index].classList.remove('move')
-                    currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-name')
+                    removeElementFromMove(currentList[current_index]);
                     changeWishlistMoveLabel("Sélectionner")
                 }
             }
@@ -458,7 +456,7 @@ function getCurrentIndex() {
 function escapeBucketsOrWishlists() {
     let current_index
     if (list_selected === 'buckets') {
-        document.getElementById('buckets-buttons').style.display = 'none';
+        bucketsButtons.style.display = 'none';
         // remove class selected from bucket list
         for (const element of buckets) {
             element.classList.remove('selected')

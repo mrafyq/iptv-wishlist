@@ -1,17 +1,33 @@
 const wishlistMoveButton = document.querySelector('.action-move')
 
 wishlistMoveButton.addEventListener('click', function () {
-    generalMoveAction = true;
-    manageActionsButtons('none')
-    addElementToMove(currentList[getCurrentIndex()]);
-    changeWishlistMoveLabel("Désélectionner")
+    if (!currentList[getCurrentIndex()].classList.contains('move')) {
+        generalMoveAction = true;
+        manageActionsButtons('none')
+        addElementToMove(currentList[getCurrentIndex()]);
+    } else {
+        removeElementFromMove(currentList[getCurrentIndex()])
+    }
 })
 
 function addElementToMove(elementToMove) {
     elementToMove.classList.add("move")
+    elementToMove.innerHTML = elementToMove.getAttribute('data-name')
     const iconMove = document.createElement('i');
     iconMove.setAttribute('class', 'arrow');
     elementToMove.appendChild(iconMove)
+    changeWishlistMoveLabel("Désélectionner")
+}
+
+function removeElementFromMove(elementToMove) {
+    elementToMove.classList.remove("move")
+    elementToMove.innerHTML = elementToMove.getAttribute('data-name')
+    if (parseInt(elementToMove.getAttribute('data-pin')))  {
+        const iconLock = document.createElement('i');
+        iconLock.setAttribute('class', 'icon-lock');
+        elementToMove.appendChild(iconLock);
+    }
+    changeWishlistMoveLabel("Sélectionner")
 }
 
 function moveWishlists(direction) {

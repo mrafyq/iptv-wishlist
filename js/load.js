@@ -1,6 +1,7 @@
 const wishlistList = document.getElementById('sidebar-wishlist__list');
 const listBucket = document.getElementById('sidebar-bucket__list');
 const listChannels = document.getElementById('list-channels');
+const bucketsButtons = document.getElementById('buckets-buttons');
 
 read().then(data => {
     if (data) {
@@ -30,7 +31,7 @@ function fetchBuckets(buckets) {
                 currentList = document.getElementsByClassName('bucket');
                 if (list_selected === 'tabs') {
                     list_selected = 'buckets';
-                    document.getElementById('buckets-buttons').style.display = 'flex';
+                    bucketsButtons.style.display = 'flex';
                     wishlistActions.style.display = 'none';
                 } else if (list_selected === 'buckets') {
                     currentList[getCurrentIndex()].classList.remove('selected');
@@ -50,11 +51,7 @@ function fetchWishlists(wishlists) {
         li.setAttribute('data-name', wishlist.wishlist_name);
         li.setAttribute('data-pin', wishlist.pin);
         li.setAttribute('data-order', wishlist.order);
-        if (index == 0) {
-            li.setAttribute('class', 'wishlist selected');
-        } else {
-            li.setAttribute('class', 'wishlist');
-        }
+        li.setAttribute('class', 'wishlist');
         li.style.order = wishlist.order;
         li.innerHTML = wishlist.wishlist_name;
         if (wishlist.pin) {
@@ -63,6 +60,27 @@ function fetchWishlists(wishlists) {
             li.appendChild(iconLock);
         }
         wishlistList.appendChild(li);
+        li.addEventListener('click', function handleClick(event) {
+            console.log(list_selected)
+            currentList = document.getElementsByClassName('wishlist');
+             if (list_selected === 'wishlists' || list_selected === 'tabs') {
+                 list_selected = 'wishlists'
+                 if (currentList[getCurrentIndex()]) {
+                     currentList[getCurrentIndex()].classList.remove('selected');
+                 }
+                 li.classList.add('selected');
+                 wishlistActions.style.display = 'flex'
+                 bucketsButtons.style.display = 'none';
+                 if (generalMoveAction) {
+                     if (li.classList.contains("move")) {
+                         removeElementFromMove(currentList[getCurrentIndex()])
+                         currentList[getCurrentIndex()].classList.remove('selected');
+                     } else {
+                         addElementToMove(currentList[getCurrentIndex()]);
+                     }
+                 }
+            }
+        });
     });
     addActionAddWishlist(wishlists.length)
 }
