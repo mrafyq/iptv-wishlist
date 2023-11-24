@@ -37,6 +37,11 @@ function fetchBuckets(buckets) {
                     currentList[getCurrentIndex()].classList.remove('selected');
                 }
                 li.classList.add('selected');
+                document.querySelector('.tab-bucket').classList.remove('selected')
+                document.querySelector('.tab-bucket').classList.add('active')
+            });
+            li.addEventListener("dblclick", (event) => {
+                console.log('enter')
             });
         }
     });
@@ -79,6 +84,8 @@ function fetchWishlists(wishlists) {
                          addElementToMove(currentList[getCurrentIndex()]);
                      }
                  }
+                 document.querySelector('.tab-wishlist').classList.remove('selected')
+                 document.querySelector('.tab-wishlist').classList.add('active')
             }
         });
     });
