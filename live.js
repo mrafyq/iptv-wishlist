@@ -110,7 +110,7 @@ document.addEventListener('keyup', function (e) {
                             if (data) {
                                 let result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                                 parsedChannels = result[0].channels
-                                showChannels();
+                                fetchChannels(parsedChannels, true);
                             }
                         })
                     }
@@ -136,7 +136,7 @@ document.addEventListener('keyup', function (e) {
                                     const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
                                     console.log(result);
                                     parsedChannels = result[0].channels;
-                                    showChannels()
+                                    fetchChannels(parsedChannels, true);
                                 }
                             })
                         }
@@ -417,14 +417,7 @@ document.addEventListener('keyup', function (e) {
                     currentList[current_index].classList.remove('checked')
                     currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name')
                 }
-                if (currentList[current_index].classList.contains('move')) {
-                    // moveChannelAction = true;
-                } else {
-                    generalMoveAction = true;
-                    addChannelToMove(currentList[current_index]);
-                    hideChannelsActionForMove()
-                    changeChannelMoveLabel('Désélectionner')
-                }
+                manageMove(currentList[current_index])
             }
             break;
     }

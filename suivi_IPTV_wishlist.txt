@@ -106,5 +106,5 @@ point 23/09/2023
 === CLICK
 
 1 - manage label pin when element clicked ..................... DONE
-2 - click on channel li ....................................... WIP
+2 - click on channel li ....................................... DONE
 3 - move wishlist with click dont working fully ............... Waiting

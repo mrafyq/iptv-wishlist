@@ -82,6 +82,7 @@ function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null, t
             li.setAttribute('class', 'channel');
         }
         listChannels.appendChild(li);
+        createChannelEventClick(li)
     });
     sortLabel.textContent = '(' + sortValue + ')';
 }

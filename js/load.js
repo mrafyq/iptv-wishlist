@@ -103,7 +103,10 @@ function addActionAddWishlist(count) {
     createWishlistAddEvent(li)
 }
 
-function fetchChannels(channels) {
+//////////////////////////////////////////////////////////////
+/// FETCH & SHOW CHANNELS - NORMAL OR AFTER CHECK PIN ///////
+///////////////////////////////////////////////////////////
+function fetchChannels(channels, hideSideBar = false) {
     listChannels.innerHTML = '';
     (channels).forEach((channel, index) => {
         const li = document.createElement('li');
@@ -118,5 +121,16 @@ function fetchChannels(channels) {
         }
         li.innerHTML = channel.channel_name;
         listChannels.appendChild(li);
+        createChannelEventClick(li)
     });
+    if (hideSideBar) {
+        hideSidebar()
+    }
+}
+
+function hideSidebar() {
+    document.getElementById('sidebar').style.display = 'none';
+    document.getElementById('right-buttons').style.display = 'flex';
+    list_selected = 'channels';
+    currentList = channels;
 }
