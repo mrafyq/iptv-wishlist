@@ -17,14 +17,15 @@ body {
     flex-direction: row;
     width: 100%;
 }
-.active{
+.active, .move{
     background-color: rgba(243, 223, 5, 0.9);
     color: #0c1114;
 }
-.move, .selected{
+.selected{
     background-color: #ccc016b0;
     color: #0c1114;
 }
+
 div.left > ul > li{
   font-size: 2em;
   list-style: none; 

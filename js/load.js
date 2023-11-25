@@ -70,22 +70,25 @@ function fetchWishlists(wishlists) {
             console.log(list_selected)
             currentList = document.getElementsByClassName('wishlist');
              if (list_selected === 'wishlists' || list_selected === 'tabs') {
-                 list_selected = 'wishlists'
-                 if (currentList[getCurrentIndex()]) {
-                     currentList[getCurrentIndex()].classList.remove('selected');
-                 }
                  document.querySelector('.tab-wishlist').classList.remove('selected')
                  document.querySelector('.tab-wishlist').classList.add('active')
-                 li.classList.add('selected');
+                 list_selected = 'wishlists'
+                 if (getCurrentIndex() && currentList[getCurrentIndex()]) {
+                     currentList[getCurrentIndex()].classList.remove('selected');
+                 }
+                 if (li.classList.contains('selected')) {
+                     li.classList.remove('selected');
+                 } else {
+                     li.classList.add('selected');
+                 }
                  changePinActionLabel(li)
                  wishlistActions.style.display = 'flex'
                  bucketsButtons.style.display = 'none';
                  if (generalMoveAction) {
                      if (li.classList.contains("move")) {
-                         removeElementFromMove(currentList[getCurrentIndex()])
-                         currentList[getCurrentIndex()].classList.remove('selected');
+                         removeElementFromMove(li)
                      } else {
-                         addElementToMove(currentList[getCurrentIndex()]);
+                         addElementToMove(li);
                      }
                  }
             }

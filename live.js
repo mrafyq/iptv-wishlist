@@ -444,6 +444,7 @@ function getCurrentIndex() {
             return i;
         }
     }
+    return null;
 }
 
 function escapeBucketsOrWishlists() {
