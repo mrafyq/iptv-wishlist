@@ -105,6 +105,10 @@ point 23/09/2023
 
 === CLICK
 
+buckets elements and actions click
+wishlists elements and actions click
+channels elements and actions click
+
 1 - manage label pin when element clicked ..................... DONE
 2 - click on channel li ....................................... DONE
 3 - move wishlist with click dont working fully ............... DONE
