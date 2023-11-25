@@ -110,7 +110,7 @@ wishlists elements and actions click
 channels elements and actions click
 
 1 - manage label pin when element clicked ..................... DONE
-2 - click on channel li ....................................... DONE
-3 - move wishlist with click dont working fully ............... DONE
+2 - click on channels li ...................................... DONE
+3 - move wishlists with click dont working fully .............. DONE
 
 === processed between 22/11/23 and 25/11/23
