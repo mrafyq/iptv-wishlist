@@ -102,3 +102,9 @@ point 23/09/2023
     Bugs:
         1 - apres la suppression d'une wishlist y'a un bug si on déplaçons les wishlist ... DONE
         2 - apres l'ajout d'une nv wishlist y'a un bug si on déplaçons les wishlist ....... DONE
+
+=== CLICK
+
+1 - manage label pin when element clicked ..................... DONE
+2 - click on channel li ....................................... WIP
+3 - move wishlist with click dont working fully ............... Waiting

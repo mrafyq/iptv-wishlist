@@ -36,9 +36,10 @@ function fetchBuckets(buckets) {
                 } else if (list_selected === 'buckets') {
                     currentList[getCurrentIndex()].classList.remove('selected');
                 }
-                li.classList.add('selected');
                 document.querySelector('.tab-bucket').classList.remove('selected')
                 document.querySelector('.tab-bucket').classList.add('active')
+                li.classList.add('selected');
+                changePinActionLabel(li)
             });
             li.addEventListener("dblclick", (event) => {
                 console.log('enter')
@@ -73,7 +74,10 @@ function fetchWishlists(wishlists) {
                  if (currentList[getCurrentIndex()]) {
                      currentList[getCurrentIndex()].classList.remove('selected');
                  }
+                 document.querySelector('.tab-wishlist').classList.remove('selected')
+                 document.querySelector('.tab-wishlist').classList.add('active')
                  li.classList.add('selected');
+                 changePinActionLabel(li)
                  wishlistActions.style.display = 'flex'
                  bucketsButtons.style.display = 'none';
                  if (generalMoveAction) {
@@ -84,8 +88,6 @@ function fetchWishlists(wishlists) {
                          addElementToMove(currentList[getCurrentIndex()]);
                      }
                  }
-                 document.querySelector('.tab-wishlist').classList.remove('selected')
-                 document.querySelector('.tab-wishlist').classList.add('active')
             }
         });
     });
