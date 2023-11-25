@@ -103,7 +103,7 @@ point 23/09/2023
         1 - apres la suppression d'une wishlist y'a un bug si on déplaçons les wishlist ... DONE
         2 - apres l'ajout d'une nv wishlist y'a un bug si on déplaçons les wishlist ....... DONE
 
-=== CLICK
+=== CLICK TASKS ===
 
 buckets elements and actions click
 wishlists elements and actions click
@@ -113,4 +113,6 @@ channels elements and actions click
 2 - click on channels li ...................................... DONE
 3 - move wishlists with click dont working fully .............. DONE
 
-=== processed between 22/11/23 and 25/11/23
+processed between 22/11/23 and 25/11/23
+
+===
