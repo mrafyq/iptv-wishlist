@@ -16,7 +16,7 @@ popupPinForm.addEventListener('submit', function (e) {
                     let result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
                     parsedChannels = result[0].channels
                 }
-                fetchChannels(parsedChannels, true);
+                showChannels();
             } else {
                 popupError = true;
             }
@@ -39,3 +39,41 @@ function adaptPopupCheckPin(popupActive) {
     }
     popupError = false;
 }
+
+///////////////////////////////////////////////////////
+/// BUCKETS/WISHLISTS : CHECK PIN ACCESS /// END
+///////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////
+/// SHOW CHANNELS AFTER CHECK PIN /// START
+////////////////////////////////////////////////////
+
+function showChannels() {
+    (parsedChannels).forEach((element, index) => {
+        const li = document.createElement('li');
+        li.setAttribute('data-attr-id', element.channel_id);
+        li.setAttribute('data-attr-name', element.channel_name);
+        li.setAttribute('data-attr-order', element.channel_order);
+        li.style.order = element.channel_order
+        if (index == 0) {
+            li.setAttribute('class', 'channel selected');
+        } else {
+            li.setAttribute('class', 'channel');
+        }
+        li.innerHTML = element.channel_name;
+        listChannels.appendChild(li);
+    });
+    hideSidebar()
+}
+
+
+function hideSidebar() {
+    document.getElementById('sidebar').style.display = 'none';
+    document.getElementById('right-buttons').style.display = 'flex';
+    list_selected = 'channels';
+    currentList = channels;
+}
+
+////////////////////////////////////////////////////
+/// SHOW CHANNELS AFTER CHECK PIN /// END
+////////////////////////////////////////////////////

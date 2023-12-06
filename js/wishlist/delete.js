@@ -1,15 +1,5 @@
-const popupDeleteForm = document.querySelector('.popup-delete form');
-const popupDelete = document.querySelector('.popup-delete');
-const wishlistDeleteButton = document.querySelector('.action-delete')
-
-wishlistDeleteButton.addEventListener('click', function () {
-    popupAction = true;
-    let popupFavDelete = document.querySelector('.popup-delete');
-    popupFavDelete.classList.add('active');
-    let favSelectedName = document.querySelector('.list-wishlist .wishlist.selected');
-    let popupTitles = document.querySelector('.popup-delete .popup__title strong');
-    popupTitles.innerText = favSelectedName.textContent;
-})
+var popupDeleteForm = document.querySelector('.popup-delete form');
+var popupDelete = document.querySelector('.popup-delete');
 
 popupDeleteForm.addEventListener('submit', (e) => {
     e.preventDefault();

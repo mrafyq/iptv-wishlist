@@ -1,12 +1,6 @@
 const popupRename = document.querySelector('.popup-rename');
 const popupRenameForm = document.querySelector('.popup-rename form');
 const inputRename = document.querySelector('.popup-rename #rename');
-const wishlistRenameButton = document.querySelector('.action-rename')
-
-wishlistRenameButton.addEventListener('click', function () {
-    popupAction = true;
-    callPopupRenameWishlist()
-})
 
 popupRenameForm.addEventListener('submit', (e) => {
     e.preventDefault();

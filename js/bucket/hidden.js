@@ -79,12 +79,14 @@ document.addEventListener('keyup', function (e) {
             current_index = mod(current_index - 1, currentList.length);
             currentList[current_index].classList.add('selected');
             changeLabelAction(currentList[current_index])
+            makeActiveElementOnMiddleOfScreen(currentList[current_index]);
             break;
         case 'ArrowDown':
             currentList[current_index].classList.remove('selected');
             current_index = mod(current_index + 1, currentList.length);
             currentList[current_index].classList.add('selected');
             changeLabelAction(currentList[current_index])
+            makeActiveElementOnMiddleOfScreen(currentList[current_index]);
             break;
         case 'ArrowLeft':
             if (popupAction) {
@@ -173,3 +175,11 @@ form.addEventListener('submit', event => {
         })
     }
 })
+
+const makeActiveElementOnMiddleOfScreen = (selector) => {
+    selector.scrollIntoView({
+        behavior: 'auto',
+        block: 'center',
+        inline: 'center'
+    });
+};

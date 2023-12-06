@@ -91,6 +91,126 @@
           "channel_name": "Attamina",
           "channel_link": "snrt.ma",
           "channel_order": 8
+        },
+        {
+          "channel_id": 9,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma",
+          "channel_order": 9
+        },
+        {
+          "channel_id": 10,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma",
+          "channel_order": 10
+        },
+        {
+          "channel_id": 11,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma",
+          "channel_order": 11
+        },
+        {
+          "channel_id": 12,
+          "channel_name": "Arrabiaa",
+          "channel_link": "snrt.ma",
+          "channel_order": 12
+        },
+        {
+          "channel_id": 13,
+          "channel_name": "Almaghribiya",
+          "channel_link": "snrt.ma",
+          "channel_order": 13
+        },
+        {
+          "channel_id": 14,
+          "channel_name": "Assadissa",
+          "channel_link": "snrt.ma",
+          "channel_order": 14
+        },
+        {
+          "channel_id": 15,
+          "channel_name": "Assabiaa",
+          "channel_link": "snrt.ma",
+          "channel_order": 15
+        },
+        {
+          "channel_id": 16,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 16
+        },
+        {
+          "channel_id": 17,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 17
+        },
+        {
+          "channel_id": 18,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 18
+        },
+        {
+          "channel_id": 19,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 19
+        },
+        {
+          "channel_id": 20,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 20
+        },
+        {
+          "channel_id": 21,
+          "channel_name": "Al oula",
+          "channel_link": "snrt.ma",
+          "channel_order": 21
+        },
+        {
+          "channel_id": 22,
+          "channel_name": "2M",
+          "channel_link": "snrt.ma",
+          "channel_order": 22
+        },
+        {
+          "channel_id": 23,
+          "channel_name": "Arriyadya",
+          "channel_link": "snrt.ma",
+          "channel_order": 23
+        },
+        {
+          "channel_id": 24,
+          "channel_name": "Arrabiaa",
+          "channel_link": "snrt.ma",
+          "channel_order": 24
+        },
+        {
+          "channel_id": 25,
+          "channel_name": "Almaghribiya",
+          "channel_link": "snrt.ma",
+          "channel_order": 25
+        },
+        {
+          "channel_id": 26,
+          "channel_name": "Assadissa",
+          "channel_link": "snrt.ma",
+          "channel_order": 26
+        },
+        {
+          "channel_id": 27,
+          "channel_name": "Assabiaa",
+          "channel_link": "snrt.ma",
+          "channel_order": 27
+        },
+        {
+          "channel_id": 28,
+          "channel_name": "Attamina",
+          "channel_link": "snrt.ma",
+          "channel_order": 28
         }
       ]
     },
@@ -242,6 +362,438 @@
       "wishlist_id": 12,
       "wishlist_name": "Favoris 12",
       "order": 12,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 13,
+      "wishlist_name": "Favoris 13",
+      "order": 13,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 14,
+      "wishlist_name": "Favoris 14",
+      "order": 14,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 15,
+      "wishlist_name": "Favoris 15",
+      "order": 15,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 16,
+      "wishlist_name": "Favoris 16",
+      "order": 16,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 17,
+      "wishlist_name": "Favoris 17",
+      "order": 17,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 18,
+      "wishlist_name": "Favoris 18",
+      "order": 18,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 19,
+      "wishlist_name": "Favoris 19",
+      "order": 19,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id":20,
+      "wishlist_name": "Favoris 20",
+      "order":20,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 21,
+      "wishlist_name": "Favoris 21",
+      "order": 21,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 22,
+      "wishlist_name": "Favoris 22",
+      "order": 22,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 23,
+      "wishlist_name": "Favoris 23",
+      "order": 23,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 24,
+      "wishlist_name": "Favoris 24",
+      "order": 24,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 25,
+      "wishlist_name": "Favoris 25",
+      "order": 25,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 26,
+      "wishlist_name": "Favoris 26",
+      "order": 26,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 27,
+      "wishlist_name": "Favoris 27",
+      "order": 27,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 28,
+      "wishlist_name": "Favoris 28",
+      "order": 28,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 29,
+      "wishlist_name": "Favoris 29",
+      "order": 29,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 30,
+      "wishlist_name": "Favoris 30",
+      "order": 30,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 31,
+      "wishlist_name": "Favoris 31",
+      "order": 31,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 32,
+      "wishlist_name": "Favoris 32",
+      "order": 32,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 33,
+      "wishlist_name": "Favoris 33",
+      "order": 33,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 34,
+      "wishlist_name": "Favoris 34",
+      "order": 34,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 35,
+      "wishlist_name": "Favoris 35",
+      "order": 35,
+      "pin": 0,
+      "channels": [
+        {
+          "channel_id": 3,
+          "channel_name": "Favoris 12 - channel 1201",
+          "channel_order": 1
+        },
+        {
+          "channel_id": 5,
+          "channel_name": "Favoris 12 - channel 1202",
+          "channel_order": 2
+        }
+      ]
+    },
+    {
+      "wishlist_id": 36,
+      "wishlist_name": "Favoris 36",
+      "order": 36,
       "pin": 0,
       "channels": [
         {

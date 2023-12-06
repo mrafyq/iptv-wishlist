@@ -1,33 +1,4 @@
 const channelsActions = document.querySelectorAll('.channels-action')
-const selectChannelAction = document.querySelector('.select-channel-action')
-const unselectChannelAction = document.querySelector('.unselect-channel-action')
-
-selectChannelAction.addEventListener('click', function () {
-    let current_index = getCurrentIndex()
-    if (!channelSelected) {
-        channelSelected = currentList[current_index]
-        // init order listing
-        let getAllChannels = document.querySelectorAll('#list-channels .channel');
-        listChannels.innerHTML = '';
-        let normalArr= getChannels(getAllChannels);
-        normalArr.sort((a, b) => {
-            return a.channel_order < b.channel_order ? -1 : 0;
-        })
-        fetchChannelsOrdered(normalArr, sortLabel, 'Normal', channelSelected, true)
-        sortAscDesc = 0;
-        manageChannelsAction(true)
-    }
-})
-
-unselectChannelAction.addEventListener('click', function () {
-    let current_index = getCurrentIndex()
-    if (channelSelected) {
-        currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name');
-        currentList[current_index].classList.remove('checked')
-        channelSelected = null
-        manageChannelsAction(false)
-    }
-})
 
 function manageChannelsAction(show = true, excludedActionsByClass = []) {
     let channelsListingActions = document.querySelectorAll('.channels-list-action')

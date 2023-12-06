@@ -1,41 +1,3 @@
-
-const sortChannelAction = document.querySelector('.sort-channel-action')
-
-sortChannelAction.addEventListener('click', function () {
-    let current_index = getCurrentIndex()
-    let current = currentList[current_index]
-    let getAllChannels = document.querySelectorAll('#list-channels .channel');
-    listChannels.innerHTML = '';
-
-    if (sortAscDesc === 0 || sortAscDesc === 1) {
-        let newArr = getChannels(getAllChannels);
-        newArr.sort((a, b) => {
-            if (a.channel_name < b.channel_name) {
-                return -1;
-            }
-            if (a.channel_name > b.channel_name) {
-                return 1;
-            }
-            return 0;
-        });
-        if (sortAscDesc === 0) {
-            fetchChannelsOrdered(newArr, sortLabel, 'A-Z', current)
-            sortAscDesc = 1;
-        } else if (sortAscDesc === 1) {
-            newArr.reverse();
-            fetchChannelsOrdered(newArr, sortLabel, 'Z-A', current)
-            sortAscDesc = 2;
-        }
-    } else if (sortAscDesc === 2) {
-        let normalArr= getChannels(getAllChannels);
-        normalArr.sort((a, b) => {
-            return a.channel_order < b.channel_order ? -1 : 0;
-        })
-        fetchChannelsOrdered(normalArr, sortLabel, 'Normal', current)
-        sortAscDesc = 0;
-    }
-})
-
 function getChannels(getAllChannels) {
     const channels = []
     getAllChannels.forEach(el => {
@@ -82,7 +44,6 @@ function fetchChannelsOrdered(channels, sortLabel, sortValue, selected = null, t
             li.setAttribute('class', 'channel');
         }
         listChannels.appendChild(li);
-        createChannelEventClick(li)
     });
     sortLabel.textContent = '(' + sortValue + ')';
 }
