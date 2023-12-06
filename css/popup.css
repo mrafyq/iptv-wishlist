@@ -134,10 +134,6 @@
     padding: 0;
     border-top: 2px solid rgb(65, 154, 226);
 }
-.popup-wishlist .popup__footer,
-.popup-add-wishlist .popup__footer {
-    display: none;
-}
 
 
 .popup__footer button {

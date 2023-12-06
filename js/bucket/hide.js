@@ -1,6 +1,15 @@
 const popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
 const popupPinHideBucketForm = document.querySelector('.popup-check-pin-hide-buckets form');
 const popupPinHideBucketFormInput = document.querySelector('.popup-check-pin-hide-buckets form #pin-hide-field-bucket');
+const bucketPinButton = document.querySelector('.bucket-action-hide')
+
+bucketPinButton.addEventListener('click', function () {
+    popupAction = true;
+    let popupPinHideBucket = document.querySelector('.popup-check-pin-hide-buckets');
+    let popupPinInput = document.querySelector('.popup-check-pin-hide-buckets #pin-hide-field-bucket');
+    popupPinHideBucket.classList.add('active');
+    popupPinInput.focus();
+})
 
 popupPinHideBucketForm.addEventListener('submit', function (e) {
     e.preventDefault();

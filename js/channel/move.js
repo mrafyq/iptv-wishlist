@@ -1,8 +1,36 @@
+const moveChannelActionButton = document.querySelector('.move-channel-action')
+
+moveChannelActionButton.addEventListener('click', (e) => {
+    if (list_selected === 'channels' && channelSelected && popupAction === false) {
+        manageMove(currentList[getCurrentIndex()])
+    }
+})
+
+function manageMove(currenElement) {
+    let label
+    if (currenElement.classList.contains('move')) {
+        removeChannelFromMove(currenElement)
+        label = 'Sélectionner'
+    } else {
+        generalMoveAction = true;
+        addChannelToMove(currenElement);
+        hideChannelsActionForMove()
+        label = 'Désélectionner'
+    }
+    changeChannelMoveLabel(label)
+}
+
 function addChannelToMove(elementToMove) {
     elementToMove.classList.add("move")
+    elementToMove.innerHTML = elementToMove.getAttribute('data-attr-name')
     const iconMove = document.createElement('i');
     iconMove.setAttribute('class', 'arrow');
     elementToMove.appendChild(iconMove)
+}
+
+function removeChannelFromMove(elementToMove) {
+    elementToMove.classList.remove("move")
+    elementToMove.innerHTML = elementToMove.getAttribute('data-attr-name')
 }
 
 function moveChannels(direction) {

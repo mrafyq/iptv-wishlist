@@ -21,11 +21,11 @@ body {
     flex-direction: row;
     width: 100%;
 }
-.active{
+.active, .move {
     background-color: rgba(243, 223, 5, 0.9);
     color: #0c1114;
 }
-.move, .selected{
+.selected{
     background-color: #ccc016b0;
     color: #0c1114;
 }
@@ -162,11 +162,11 @@ input[type="password"] {
 .list-bucket,
 .list-wishlist {
     height: calc(100vh - 118px);
-    overflow: hidden;
+    overflow: auto;
 }
 .list-channels {
     height: calc(100vh - 80px);
-    overflow: hidden;
+    overflow: auto;
 }
 
 .sidebar-hidden-buckets .list-bucket {

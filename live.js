@@ -19,7 +19,7 @@ let generalMoveAction = false;
 let moveWishlistAction = false;
 let moveChannelAction = false;
 
-let channelSelected = null
+var channelSelected = null
 
 const popupAddToWishlist = document.querySelector('.popup.popup-wishlist');
 
@@ -112,7 +112,7 @@ document.addEventListener('keyup', function (e) {
                             if (data) {
                                 let result = data.buckets.filter(bucket => bucket.bucket_id == bucketId);
                                 parsedChannels = result[0].channels
-                                showChannels();
+                                fetchChannels(parsedChannels, true);
                             }
                         })
                     }
@@ -138,7 +138,7 @@ document.addEventListener('keyup', function (e) {
                                     const result = data.wishlists.filter(wishlist => wishlist.wishlist_id == wishlistId);
                                     console.log(result);
                                     parsedChannels = result[0].channels;
-                                    showChannels()
+                                    fetchChannels(parsedChannels, true);
                                 }
                             })
                         }
@@ -333,10 +333,8 @@ document.addEventListener('keyup', function (e) {
                     generalMoveAction = true;
                     manageActionsButtons('none')
                     addElementToMove(currentList[current_index]);
-                    changeWishlistMoveLabel("Désélectionner")
                 } else {
-                    currentList[current_index].classList.remove('move')
-                    currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-name')
+                    removeElementFromMove(currentList[current_index]);
                     changeWishlistMoveLabel("Sélectionner")
                 }
             }
@@ -429,14 +427,7 @@ document.addEventListener('keyup', function (e) {
                     currentList[current_index].classList.remove('checked')
                     currentList[current_index].innerHTML = currentList[current_index].getAttribute('data-attr-name')
                 }
-                if (currentList[current_index].classList.contains('move')) {
-                    // moveChannelAction = true;
-                } else {
-                    generalMoveAction = true;
-                    addChannelToMove(currentList[current_index]);
-                    hideChannelsActionForMove()
-                    changeChannelMoveLabel('Désélectionner')
-                }
+                manageMove(currentList[current_index])
             }
             break;
     }
@@ -463,12 +454,13 @@ function getCurrentIndex() {
             return i;
         }
     }
+    return null;
 }
 
 function escapeBucketsOrWishlists() {
     let current_index
     if (list_selected === 'buckets') {
-        document.getElementById('buckets-buttons').style.display = 'none';
+        bucketsButtons.style.display = 'none';
         // remove class selected from bucket list
         for (const element of buckets) {
             element.classList.remove('selected')

@@ -3,6 +3,14 @@
 //////////////////////////////////////////////
 const popupAddToWishlistForm = document.querySelector('.popup.popup-wishlist form');
 const popupAddToWishlistList = document.getElementById('popup-wishlist-list-fav');
+const addToWishlistAction = document.querySelector('.add-to-wishlist')
+
+addToWishlistAction.addEventListener('click', (e) => {
+    popupAction = true;
+    popupAddToWishlist.classList.add('active');
+    currentList[getCurrentIndex()].classList.add('active')
+    fillPopupAddToWishlist()
+})
 
 popupAddToWishlistForm.addEventListener('submit', (e) => {
     e.preventDefault();
